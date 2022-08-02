@@ -8,6 +8,10 @@ TODO:
 1. build a frame, write adc calibration codes using the json file, mimicing what is done for IV curve 
 2. discuss with Yarr developer and figure out the interface with Yarr, e.g. `write-register`
 
+Update: 
+1. to do Vcal calibration first
+2. read-register has bugs 
+
 # RD53a ADC Calibration reference
 
 1. Set the chip configuration file:
@@ -25,7 +29,7 @@ TODO:
     
     ```
     
-    ![Screenshot_20220801_114809.png](RD53b%20ADC%20Calibration%207c198708b98148fa8458fa6b6dd613a9/Screenshot_20220801_114809.png)
+    ![Screenshot_20220801_114809.png](RD53b%20ADC%20Calibration/Screenshot_20220801_114809.png)
     
 2. Run the chip configuration, and measure the `Vcal_med` through meter on the board pins
 3. Change the chip configuration file `configs/rd53a_test.json`
@@ -95,7 +99,7 @@ Get the offset and the slope
             //.......
 ```
 
-![Screenshot_20220801_120742.png](RD53b%20ADC%20Calibration%207c198708b98148fa8458fa6b6dd613a9/Screenshot_20220801_120742.png)
+![Screenshot_20220801_120742.png](RD53b%20ADC%20Calibration/Screenshot_20220801_120742.png)
 
 ### ADCcalPar
 
