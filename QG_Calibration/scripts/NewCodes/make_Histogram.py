@@ -200,9 +200,9 @@ def Split_jets(HistMap, dijets_array, reweight_var = None, reweight_factor = Non
 
                 reweighting_at_pt = reweight_factor[str(kj)]
                 inds = np.digitize(splited_jet_pt_bin[:, reweight_var_idx], reweight_var_bins)
-                inds[reweight_var_bins[inds] > reweight_var_bins[-1]] = len(reweight_var_bins) - 1 # Ensure that > the boundary are proper dealt
+                inds[inds > (len(reweight_var_bins) - 1)] = len(reweight_var_bins) - 1  # Ensure that > the boundary are proper dealt
                 # e.g. ntrk = 75 > 60 that is outside of reweighting_at_pt
-                # for bdt, use reweight_var_bins[inds]; becaues reweight_var_bins[inds] = inds for ntrk. Be Careful! 
+                # reweight_var_bins[inds] will out of range for ntrk; just modify the inds
 
                 splited_jet_pt_bin[:, -1] = splited_jet_pt_bin[:, -1] * reweighting_at_pt[inds-1]
 
@@ -344,6 +344,15 @@ def Make_Histogram(sample_folder_path, period, sum_of_weights, output_path):
     WritePickleFile(bdt_reweighting_quark_factor, bdt_quark_reweighting_file)
     WritePickleFile(bdt_reweighting_gluon_factor, bdt_gluon_reweighting_file)
 
+    if Path(ntrk_quark_reweighting_file).exists():
+        print(f"Reweighting file {ntrk_quark_reweighting_file} found, read reweighting factor from the reweigthing file. ")
+        with open(ntrk_quark_reweighting_file, "rb") as reweighting_factor:
+            ntrk_reweighting_quark_factor = pickle.load(reweighting_factor)
+    else:
+        print(f"Reweighting file {ntrk_quark_reweighting_file} not found, read reweighting factor from the histogram root file. ")
+        ntrk_reweighting_quark_factor, ntrk_reweighting_gluon_factor = Get_ReweightingFactor(input_file = output_root_file, reweight_var = "ntrk")
+        WritePickleFile(ntrk_reweighting_quark_factor, ntrk_quark_reweighting_file)
+
 
     HistMap_ntrk_reweighting_quark_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "ntrk", reweight_factor = ntrk_reweighting_quark_factor)
     WriteHistRootFile(HistMap_ntrk_reweighting_quark_factor, output_root_file, TDirectory_name = "ntrk_Reweighting_Quark_Factor")
@@ -356,6 +365,7 @@ def Make_Histogram(sample_folder_path, period, sum_of_weights, output_path):
     
     HistMap_bdt_reweighting_gluon_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "bdt", reweight_factor = bdt_reweighting_gluon_factor)
     WriteHistRootFile(HistMap_bdt_reweighting_gluon_factor, output_root_file, TDirectory_name = "bdt_Reweighting_Gluon_Factor")
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'This python script calculate pythia weights.')
