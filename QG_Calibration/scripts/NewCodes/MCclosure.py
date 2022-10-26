@@ -144,8 +144,8 @@ def Plot_Extracted(pt, var, output_path, period, required_var, reweighting_optio
 def MCclosure(input_path, period, reweighting_option, output_path):
     # define some variables to make up the histogram names 
     label_pt_bin = [500, 600, 800, 1000, 1200, 1500, 2000]
-    # label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
-    label_var = ['bdt'] 
+    label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
+    # label_var = ['bdt'] 
     label_pt = ["LeadingJet", "SubLeadingJet"]
     label_eta = ["Forward", "Central"]
     label_type = ["Gluon", "Quark", "B_Quark", "C_Quark"]
