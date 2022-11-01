@@ -12,7 +12,7 @@ import pickle
 
 label_pt_leadingtype = ["LeadingJet", "SubLeadingJet"]
 label_eta = ["Forward", "Central"]
-label_type = ["Gluon", "Quark", "C_Quark", "B_Quark", "Other"] # For MC, no Data
+label_type = ["Gluon", "Quark", "C_Quark", "B_Quark", "Data", "Other"] # Must match split_jet_type()
 label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
 label_pt_bin = [500, 600, 800, 1000, 1200, 1500, 2000]
 
@@ -368,7 +368,7 @@ def Make_Histogram(sample_folder_path, period, sum_of_weights, output_path):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description = 'This python script calculate pythia weights.')
+    parser = argparse.ArgumentParser(description = 'This python script converts MC minitrees to histogram in root and pkl. Reweighting is done.')
     parser.add_argument('--path', help='The path to the minitree files')
     parser.add_argument('--period', help='The MC16 period', choices=['A', 'D', 'E'])
     parser.add_argument('--output-path', help='Output path')
