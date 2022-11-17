@@ -1,0 +1,7 @@
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000002.hist-output.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000006.hist-output.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000001.hist-output.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000003.hist-output.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000005.hist-output.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000007.hist-output.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist/user.rqian.29170876._000004.hist-output.root

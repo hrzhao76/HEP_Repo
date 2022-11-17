@@ -1,0 +1,43 @@
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/New_Codes/Validation
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/New_Codes/Validation/CheckMC16D_JZ7
+Reading sample:mc16D JZ7
+Reading event counts:  
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+[0.         0.         0.         0.         0.         0.
+ 0.         0.00382369 0.         0.         0.         0.
+ 0.        ]
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+Print file name
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364707.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ7WithSW_minitrees.root/user.rqian.29170874._000003.minitrees.root
+OLD code: xsex * eff / counts = 47.023642112451796
+Print file name
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364707.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ7WithSW_minitrees.root/user.rqian.29170874._000001.minitrees.root
+OLD code: xsex * eff / counts = 47.023642112451796
+Print file name
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples/Pythia/pythiaD/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364707.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ7WithSW_minitrees.root/user.rqian.29170874._000002.minitrees.root
+OLD code: xsex * eff / counts = 47.023642112451796
+File Samples/Pythia/pythiaD_hist/SumofWeights_mc16D.npy not found, re-calculate it. 
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364704.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ4WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364705.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ5WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364706.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ6WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364707.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ7WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364708.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ8WithSW_hist
+Samples/Pythia/pythiaD_hist/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364709.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ9WithSW_hist
+[1.98630000e+07 3.66653809e+02 1.45318845e+02 4.41424518e+00
+ 6.32888265e-02 1.37993880e-02 3.82368936e-03 2.22135655e-04
+ 2.14897904e-04]
+Samples/Pythia/pythiaD/user.rqian.May31-dijet-pythiaD.mc16_13TeV.364707.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ7WithSW_minitrees.root
+JZ slice number: 7
+        Doing on file user.rqian.29170874._000001.minitrees
+NEW Code: xsex * eff / counts = 47.05870118430337
+        Doing on file user.rqian.29170874._000002.minitrees
+NEW Code: xsex * eff / counts = 47.05870118430337
+        Doing on file user.rqian.29170874._000003.minitrees
+NEW Code: xsex * eff / counts = 47.05870118430337
+Writing Histogram to the file: /global/cfs/projectdirs/atlas/hrzhao/qgcal/New_Codes/Validation/CheckMC16D_JZ7/dijet_pythia_NEW_MC16D_JZ7.root
+Writing jets info to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/qgcal/New_Codes/Validation/CheckMC16D_JZ7/dijet_pythia_NEW_MC16D_JZ7.pkl
+4103.630227599428 [  52.08523251   27.11598471 1114.69710323 2909.73190715]
+4100.573024452035 [  52.04642905   27.09578331 1113.86665418 2907.56415791]
