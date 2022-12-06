@@ -8,6 +8,9 @@ from typing import Dict, List
 import re
 import pickle
 
+import atlas_mpl_style as ampl
+ampl.use_atlas_style()
+
 label_ptrange = [500, 600, 800, 1000, 1200, 1500, 2000]
 label_leadingtype = ["LeadingJet", "SubLeadingJet"]
 label_etaregion = ["Forward", "Central"]
@@ -33,6 +36,7 @@ def Read_Histogram_by_JetType(file, l_leadingtype, sampletype="MC", code_version
         i_leading = 1
     else:
         raise Exception(f"not support leading type{l_leadingtype}")
+        
     for i, jettype in enumerate(label_jettype):
         Read_HistMap[jettype] = np.zeros((n_bins_var[0]), dtype=float)
         Read_HistMap_Error[jettype] = np.zeros((n_bins_var[0]), dtype=float)
@@ -100,15 +104,17 @@ def plot_pt(Read_HistMap_MC,Read_HistMap_Error_MC, Read_HistMap_Data, Read_HistM
     ax.errorbar(x = pt_bin_centers, y = total_jet_MC, yerr = total_jet_error_MC, drawstyle = 'steps-mid', label = "Total MC"+ f", num:{np.sum(cumsum_MC_jets[-1]):.2e}")
     ax.errorbar(x = pt_bin_centers, y = total_jet_Data, yerr = total_jet_error_Data, drawstyle = 'steps-mid', color= "black", linestyle='', marker= "o", label = "Data" + f", num:{np.sum(Read_HistMap_Data['Data']):.2e}")
 
+    ampl.draw_atlas_label(0.1, 0.9, ax=ax)
+    ax.set_yscale('log')
+    ax.set_xlim(500, 2000)
+    ax.set_ylim(1e3,1e8)
+    ax.set_title(f'MC16{period} {l_leading_type}' +  ' Jet $p_{T}$ Spectrum Component')
+    ax.set_xlabel('Jet $p_{\mathrm{T}}$ [GeV]')
+    ax.set_ylabel('Number of Events')
 
-    with np.errstate(divide='ignore', invalid='ignore'):
-        ratio1 = np.true_divide(np.sqrt(cumsum_MC_jets_err[-1]), cumsum_MC_jets[-1])
-        ratio2 = np.true_divide(np.sqrt(Read_HistMap_Error_Data["Data"]), Read_HistMap_Data['Data'])
-        for ratio in ratio1, ratio2:
-            ratio[ratio == np.inf] = 0
-            ratio = np.nan_to_num(ratio)
+    ax.legend()
 
-    ratio = safe_array_divide(total_jet_MC, total_jet_Data)
+    ratio = safe_array_divide(total_jet_Data, total_jet_MC)
     error_ratio1 = safe_array_divide(total_jet_error_MC, total_jet_MC)
     error_ratio2 = safe_array_divide(total_jet_error_Data, total_jet_Data)
     error_ratio = np.sqrt((error_ratio1)**2 + (error_ratio2)**2) * ratio
@@ -118,12 +124,6 @@ def plot_pt(Read_HistMap_MC,Read_HistMap_Error_MC, Read_HistMap_Data, Read_HistM
     ax1.hlines(y = 1, xmin = 500, xmax = 2000, color = 'gray', linestyle = '--')
     ax1.set_ylabel("Ratio")
     ax1.set_ylim(0.7, 1.3)
-    ax.set_yscale('log')
-    ax.set_xlim(500, 2000)
-    ax.set_title(f'MC16{period} {l_leading_type}' +  ' Jet $p_{T}$ Spectrum Component')
-    ax.set_xlabel('Jet $p_{\mathrm{T}}$ [GeV]')
-    ax.set_ylabel('Number of Events')
-    ax.legend()
     ax1.legend()
 
     fig.savefig(output_path/f'pt_MC16{period}_{l_leading_type}')

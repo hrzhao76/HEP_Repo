@@ -5,7 +5,6 @@ import uproot
 import awkward as ak
 from pathlib import Path
 
-from read_SumofWeights import Read_SumofWeights_Period
 from typing import Dict, List 
 import re
 import pickle
