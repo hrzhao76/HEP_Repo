@@ -189,8 +189,8 @@ def Read_Histogram_Root(file, sampletype="MC", code_version="new", reweighting_v
 
 def Extract(HistMap_MC_unumpy, HistMap_Data_unumpy):
     label_ptrange = [500, 600, 800, 1000, 1200, 1500, 2000]
-    # label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
-    label_var = ['ntrk', 'bdt']
+    label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
+    # label_var = ['ntrk', 'bdt']
     # label_var = ['ntrk']
     label_leadingtype = ["LeadingJet", "SubLeadingJet"]
     label_etaregion = ["Forward", "Central"]
@@ -228,6 +228,11 @@ def Extract(HistMap_MC_unumpy, HistMap_Data_unumpy):
             p_Quark = Normalize_unumpy(Quark)
             p_Gluon = Normalize_unumpy(Gluon)
 
+            p_Forward_Quark = Normalize_unumpy(Forward_Quark)
+            p_Central_Quark = Normalize_unumpy(Central_Quark)
+            p_Forward_Gluon = Normalize_unumpy(Forward_Gluon)
+            p_Central_Gluon = Normalize_unumpy(Central_Gluon)
+
             p_Forward = Normalize_unumpy(Forward)
             p_Central = Normalize_unumpy(Central)
             p_Forward_Data = Normalize_unumpy(Forward_Data)
@@ -246,6 +251,10 @@ def Extract(HistMap_MC_unumpy, HistMap_Data_unumpy):
                 "Central_Data": Central_Data,
                 "p_Quark": p_Quark,
                 "p_Gluon": p_Gluon,
+                "p_Forward_Quark": p_Forward_Quark,
+                "p_Central_Quark": p_Central_Quark,
+                "p_Forward_Gluon": p_Forward_Gluon,
+                "p_Central_Gluon": p_Central_Gluon,
                 "extract_p_Quark_MC": extract_p_Quark,
                 "extract_p_Gluon_MC": extract_p_Gluon,
                 "extract_p_Quark_Data": extract_p_Quark_Data,
@@ -253,6 +262,172 @@ def Extract(HistMap_MC_unumpy, HistMap_Data_unumpy):
             }
 
     return Extraction_Results
+
+def cal_sum_unumpy(Read_HistMap_MC):
+    """For MC sample only, this func is to calculate the sum of each type. 
+
+    Args:
+        Read_HistMap (Dict): the output of Read_Histogram by JetType
+
+    Returns:
+        np.array: sum of different types 
+    """
+    MC_jet_types = ['C_Quark', 'B_Quark', 'Gluon', 'Quark']
+
+    MC_jets = []
+    MC_jets.append(unumpy.uarray(nominal_values=np.zeros(60), std_devs=np.zeros(60)))
+    for MC_jet_type in MC_jet_types:
+        MC_jets.append(Read_HistMap_MC[MC_jet_type])
+
+    MC_jets = np.array(MC_jets)
+
+    cumsum_MC_jets = np.cumsum(MC_jets, axis = 0)
+    assert np.allclose(unumpy.nominal_values(Read_HistMap_MC[MC_jet_types[0]]),
+                       unumpy.nominal_values(cumsum_MC_jets[1]))
+    return cumsum_MC_jets
+
+def Plot_Pt_Spectrum(HistMap_MC_unumpy, HistMap_Data_unumpy, output_path, reweighting_var, reweighting_option):
+    label_ptrange = [500, 600, 800, 1000, 1200, 1500, 2000]
+    label_leadingtype = ["LeadingJet", "SubLeadingJet"]
+    label_etaregion = ["Forward", "Central"]
+    label_jettype_MC = ["Quark", "Gluon", "B_Quark", "C_Quark", "Other"]
+    label_jettype_Data = ["Data"]
+    label_jettype = [label_jettype_MC, label_jettype_Data]
+    label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
+    n_bins_var = [60, 50, 60, 60, 60, 60]
+
+    Read_HistMap_MC = {}
+    Read_HistMap_Data = {}
+    Read_HistMap = [Read_HistMap_MC, Read_HistMap_Data]
+    HistMap_unumpy = [HistMap_MC_unumpy, HistMap_Data_unumpy]
+
+    for i_sample, Read_HistMap_sample in enumerate(Read_HistMap):
+        HistMap_unumpy_sample = HistMap_unumpy[i_sample]
+        for i_leading, l_leadingtype in enumerate(label_leadingtype):
+            Read_HistMap_sample[l_leadingtype] = {}
+            label_jettype_sample = label_jettype[i_sample]
+            for i, jettype in enumerate(label_jettype_sample):
+                Read_HistMap_sample[l_leadingtype][jettype] = unumpy.uarray(np.zeros(n_bins_var[0]), np.zeros(n_bins_var[0]))
+                for pt in label_ptrange[:-1]:
+                    for eta_region in label_etaregion: 
+                        key_name = f"{pt}_{l_leadingtype}_{eta_region}_{jettype}_{label_var[0]}"
+                        Read_HistMap_sample[l_leadingtype][jettype] += HistMap_unumpy_sample[key_name]
+        
+    assert sorted(label_jettype_MC) == sorted([*Read_HistMap[0][label_leadingtype[0]]])
+    assert sorted(label_jettype_Data) == sorted([*Read_HistMap[1][label_leadingtype[0]]])
+    ##
+    # Read_HistMap_MC["LeadingJet"]["C_Quark"]
+    #### Plot here 
+    MC_jet_types = ['C_Quark', 'B_Quark', 'Gluon', 'Quark']
+
+    for i_leading, l_leadingtype in enumerate(label_leadingtype): 
+        cumsum_MC_jets = cal_sum_unumpy(Read_HistMap_MC=Read_HistMap_MC[l_leadingtype])
+        fig, (ax, ax1) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [4, 1], 'hspace': 0})
+        custom_bins = np.linspace(0, 2000, 61)
+        pt_bin_centers = 1/2 * (custom_bins[:-1] + custom_bins[1:])
+
+        for i in range(0, len(cumsum_MC_jets)-1):
+            ax.fill_between(pt_bin_centers, unumpy.nominal_values(cumsum_MC_jets[i]), unumpy.nominal_values(cumsum_MC_jets[i+1]), 
+                            label = MC_jet_types[i]+ f", num:{np.sum(unumpy.nominal_values(Read_HistMap_MC[l_leadingtype][MC_jet_types[i]])):.2e}", step='mid')
+
+        total_jet_MC = unumpy.nominal_values(cumsum_MC_jets[-1])
+        total_jet_Data = unumpy.nominal_values(Read_HistMap_Data[l_leadingtype]['Data'])
+        total_jet_error_MC = unumpy.std_devs(cumsum_MC_jets[-1])
+        total_jet_error_Data = unumpy.std_devs(Read_HistMap_Data[l_leadingtype]['Data'])
+
+        # # ax.stairs(values=cumsum_MC_jets[-1], edges=custom_bins, label = "Total MC"+ f"num. {np.sum(cumsum_MC_jets[-1]):.2f}" )
+        ax.errorbar(x = pt_bin_centers, y = total_jet_MC, yerr = total_jet_error_MC, drawstyle = 'steps-mid', label = "Total MC"+ f", num:{np.sum(total_jet_MC):.2e}")
+        ax.errorbar(x = pt_bin_centers, y = total_jet_Data, yerr = total_jet_error_Data, drawstyle = 'steps-mid', color= "black", linestyle='', marker= "o", markersize=10, label = "Data" + f", num:{np.sum(total_jet_Data):.2e}")
+
+        ampl.draw_atlas_label(0.1, 0.85, ax=ax, energy="13 TeV")
+        ax.set_yscale('log')
+        ax.set_xlim(500, 2000)
+        ax.set_ylim(1e3,1e8)
+        ax.set_title(f'MC16{period} {l_leadingtype}' +  ' Jet $p_{T}$ Spectrum Component')
+        ax.set_xlabel('Jet $p_{\mathrm{T}}$ [GeV]')
+        ax.set_ylabel('Number of Events')
+
+        ax.legend()
+
+        ratio = safe_array_divide_unumpy(Read_HistMap_Data[l_leadingtype]['Data'], cumsum_MC_jets[-1])
+        ax1.errorbar(pt_bin_centers, y=unumpy.nominal_values(ratio), yerr = unumpy.std_devs(ratio), color= "black", drawstyle = 'steps-mid', label = 'Data/MC')
+        ax1.hlines(y = 1, xmin = 500, xmax = 2000, color = 'gray', linestyle = '--')
+        ax1.set_ylabel("Ratio")
+        ax1.set_ylim(0.7, 1.3)
+        ax1.legend()
+
+        output_path_new = output_path / period / "Pt_spectrum" / f"{reweighting_var}_{reweighting_option}" 
+        if not output_path_new.exists():
+            output_path_new.mkdir(parents = True, exist_ok =True)
+        fig.savefig(output_path_new/f'pt_MC16{period}_{l_leadingtype}')
+        plt.close()
+
+def _Plot_ROC(p_Quark_unumpy, p_Gluon_unumpy, l_ptrange, etaregion):
+    label_var = ['ntrk', 'bdt']
+    fig, ax0 = plt.subplots()
+    for i_var, l_var in enumerate(label_var):
+        p_Quark = unumpy.nominal_values(p_Quark_unumpy[l_var])
+        p_Gluon = unumpy.nominal_values(p_Gluon_unumpy[l_var])
+
+        var_bins = GetHistBin(l_var)
+        n_cut = len(var_bins)-1
+        quark_effs = np.zeros(n_cut)
+        gluon_rejs = np.zeros(n_cut)
+
+        for cut_idx in range(n_cut):
+            TP = np.sum(p_Quark[:cut_idx])
+            TN = np.sum(p_Gluon[cut_idx:])
+            quark_effs[cut_idx] = TP ## After normalization 
+            gluon_rejs[cut_idx] = TN
+        # auc = 
+        ax0.plot(quark_effs, gluon_rejs, label = f"{Map_var_title[l_var]}")
+
+    ax0.set_title(f"ROC for truth q/g at {l_ptrange} GeV, {etaregion}")
+    ax0.set_xlabel("TPR")
+    ax0.set_ylabel("1-FPR")
+    
+    ax0.set_xticks(np.linspace(0, 1, 11))
+    ax0.set_xlim(0,1)
+    ax0.set_yticks(np.linspace(0, 1, 21))
+    ax0.set_ylim(0,1)
+    ax0.legend()
+    ax0.grid()
+    ampl.draw_atlas_label(0.1, 0.9, ax=ax0, energy="13 TeV")
+    
+
+    return fig
+
+
+def Plot_ROC(Extraction_Results, ouput_path, period, reweighting_var, reweighting_option):
+    swaped_Extraction_Results = {}
+    label_ptrange = [500, 600, 800, 1000, 1200, 1500, 2000]
+    label_var = ['ntrk', 'bdt']
+    label_keys = [*Extraction_Results['ntrk'][500]]
+    for l_ptrange in label_ptrange[:-1]:
+        swaped_Extraction_Results[l_ptrange] = {}
+        for l_key in label_keys:
+            swaped_Extraction_Results[l_ptrange][l_key] = {}
+            for l_var in label_var:
+                swaped_Extraction_Results[l_ptrange][l_key][l_var] = Extraction_Results[l_var][l_ptrange][l_key]
+
+    output_path_new = output_path / period / "ROCs" / f"{reweighting_var}_{reweighting_option}" 
+    if not output_path_new.exists():
+        output_path_new.mkdir(parents = True, exist_ok =True)
+
+    eta_regions = {
+        "ForwardandCentral": ['p_Quark', 'p_Gluon'],
+        "Forward": ['p_Forward_Quark', 'p_Forward_Gluon'],
+        "Central": ['p_Central_Quark', 'p_Central_Gluon']
+    }
+    for k, v in eta_regions.items():
+        for l_ptrange in label_ptrange[:-1]:
+            two_vars = swaped_Extraction_Results[l_ptrange]
+            fig = _Plot_ROC(p_Quark_unumpy = two_vars[v[0]], p_Gluon_unumpy = two_vars[v[1]],
+                            l_ptrange=l_ptrange, etaregion=k)
+            fig_name = output_path_new / f"ROC_{l_ptrange}_{k}_{reweighting_option}.jpg"
+            fig.savefig(fig_name)
+            plt.close()
+    
 
 
 def Plot_ForwardCentral_MCvsData(pt, var, output_path, period, reweighting_var, reweighting_option, 
@@ -266,7 +441,9 @@ def Plot_ForwardCentral_MCvsData(pt, var, output_path, period, reweighting_var, 
     ax0.errorbar(x=bin_centers, y=unumpy.nominal_values(Forward_Data), yerr=unumpy.std_devs(Forward_Data), color = 'blue', label = 'Forward Data', marker='.', linestyle="none")
     ax0.errorbar(x=bin_centers, y=unumpy.nominal_values(Central_Data), yerr=unumpy.std_devs(Central_Data), color = 'red', label = 'Central Data', marker='.', linestyle="none")    
     ax0.legend()
-    ax0.set_title(f"{pt} GeV: MC vs Data " + rf"{Map_var_title[var]}"  + f" distro, {reweighting_option}")
+    ax0.set_xlim(bin_edges[0], bin_edges[-1])
+    ampl.draw_atlas_label(0.1, 0.85, ax=ax0, energy="13 TeV")
+    ax0.set_title(f"{pt} GeV: MC vs Data " + rf"{Map_var_title[var]}"  + f" distribution, {reweighting_option}")
     if show_yields and not if_norm:
         n_Forward_MC = np.sum(unumpy.nominal_values(Forward_MC))
         n_Central_MC = np.sum(unumpy.nominal_values(Central_MC))
@@ -324,14 +501,14 @@ def Plot_Extracted_unumpy(pt, var, output_path, period, reweighting_var, reweigh
         ax0.errorbar(x = bin_centers, y = plot_data_bin_content[i][1], yerr = plot_data_bin_error[i][1], drawstyle = 'steps-mid', label = "Extracted MC")
         ax0.errorbar(x = bin_centers, y = plot_data_bin_content[i][2], yerr = plot_data_bin_error[i][2], drawstyle = 'steps-mid', label = "Extracted Data", color= "black", linestyle='', marker= "o")
         
-
+        ax0.set_xlim(bin_edges[0], bin_edges[-1])
         ax0.legend()
 
         y_max = np.max(plot_data_bin_content)
         ax0.set_ylim(-0.01, y_max * 1.3)
         ax0.set_ylabel("Normalized")
-        ax0.set_title(f"{pt} GeV {jet_type}: Extracted " + rf"{Map_var_title[var]}"  + f" distro, {reweighting_factor}")
-        ampl.draw_atlas_label(0.1, 0.85, ax=ax0)
+        ax0.set_title(f"{pt} GeV {jet_type}: Extracted " + rf"{Map_var_title[var]}"  + f" distribution, {reweighting_factor}")
+        ampl.draw_atlas_label(0.1, 0.9, ax=ax0, energy="13 TeV")
         if show_yields:
             ax0.text(x=0.3, y=0.04, 
             s = f"MC forward yield:{n_Forward_MC:.2e},central yield:{n_Central_MC:.2e} \n"+
@@ -349,6 +526,7 @@ def Plot_Extracted_unumpy(pt, var, output_path, period, reweighting_var, reweigh
         ax1.legend()
         ax1.set_ylim(0.7,1.3)
         ax1.set_ylabel("Ratio")
+        ax1.set_xlim(bin_edges[0], bin_edges[-1])
         ax1.hlines(y = 1, xmin = bin_edges[0], xmax = bin_edges[-1], color = 'black', linestyle = '--')
         output_path_new = output_path / period / "Extractions" /f"{reweighting_var}_{reweighting_factor}"  / var 
         if not output_path_new.exists():
@@ -377,7 +555,7 @@ def Plot_WP(WP, var, output_path, period, reweighting_var, reweighting_factor,
 
     ax0.grid()
     ax0.set_title(f"{var} for extracted q/g at {WP} WP")
-    ampl.draw_atlas_label(0.1, 0.9, ax=ax0)
+    ampl.draw_atlas_label(0.1, 0.9, ax=ax0, energy="13 TeV")
 
     SF_quark = safe_array_divide_unumpy(quark_effs_data, quark_effs)
     SF_gluon = safe_array_divide_unumpy(gluon_rejs_data, gluon_rejs)
@@ -423,7 +601,8 @@ def WriteSFtoPickle(var, Hist_SFs, output_path, period, reweighting_var, reweigh
 
 
 def Calculate_SF(input_mc_path, input_data_path, period, reweighting_factor, output_path):
-    label_var = ['ntrk', 'bdt']
+    # label_var = ['ntrk', 'bdt']
+    label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
     label_ptrange = [500, 600, 800, 1000, 1200, 1500, 2000]
     reweighting_map = {
         "none" : "NoReweighting",
@@ -434,7 +613,15 @@ def Calculate_SF(input_mc_path, input_data_path, period, reweighting_factor, out
     for reweighting_var in ["ntrk", "bdt"]:
         HistMap_MC, HistMap_Error_MC, HistMap_MC_unumpy = Read_Histogram_Root(input_mc_path, sampletype="MC", code_version="new", reweighting_var=reweighting_var, reweighting_factor=reweighting_factor)
         HistMap_Data, HistMap_Error_Data, HistMap_Data_unumpy = Read_Histogram_Root(input_data_path, sampletype="Data", code_version="new", reweighting_var=reweighting_var, reweighting_factor=reweighting_factor)
+
+        #### Draw pt spectrum
+        # Plot_Pt_Spectrum(HistMap_MC_unumpy, HistMap_Data_unumpy, output_path, reweighting_var, reweighting_map[reweighting_factor])
+
+
         Extraction_Results = Extract(HistMap_MC_unumpy, HistMap_Data_unumpy)
+        #### Draw ROC plot 
+        Plot_ROC(Extraction_Results, output_path, period, reweighting_var, reweighting_option=reweighting_map[reweighting_factor])
+
         WPs = [0.5, 0.6, 0.7, 0.8]
         SFs = {}
 
@@ -514,6 +701,8 @@ if __name__ == '__main__':
            └── <period>
                 ├── Extractions
                 ├── FvsC
+                ├── Pt_spectrum
+                ├── ROCs
                 ├── SFs_pkls
                 └── WPs
 
