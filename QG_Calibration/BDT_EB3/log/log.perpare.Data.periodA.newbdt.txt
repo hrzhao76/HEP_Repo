@@ -1,0 +1,83 @@
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New_small/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New_small/data/data1516/user.wasu.Oct18.data16_13TeV.periodA.physics_Main_minitrees.root
+        Doing on file user.wasu.30894374._000001.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000002.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000002.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000003.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000003.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000004.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000004.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000005.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000006.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000007.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000008.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000009.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000010.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000011.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000012.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000013.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000014.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000015.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000016.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000017.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000018.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000019.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000020.minitrees, reweight var: None
+        Doing on file user.wasu.30894374._000021.minitrees, reweight var: None
+Writing Histogram to the file: /global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/smalltest/Processed_Samples_Data_Oct18/period1516/newbdt/dijet_data_1516.root
+Reweighting file /global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/smalltest/Processed_Samples_Pythia_Nov8/periodA/newbdt/dijet_pythia_mc16A_newbdt_reweighting_quark_factor.pkl found, read reweighting factor from the reweigthing file. 
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New_small/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New_small/data/data1516/user.wasu.Oct18.data16_13TeV.periodA.physics_Main_minitrees.root
+        Doing on file user.wasu.30894374._000001.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000002.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000002.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000003.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000003.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000004.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000004.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000005.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000006.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000007.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000008.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000009.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000010.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000011.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000012.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000013.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000014.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000015.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000016.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000017.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000018.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000019.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000020.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000021.minitrees, reweight var: newbdt
+Writing Histogram to the file: /global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/smalltest/Processed_Samples_Data_Oct18/period1516/newbdt/dijet_data_1516.root
+Reweighting file /global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/smalltest/Processed_Samples_Pythia_Nov8/periodA/newbdt/dijet_pythia_mc16A_newbdt_reweighting_gluon_factor.pkl found, read reweighting factor from the reweigthing file. 
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New_small/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New_small/data/data1516/user.wasu.Oct18.data16_13TeV.periodA.physics_Main_minitrees.root
+        Doing on file user.wasu.30894374._000001.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000002.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000002.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000003.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000003.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000004.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000004.minitrees, but it's empty
+        Doing on file user.wasu.30894374._000005.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000006.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000007.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000008.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000009.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000010.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000011.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000012.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000013.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000014.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000015.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000016.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000017.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000018.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000019.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000020.minitrees, reweight var: newbdt
+        Doing on file user.wasu.30894374._000021.minitrees, reweight var: newbdt
+Writing Histogram to the file: /global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/smalltest/Processed_Samples_Data_Oct18/period1516/newbdt/dijet_data_1516.root

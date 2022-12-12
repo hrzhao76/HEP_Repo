@@ -1,0 +1,148 @@
+X Shape: (200000, 9)
+y Shape: (200000,)
+Accuracy: 0.81432 (+/- 0.00236)
+Fitting 5 folds for each of 27 candidates, totalling 135 fits
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=500;, score=0.835 total time= 5.1min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=500;, score=0.843 total time= 5.2min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=500;, score=0.837 total time= 5.3min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=500;, score=0.840 total time= 5.3min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=500;, score=0.841 total time= 5.3min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=500;, score=0.839 total time= 5.3min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=500;, score=0.839 total time= 5.5min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=500;, score=0.837 total time= 5.5min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=500;, score=0.837 total time= 5.5min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=500;, score=0.837 total time= 5.5min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=500;, score=0.839 total time= 5.6min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=500;, score=0.841 total time= 5.6min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=500;, score=0.840 total time= 5.6min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=500;, score=0.842 total time= 5.7min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=500;, score=0.841 total time= 5.9min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=500;, score=0.831 total time= 6.8min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=500;, score=0.840 total time= 6.8min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=500;, score=0.842 total time= 6.9min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=500;, score=0.830 total time= 6.9min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=500;, score=0.829 total time= 6.9min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=500;, score=0.837 total time= 7.0min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=500;, score=0.842 total time= 7.0min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=500;, score=0.839 total time= 7.0min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=500;, score=0.839 total time= 7.1min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=500;, score=0.828 total time= 7.1min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=500;, score=0.837 total time= 7.2min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=500;, score=0.840 total time= 7.2min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=500;, score=0.828 total time= 7.2min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=500;, score=0.841 total time= 7.2min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=500;, score=0.842 total time= 7.2min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=750;, score=0.842 total time= 7.4min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=750;, score=0.839 total time= 7.4min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=750;, score=0.841 total time= 7.4min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=750;, score=0.839 total time= 7.5min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=750;, score=0.839 total time= 7.5min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=750;, score=0.837 total time= 7.5min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=750;, score=0.836 total time= 7.5min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=750;, score=0.839 total time= 7.6min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=750;, score=0.839 total time= 7.6min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=750;, score=0.841 total time= 7.6min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=750;, score=0.843 total time= 7.7min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=750;, score=0.839 total time= 7.7min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=750;, score=0.838 total time= 7.8min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=750;, score=0.841 total time= 7.9min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=750;, score=0.842 total time= 7.9min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=500;, score=0.842 total time= 8.0min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=500;, score=0.835 total time= 8.1min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=500;, score=0.818 total time= 8.1min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=500;, score=0.843 total time= 8.2min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=500;, score=0.840 total time= 8.2min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=500;, score=0.817 total time= 8.2min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=500;, score=0.835 total time= 8.3min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=500;, score=0.833 total time= 8.3min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=500;, score=0.817 total time= 8.3min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=500;, score=0.841 total time= 8.3min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=500;, score=0.842 total time= 8.4min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=500;, score=0.834 total time= 8.4min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=500;, score=0.818 total time= 8.4min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=500;, score=0.818 total time= 8.7min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=500;, score=0.837 total time= 8.8min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=1000;, score=0.840 total time= 8.9min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=1000;, score=0.839 total time= 8.9min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=1000;, score=0.840 total time= 8.9min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=750;, score=0.826 total time= 8.9min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=1000;, score=0.839 total time= 9.0min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=1000;, score=0.843 total time= 9.0min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=750;, score=0.843 total time= 9.0min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=750;, score=0.842 total time= 9.0min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=1000;, score=0.838 total time= 9.0min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=1000;, score=0.842 total time= 9.0min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=750;, score=0.842 total time= 9.0min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=1000;, score=0.842 total time= 9.1min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=1000;, score=0.834 total time= 9.0min
+[CV 5/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=1000;, score=0.843 total time= 9.1min
+[CV 3/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=1000;, score=0.841 total time= 9.1min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=750;, score=0.838 total time= 9.1min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=1000;, score=0.841 total time= 9.1min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=750;, score=0.839 total time= 9.1min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=750;, score=0.827 total time= 9.2min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=750;, score=0.837 total time= 9.2min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=750;, score=0.839 total time= 9.2min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=750;, score=0.830 total time= 9.2min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=750;, score=0.840 total time= 9.2min
+[CV 2/5] END base_estimator__max_depth=5, learning_rate=0.5, n_estimators=1000;, score=0.837 total time= 9.2min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=750;, score=0.829 total time= 9.3min
+[CV 4/5] END base_estimator__max_depth=5, learning_rate=1.0, n_estimators=1000;, score=0.838 total time= 9.3min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=750;, score=0.831 total time= 9.3min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=750;, score=0.841 total time= 9.3min
+[CV 1/5] END base_estimator__max_depth=5, learning_rate=0.1, n_estimators=1000;, score=0.841 total time= 9.3min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=750;, score=0.840 total time= 9.4min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=750;, score=0.843 total time= 9.8min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=750;, score=0.814 total time= 9.9min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=750;, score=0.840 total time= 9.9min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=750;, score=0.833 total time=10.0min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=750;, score=0.843 total time= 9.9min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=750;, score=0.817 total time=10.0min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=750;, score=0.818 total time=10.1min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=750;, score=0.840 total time=10.1min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=750;, score=0.842 total time=10.1min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=750;, score=0.817 total time=10.1min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=750;, score=0.836 total time=10.2min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=750;, score=0.815 total time=10.2min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=750;, score=0.835 total time=10.2min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=1000;, score=0.828 total time=10.2min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=1000;, score=0.843 total time=10.2min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=1000;, score=0.838 total time=10.2min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=1000;, score=0.839 total time=10.2min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=750;, score=0.834 total time=10.2min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=1000;, score=0.841 total time=10.2min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=750;, score=0.836 total time=10.2min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=1000;, score=0.826 total time=10.3min
+[CV 1/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=1000;, score=0.842 total time=10.3min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=1000;, score=0.836 total time=10.3min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=1000;, score=0.840 total time=10.3min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=0.1, n_estimators=1000;, score=0.842 total time=10.3min
+[CV 3/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=1000;, score=0.837 total time=10.4min
+[CV 5/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=1000;, score=0.829 total time=10.4min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=0.5, n_estimators=1000;, score=0.840 total time=10.5min
+[CV 4/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=1000;, score=0.831 total time=10.6min
+[CV 2/5] END base_estimator__max_depth=7, learning_rate=1.0, n_estimators=1000;, score=0.828 total time=10.6min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=1000;, score=0.843 total time=11.4min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=1000;, score=0.813 total time=11.4min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=1000;, score=0.814 total time=11.4min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=1000;, score=0.814 total time=11.4min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=1000;, score=0.834 total time=11.4min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=1000;, score=0.843 total time=11.4min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=1000;, score=0.842 total time=11.5min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=1000;, score=0.815 total time=11.5min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=1000;, score=0.841 total time=11.5min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=1.0, n_estimators=1000;, score=0.812 total time=11.6min
+[CV 5/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=1000;, score=0.835 total time=11.6min
+[CV 1/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=1000;, score=0.834 total time=11.7min
+[CV 3/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=1000;, score=0.833 total time=11.7min
+[CV 2/5] END base_estimator__max_depth=9, learning_rate=0.1, n_estimators=1000;, score=0.841 total time=11.8min
+[CV 4/5] END base_estimator__max_depth=9, learning_rate=0.5, n_estimators=1000;, score=0.836 total time=11.8min
+Best parameter set found on development set:
+
+AdaBoostClassifier(algorithm='SAMME',
+                   base_estimator=DecisionTreeClassifier(max_depth=9,
+                                                         max_features='log2',
+                                                         min_samples_leaf=0.001),
+                   learning_rate=0.1, n_estimators=1000)
+Grid scores on a subset of the development set:
+

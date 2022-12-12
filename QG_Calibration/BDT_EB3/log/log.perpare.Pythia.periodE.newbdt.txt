@@ -1,0 +1,123 @@
+File /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/SumofWeights_mc16E.npy not found, re-calculate it. 
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364704.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ4WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364705.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ5WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364706.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ6WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364707.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ7WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364708.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ8WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE_hist/user.wasu.Nov8e.mc16_13TeV.364709.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ9WithSW_hist
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE/user.wasu.Nov8e.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root
+        Doing on file user.wasu.31155566._000001.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000002.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000003.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000004.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000005.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000006.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000007.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000008.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000009.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000010.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000011.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000012.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000013.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000014.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000015.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000016.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000017.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000018.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000019.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000020.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000021.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000022.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000023.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000024.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000025.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000026.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000027.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000028.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000029.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000030.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000031.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000032.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000033.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000034.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000035.minitrees, reweight var: None
+        Doing on file user.wasu.31155566._000036.minitrees, reweight var: None
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE/user.wasu.Nov8e.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root
+        Doing on file user.wasu.31155562._000001.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000002.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000003.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000004.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000005.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000006.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000007.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000008.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000009.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000010.minitrees, reweight var: None
+        Doing on file user.wasu.31155562._000011.minitrees, reweight var: None
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE/user.wasu.Nov8e.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_minitrees.root
+        Doing on file user.wasu.31155556._000001.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000002.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000003.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000004.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000006.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000007.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000008.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000009.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000010.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000011.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000012.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000013.minitrees, reweight var: None
+        Doing on file user.wasu.31155556._000014.minitrees, reweight var: None
+/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/pythia/pythiaE/user.wasu.Nov8e.mc16_13TeV.364704.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ4WithSW_minitrees.root
+        Doing on file user.wasu.31155550._000001.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000002.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000003.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000005.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000006.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000007.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000008.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000009.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000010.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000011.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000012.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000014.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000016.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000017.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000018.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000019.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000020.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000021.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000023.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000024.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000025.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000026.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000027.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000028.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000029.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000030.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000031.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000032.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000033.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000034.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000035.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000036.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000037.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000038.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000039.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000040.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000041.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000042.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000043.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000044.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000045.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000047.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000048.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000049.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000050.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000051.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000052.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000053.minitrees, reweight var: None
+        Doing on file user.wasu.31155550._000054.minitrees, reweight var: None
