@@ -1,6 +1,6 @@
 import argparse
 import numpy as np
-
+import sys, traceback
 import uproot 
 import awkward as ak
 from pathlib import Path
@@ -8,11 +8,14 @@ from pathlib import Path
 from typing import Dict, List 
 import re
 import pickle
-
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier
+from sklearn.metrics import classification_report, roc_auc_score
 label_pt_leadingtype = ["LeadingJet", "SubLeadingJet"]
 label_eta = ["Forward", "Central"]
 label_type = ["Data"] # For Data, no other type info, but must match split_jet_type()
-label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt"]
+label_var = ["pt", "eta", "ntrk", "width", "c1", "bdt", "newbdt"]
 label_pt_bin = [500, 600, 800, 1000, 1200, 1500, 2000]
 
 
@@ -34,23 +37,34 @@ def Initialize_Map():
     assert len(label_pt_bin[:-1]) * len(label_pt_leadingtype) * len(label_eta) * len(label_type) * len(label_var) == len([*Map["values"].keys()])
     return Map 
 
-def Minitree2Hist_Data(input_folder, period, reweight_var = None, reweight_factor = None):
+def Minitree2Hist_Data(input_folder, period, reweight_var = None, reweight_factor = None, if_do_bdt=False, bdt_path = ''):
     if not reweight_var == None and reweight_factor == None:
         raise Exception(f"You specify reweight_type to be {reweight_var} but reweight_factor is not provided! ")
 
-    if not reweight_var == None and not reweight_var in ["ntrk", "bdt"]:
+    if not reweight_var == None and not reweight_var in ["ntrk", "bdt", "newbdt"]:
         raise Exception(f"You specify reweight_type to be {reweight_var} but not supported! ")
-   
+    
+    if if_do_bdt:
+        if not bdt_path.exists():
+            raise Exception(f"No bdt model found at path {bdt_path.as_posix()}")
+        try:
+            with open(bdt_path, 'rb') as f:
+                bdt_model = pickle.load(f)
+        except Exception as e:
+            # everything else, possibly fatal
+            print(traceback.format_exc(e))
+            return
+
     HistMap = Initialize_Map()
 
     branch_names = ["jet_fire", "jet_pt", "jet_eta", "jet_nTracks", "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
-    branch_names_tobesaved = ["jet_pt", "jet_eta", "jet_nTracks", "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
+    branch_names_tobesaved = branch_names[1:]
 
     for i, dir in enumerate(input_folder):
         print(dir)
         
         for file in sorted(dir.glob("*.minitrees.root")):
-            print(f"        Doing on file {file.stem}")
+            print(f"        Doing on file {file.stem}, reweight var: {reweight_var}")
             try:
                 branches_before_cut = uproot.open(file)["nominal"].arrays(branch_names, library='ak')
             except: 
@@ -61,25 +75,39 @@ def Minitree2Hist_Data(input_folder, period, reweight_var = None, reweight_facto
                 continue 
 
             branches_after_cut = Apply_Cuts(branches_before_cut = branches_before_cut, period = period)
-            if len(branches_after_cut) == 0:
+            if len(branches_after_cut) == 0: # No jets passing the cuts, continue 
                 continue 
 
             branches_to_be_saved = branches_after_cut[branch_names_tobesaved][:,:2]
             leading_jets = branches_to_be_saved[branch_names_tobesaved][:,0].to_numpy()
             subleading_jets = branches_to_be_saved[branch_names_tobesaved][:,1].to_numpy()
-
             leading_jets["jet_pt"] = leading_jets["jet_pt"]/1000
             subleading_jets["jet_pt"] = subleading_jets["jet_pt"]/1000
 
             leading_jets = np.dstack([leading_jets[field] for field in leading_jets.dtype.names])
             subleading_jets = np.dstack([subleading_jets[field] for field in subleading_jets.dtype.names])
+            
+            # leading_jets shape is (1, n_events, 7)
+            
+            #### new BDT prediction     
+            if if_do_bdt:
+                leading_jet_new_bdt = bdt_model.decision_function(leading_jets[0,:,:5])
+                subleading_jet_new_bdt = bdt_model.decision_function(subleading_jets[0,:,:5])
+                leading_jets = np.concatenate((leading_jets, np.broadcast_to(leading_jet_new_bdt[None,:,None], (leading_jets.shape[:2] + (1,)))), axis = 2)
+                subleading_jets = np.concatenate((subleading_jets, np.broadcast_to(subleading_jet_new_bdt[None,:,None], (subleading_jets.shape[:2] + (1,)))), axis = 2)
+                
+                leading_jets[0,:,[6,7]] = leading_jets[0,:,[7,6]]
+                subleading_jets[0,:,[6,7]] = subleading_jets[0,:,[7,6]]
+
 
             total_weight = branches_after_cut["total_weight"].to_numpy()
             leading_jets = np.concatenate((leading_jets, np.broadcast_to(total_weight[None, : , None], (leading_jets.shape[:2] + (1,)))), axis = 2)
             subleading_jets = np.concatenate((subleading_jets, np.broadcast_to(total_weight[None, : , None], (subleading_jets.shape[:2] + (1,)))), axis = 2)
 
-            dijets = np.concatenate((leading_jets,subleading_jets), axis = 0)
-            dijets = np.swapaxes(dijets, 0, 1) # the format is (n_events, 2, 9)
+
+            dijets = np.concatenate((leading_jets,subleading_jets), axis = 0) # the format is (2, n_events, 9) if no newbdt 
+            dijets = np.swapaxes(dijets, 0, 1)# after swap, the format is (n_events, 2, 9)
+            
             
             HistMap = Split_jets_Data(HistMap = HistMap, dijets_array = dijets, reweight_var = reweight_var, reweight_factor = reweight_factor)
 
@@ -135,14 +163,15 @@ def Split_jets_Data(HistMap, dijets_array, reweight_var = None, reweight_factor 
             if splited_jet_pt_bin.shape[0] == 0:
                 continue 
             
-            assert label_eta[1] == "Central" # label_eta[1] should be the Central 
-            if reweight_var in ["ntrk", "bdt"] and ki.__contains__(label_eta[1]):  # Doing reweighting for Central jets 
-                # breakpoint()
+            # assert label_eta[1] == "Central" # label_eta[1] should be the Central 
+            if reweight_var in ["ntrk", "bdt", "newbdt"] and ki.__contains__(label_eta[1]):  # Doing reweighting for Central jets 
                 # Do reweighting here 
                 if reweight_var == "ntrk":
                     reweight_var_idx = 2
                 elif reweight_var == "bdt":
                     reweight_var_idx = 5
+                elif reweight_var == "newbdt":
+                    reweight_var_idx = 6
 
                 reweight_var_bins = GetHistBin(reweight_var)
 
@@ -155,7 +184,8 @@ def Split_jets_Data(HistMap, dijets_array, reweight_var = None, reweight_factor 
                 splited_jet_pt_bin[:, -1] = splited_jet_pt_bin[:, -1] * reweighting_at_pt[inds-1]
  
                 
-            splited_pt_eta_jets_types = split_jet_type(splited_jet_pt_bin)
+            jet_type_idx = 7
+            splited_pt_eta_jets_types = split_jet_type(splited_jet_pt_bin, jet_type_idx = jet_type_idx)
 
             for kk, jet_type in splited_pt_eta_jets_types.items():
                 if jet_type.shape[0] == 0:
@@ -187,8 +217,8 @@ def split_pt_eta_jet(jets):
              f"{label_pt_leadingtype[1]}_{label_eta[0]}" : jets[subleading_forward_idx, 1, :], 
              f"{label_pt_leadingtype[1]}_{label_eta[1]}" : jets[subleading_central_idx, 1, :]}
 
-def split_jet_type(jets):
-    data_idx = np.where(jets[:,6]==-9999)[0]
+def split_jet_type(jets, jet_type_idx):
+    data_idx = np.where(jets[:,jet_type_idx]==-9999)[0]
 
     all_list = [jets[data_idx]]
     return_map = {}
@@ -220,8 +250,7 @@ def GetHistBin(histogram_name: str):
         return np.linspace(0, 0.4, 61)
     elif 'c1' in histogram_name:
         return np.linspace(0, 0.4, 61)
-    elif 'newBDT' in histogram_name:
-        return np.linspace(-0.8, 0.7, 61)
+
 
 def WriteHistRootFile(HistMap, output_file_name, TDirectory_name = "NoReighting"):
     print(f"Writing Histogram to the file: {output_file_name}")
@@ -238,6 +267,7 @@ def WriteHistRootFile(HistMap, output_file_name, TDirectory_name = "NoReighting"
                 nbins = len(bin_edges) - 1 
                 sum_w2_at_var = np.zeros((nbins,), dtype = np.float32)
                 inds = np.digitize(x = HistMap["values"][values_hist_name], bins = bin_edges)
+                inds = inds - 1
                 for i in range(nbins):
                     weights_at_bin = HistMap["weights"][weights_hist_name][np.where(inds == i)[0]]
                     sum_w2_at_var[i] = np.sum(np.power(weights_at_bin, 2))
@@ -251,7 +281,7 @@ def WritePickleFile(HistMap, pkl_file_name):
     with open(pkl_file_name, "wb") as out_pkl:
         pickle.dump(HistMap, out_pkl)
 
-def Make_Histogram_Data(sample_folder_path, period, output_path, reweighting_file_path):
+def Make_Histogram_Data(sample_folder_path, period, output_path, reweighting_file_path, if_do_bdt, bdt_path):
     if not period in ['1516', '17', '18']:
         raise Exception(f"Period {period} not in supported periods. Currently supported: ['1516', '17', '18']")
 
@@ -262,12 +292,15 @@ def Make_Histogram_Data(sample_folder_path, period, output_path, reweighting_fil
 
     else:
         period_data = sorted(sample_folder_path.rglob(f"*data{period}_13TeV.period*.physics_Main_minitrees.root"))
-    #breakpoint()
+
+    if len(period_data)==0:
+        raise Exception(f"No data files found! Please check the path {sample_folder_path.as_posix()}! ")
+
     output_file_name = output_path.as_posix() + f"/dijet_data_{period}"
 
     output_root_file =  output_file_name + ".root"
     output_pickle_file =  output_file_name + ".pkl"
-    HistMap = Minitree2Hist_Data(input_folder = period_data, period = period)  
+    HistMap = Minitree2Hist_Data(input_folder = period_data, period = period, if_do_bdt = if_do_bdt, bdt_path = bdt_path)  
 
     uproot.recreate(output_root_file)
     WriteHistRootFile(HistMap, output_root_file, TDirectory_name = "NoReweighting")
@@ -285,16 +318,21 @@ def Make_Histogram_Data(sample_folder_path, period, output_path, reweighting_fil
     bdt_quark_reweighting_file = reweighting_file_path / f"dijet_pythia_mc16{period_mc[period]}_bdt_reweighting_quark_factor.pkl"
     bdt_gluon_reweighting_file = reweighting_file_path / f"dijet_pythia_mc16{period_mc[period]}_bdt_reweighting_gluon_factor.pkl"
 
-    reweight_vars = ['ntrk', 'bdt']
+    newbdt_quark_reweighting_file = reweighting_file_path / f"dijet_pythia_mc16{period_mc[period]}_newbdt_reweighting_quark_factor.pkl"
+    newbdt_gluon_reweighting_file = reweighting_file_path / f"dijet_pythia_mc16{period_mc[period]}_newbdt_reweighting_gluon_factor.pkl"
+
+    reweight_vars = ['ntrk', 'bdt', 'newbdt']
     reweight_factors = ['Quark', 'Gluon']
     reweight_files = {
         'ntrk_Quark':ntrk_quark_reweighting_file,
         'ntrk_Gluon':ntrk_gluon_reweighting_file,
         'bdt_Quark':bdt_quark_reweighting_file,
-        'bdt_Gluon':bdt_gluon_reweighting_file
+        'bdt_Gluon':bdt_gluon_reweighting_file,
+        'newbdt_Quark':newbdt_quark_reweighting_file,
+        'newbdt_Gluon':newbdt_gluon_reweighting_file
     }
     # Doing reweighting version 
-    for reweight_var in reweight_vars[0:1]:
+    for reweight_var in reweight_vars[2:3]:
         for reweight_factor in reweight_factors:
             reweight_file = reweight_files[f'{reweight_var}_{reweight_factor}']
 
@@ -303,7 +341,8 @@ def Make_Histogram_Data(sample_folder_path, period, output_path, reweighting_fil
                 with open(reweight_file, "rb") as file:
                     reweighting_factor = pickle.load(file)
             else:
-                print(f"Reweighting file {reweight_file} not found, read reweighting factor from the histogram root file. ")
+                print(f"Reweighting file {reweight_file} not found, exit the loop!")
+                continue
 
             HistMap_ntrk_reweighting_quark_factor = Minitree2Hist_Data(input_folder = period_data, period = period, reweight_var = reweight_var, reweight_factor = reweighting_factor)
             WriteHistRootFile(HistMap_ntrk_reweighting_quark_factor, output_root_file, TDirectory_name = f"{reweight_var}_Reweighting_{reweight_factor}_Factor")
@@ -314,7 +353,10 @@ if __name__ == '__main__':
     parser.add_argument('--path', help='The path to the minitree files')
     parser.add_argument('--period', help='The Data period', choices=['A', 'D', 'E'])
     parser.add_argument('--output-path', help='Output path')
-    parser.add_argument('--reweight-file-path', help='Reweighting file path. Expect 4 reweighting files.')
+    parser.add_argument('--reweight-file-path', help='Reweighting file path. Expect 6 reweighting files.')
+    parser.add_argument('--do-BDT', help='if use new BDT to do inference', action='store_true')
+    parser.add_argument('--BDT-path', help='if use new BDT to do inference', default='/global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/models/bdt_model_flat_pt_gridsearchCV.model')
+
     args = parser.parse_args()
 
     period_map = {'A':'1516', 'D':'17', 'E':'18'}
@@ -322,15 +364,21 @@ if __name__ == '__main__':
     period = period_map[args.period]
     output_path = Path(args.output_path)
     hist_folder_path = minitrees_folder_path.parent / (minitrees_folder_path.stem + "_hist")
-
+    if_do_bdt = args.do_BDT
+    bdt_path = Path(args.BDT_path)
     reweighting_file_path = Path(args.reweight_file_path)
     if not reweighting_file_path.exists():
         raise Exception(f"the input reweight file path {reweighting_file_path.as_posix()} not found. ")
 
+    if if_do_bdt:
+        output_path = output_path / f"period{period}" / "newbdt"
+    else:
+        output_path = output_path / f"period{period}"
+
     if not output_path.exists():
         output_path.mkdir(parents=True)
 
-    Make_Histogram_Data(sample_folder_path=minitrees_folder_path, period=period, output_path = output_path, reweighting_file_path = reweighting_file_path)
+    Make_Histogram_Data(sample_folder_path=minitrees_folder_path, period=period, output_path = output_path, reweighting_file_path = reweighting_file_path, if_do_bdt = if_do_bdt, bdt_path = bdt_path)
 
 
 

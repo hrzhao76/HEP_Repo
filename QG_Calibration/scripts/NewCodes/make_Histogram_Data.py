@@ -238,6 +238,7 @@ def WriteHistRootFile(HistMap, output_file_name, TDirectory_name = "NoReighting"
                 nbins = len(bin_edges) - 1 
                 sum_w2_at_var = np.zeros((nbins,), dtype = np.float32)
                 inds = np.digitize(x = HistMap["values"][values_hist_name], bins = bin_edges)
+                inds = inds - 1
                 for i in range(nbins):
                     weights_at_bin = HistMap["weights"][weights_hist_name][np.where(inds == i)[0]]
                     sum_w2_at_var[i] = np.sum(np.power(weights_at_bin, 2))
