@@ -1,0 +1,9 @@
+hadd Target file: newbdt_root/dijet_data_all.root
+hadd compression setting for all output: 1
+hadd Source file 1: period1516/newbdt/dijet_data_1516.root
+hadd Source file 2: period17/newbdt/dijet_data_17.root
+hadd Source file 3: period18/newbdt/dijet_data_18.root
+hadd Target path: newbdt_root/dijet_data_all.root:/
+hadd Target path: newbdt_root/dijet_data_all.root:/NoReweighting
+hadd Target path: newbdt_root/dijet_data_all.root:/newbdt_Reweighting_Quark_Factor
+hadd Target path: newbdt_root/dijet_data_all.root:/newbdt_Reweighting_Gluon_Factor

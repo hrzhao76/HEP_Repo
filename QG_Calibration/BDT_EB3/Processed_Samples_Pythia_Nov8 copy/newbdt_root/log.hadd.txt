@@ -1,0 +1,9 @@
+hadd Target file: newbdt_root/dijet_pythia_mc16ADE.root
+hadd compression setting for all output: 1
+hadd Source file 1: periodA/newbdt/dijet_pythia_mc16A.root
+hadd Source file 2: periodD/newbdt/dijet_pythia_mc16D.root
+hadd Source file 3: periodE/newbdt/dijet_pythia_mc16E.root
+hadd Target path: newbdt_root/dijet_pythia_mc16ADE.root:/
+hadd Target path: newbdt_root/dijet_pythia_mc16ADE.root:/NoReweighting
+hadd Target path: newbdt_root/dijet_pythia_mc16ADE.root:/newbdt_Reweighting_Quark_Factor
+hadd Target path: newbdt_root/dijet_pythia_mc16ADE.root:/newbdt_Reweighting_Gluon_Factor

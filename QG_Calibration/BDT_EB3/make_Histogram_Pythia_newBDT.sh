@@ -6,7 +6,7 @@ period=${1}
 tree=nominal
 
 workdir=/global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/
-outputdir=/global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3
+outputdir=/global/cfs/projectdirs/atlas/hrzhao/qgcal/BDT_EB3/
 outputdir_pythia=${outputdir}/Processed_Samples_Pythia_Nov8/
 
 # inputdir_data=${outputdir_pythia}/period${period} 

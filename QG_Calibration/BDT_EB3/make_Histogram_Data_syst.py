@@ -245,7 +245,7 @@ def GetHistBin(histogram_name: str):
     elif 'ntrk' in histogram_name:
         return np.linspace(0, 60, 61)
     elif 'bdt' in histogram_name:
-        return np.linspace(-0.8, 0.7, 61)
+        return np.linspace(-1.0, 1.0, 101)
     elif 'width' in histogram_name:
         return np.linspace(0, 0.4, 61)
     elif 'c1' in histogram_name:
@@ -255,6 +255,10 @@ def GetHistBin(histogram_name: str):
 def WriteHistRootFile(HistMap, output_file_name, TDirectory_name = "NoReighting"):
     print(f"Writing Histogram to the file: {output_file_name}")
     with uproot.update(output_file_name) as foutput:
+        if TDirectory_name + ";1" in foutput.keys(recursive=False):
+            print(f"{TDirectory_name} found in the root file. Trying to delete it.")
+            del foutput[TDirectory_name]
+            
         for weights_hist_name in HistMap["weights"].keys():
     
             for l_var in label_var:
@@ -333,7 +337,7 @@ def Make_Histogram_Data(sample_folder_path, period, output_path, reweighting_fil
     }
     # Doing reweighting version 
     for reweight_var in reweight_vars[2:3]:
-        for reweight_factor in reweight_factors:
+        for reweight_factor in reweight_factors[0:1]:
             reweight_file = reweight_files[f'{reweight_var}_{reweight_factor}']
 
             if Path(reweight_file).exists():

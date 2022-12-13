@@ -276,7 +276,7 @@ def Split_jets(HistMap, dijets_array, reweight_var = None, reweight_factor = Non
                     reweight_var_idx = 5
                 elif reweight_var == "newbdt":
                     reweight_var_idx = 6
-
+                
                 reweight_var_bins = GetHistBin(reweight_var)
 
                 reweighting_at_pt = reweight_factor[str(kj)]
@@ -367,6 +367,12 @@ def WriteHistRootFile(HistMap, output_file_name, TDirectory_name = "NoReighting"
     #### weird AssertionError
     print(f"Writing Histogram to the file: {output_file_name}")
     with uproot.update(output_file_name) as foutput:
+
+        if TDirectory_name + ";1" in foutput.keys(recursive=False):
+            print(f"{TDirectory_name} found in the root file. Trying to delete it.")
+            del foutput[TDirectory_name]
+
+            
     # foutput = uproot.update(output_file_name)
         for weights_hist_name in HistMap["weights"].keys():
     
@@ -414,21 +420,21 @@ def Make_Histogram_Pythia(sample_folder_path, period, sum_of_weights, output_pat
     newbdt_quark_reweighting_file = output_file_name.as_posix() + "_newbdt_reweighting_quark_factor.pkl"
     newbdt_gluon_reweighting_file = output_file_name.as_posix() + "_newbdt_reweighting_gluon_factor.pkl"
 
-    HistMap = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = None, reweight_factor = None, mc_syst_type = mc_syst_type, tree = tree, if_do_bdt = if_do_bdt, bdt_path = bdt_path)  
+    # HistMap = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = None, reweight_factor = None, mc_syst_type = mc_syst_type, tree = tree, if_do_bdt = if_do_bdt, bdt_path = bdt_path)  
 
-    uproot.recreate(output_root_file)
+    # uproot.recreate(output_root_file)
 
-    WriteHistRootFile(HistMap, output_root_file, TDirectory_name = "NoReweighting")
-    WritePickleFile(HistMap, output_pickle_file)  
+    # WriteHistRootFile(HistMap, output_root_file, TDirectory_name = "NoReweighting")
+    # WritePickleFile(HistMap, output_pickle_file)  
 
     # Reweighting variants for ['ntrk', 'bdt'] * ['quark', 'gluon']
-    ntrk_reweighting_quark_factor, ntrk_reweighting_gluon_factor = Get_ReweightingFactor(input_file = output_root_file, reweight_var = "ntrk")
-    WritePickleFile(ntrk_reweighting_quark_factor, ntrk_quark_reweighting_file)
-    WritePickleFile(ntrk_reweighting_gluon_factor, ntrk_gluon_reweighting_file)
+    # ntrk_reweighting_quark_factor, ntrk_reweighting_gluon_factor = Get_ReweightingFactor(input_file = output_root_file, reweight_var = "ntrk")
+    # WritePickleFile(ntrk_reweighting_quark_factor, ntrk_quark_reweighting_file)
+    # WritePickleFile(ntrk_reweighting_gluon_factor, ntrk_gluon_reweighting_file)
 
-    bdt_reweighting_quark_factor, bdt_reweighting_gluon_factor = Get_ReweightingFactor(input_file = output_root_file, reweight_var = "bdt")
-    WritePickleFile(bdt_reweighting_quark_factor, bdt_quark_reweighting_file)
-    WritePickleFile(bdt_reweighting_gluon_factor, bdt_gluon_reweighting_file)
+    # bdt_reweighting_quark_factor, bdt_reweighting_gluon_factor = Get_ReweightingFactor(input_file = output_root_file, reweight_var = "bdt")
+    # WritePickleFile(bdt_reweighting_quark_factor, bdt_quark_reweighting_file)
+    # WritePickleFile(bdt_reweighting_gluon_factor, bdt_gluon_reweighting_file)
 
     newbdt_reweighting_quark_factor, newbdt_reweighting_gluon_factor = Get_ReweightingFactor(input_file = output_root_file, reweight_var = "bdt")
     WritePickleFile(newbdt_reweighting_quark_factor, newbdt_quark_reweighting_file)
@@ -446,11 +452,22 @@ def Make_Histogram_Pythia(sample_folder_path, period, sum_of_weights, output_pat
     # HistMap_bdt_reweighting_gluon_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "bdt", reweight_factor = bdt_reweighting_gluon_factor, mc_syst_type = mc_syst_type, tree = tree)
     # WriteHistRootFile(HistMap_bdt_reweighting_gluon_factor, output_root_file, TDirectory_name = "bdt_Reweighting_Gluon_Factor")
 
-    HistMap_newbdt_reweighting_quark_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "newbdt", reweight_factor = newbdt_reweighting_quark_factor, mc_syst_type = mc_syst_type, tree = tree)
+    # The following are broken 
+    # Not reading the newbdt response. Need to fix. TODO 
+    HistMap_newbdt_reweighting_quark_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "newbdt", reweight_factor = newbdt_reweighting_quark_factor, mc_syst_type = mc_syst_type, tree = tree, if_do_bdt = if_do_bdt, bdt_path = bdt_path)
     WriteHistRootFile(HistMap_newbdt_reweighting_quark_factor, output_root_file, TDirectory_name = "newbdt_Reweighting_Quark_Factor")
     
-    HistMap_newbdt_reweighting_gluon_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "newbdt", reweight_factor = newbdt_reweighting_gluon_factor, mc_syst_type = mc_syst_type, tree = tree)
-    WriteHistRootFile(HistMap_newbdt_reweighting_gluon_factor, output_root_file, TDirectory_name = "newbdt_Reweighting_Gluon_Factor")
+    #### TODO FIX 
+    #### Second time del failed 
+    #### RuntimeError: segment of data to release overlaps one already marked as free: releasing [2244482, 2244643) but [2244381, 2244542) is free
+    # HistMap_newbdt_reweighting_gluon_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "newbdt", reweight_factor = newbdt_reweighting_gluon_factor, mc_syst_type = mc_syst_type, tree = tree, if_do_bdt = if_do_bdt, bdt_path = bdt_path)
+    # WriteHistRootFile(HistMap_newbdt_reweighting_gluon_factor, output_root_file, TDirectory_name = "newbdt_Reweighting_Quark_Factor")
+    
+    # HistMap_newbdt_reweighting_quark_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "newbdt", reweight_factor = newbdt_reweighting_quark_factor, mc_syst_type = mc_syst_type, tree = tree)
+    # WriteHistRootFile(HistMap_newbdt_reweighting_quark_factor, output_root_file, TDirectory_name = "newbdt_Reweighting_Quark_Factor")
+    
+    # HistMap_newbdt_reweighting_gluon_factor = Minitree2Hist(input_folder = period_JZslice, sum_of_weights = sum_of_weights, reweight_var = "newbdt", reweight_factor = newbdt_reweighting_gluon_factor, mc_syst_type = mc_syst_type, tree = tree)
+    # WriteHistRootFile(HistMap_newbdt_reweighting_gluon_factor, output_root_file, TDirectory_name = "newbdt_Reweighting_Gluon_Factor")
 
 
 if __name__ == '__main__':
