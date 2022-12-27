@@ -34,14 +34,22 @@ possible tuning parameter
 
 ### Some Experience  
 1. 3 vars : `ntrk` `c1` and `width` forming Forward/Central shape are very robost. 
+2. BDT shape starts with two extreme peaks at -1, 1, increasing `learning_rate` or `n_estimators` moves the shape towards 0. 
 
 # Questions   
 
 - [ ] The feature correlation?   
     known: ntrk = 0, c1 = width = -1    
     if we use track associated with jet as feature, we should exclude ntrk = 0.    
+    What is the fraction of ntrk = 0 in data?     
 
 - [ ] How to properly implemented the weights? `sqrt(sum(event**2))`?
 
-- [ ] For other tagger, what is the difference between `predict_proba` and `decision_functions` ? -> Check the source code.  
+- [x] For other tagger, what is the difference between `predict_proba` and `decision_functions` ? -> Check the source code.    
+```python
+y_sample_proba = softmax( np.vstack([-y_sample_score, y_sample_score]).T / 2 , axis = 1)
+```
+
+- [x] If the fraction of q/g are different in Forward/Central region, is it possible to have smooth curve as a mix of quark/gluon even they are smooth? 
+    Look at the MLP prediction, q/g are sperated very well. But in terms of forward/central, no good. Extraction no good. 
 
