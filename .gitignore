@@ -3,3 +3,5 @@
 *.npy
 
 samples
+__pycache__
+*.pyc
