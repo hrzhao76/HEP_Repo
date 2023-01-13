@@ -1,16 +1,17 @@
-01/12/2023 05:30:22 PM                  jet_pt  jet_nTracks  jet_trackWidth  jet_trackC1
+01/13/2023 12:49:44 PM                  jet_pt  jet_nTracks  jet_trackWidth  jet_trackC1
 22415728   672.151917         25.0        0.067487     0.239588
 4787071    870.527649         13.0        0.016734     0.194035
 5677064   1124.690552         29.0        0.058544     0.221268
 23386379   642.957214         14.0        0.019894     0.135342
 32025842   532.513306         18.0        0.019661     0.157700
-01/12/2023 05:30:22 PM   22415728    2.662796e-07
+01/13/2023 12:49:44 PM   22415728    2.662796e-07
 4787071     6.906320e-07
 5677064     4.702095e-06
 23386379    1.620051e-07
 32025842    6.170121e-07
 Name: flatpt_weight, dtype: float64
-01/12/2023 05:39:36 PM   Feature importance: [0.12212002 0.77739571 0.0355996  0.06488467]
-01/12/2023 05:39:36 PM   Plotting distribution on test dataset...
-01/12/2023 05:39:36 PM   Plotting ROC on test dataset...
-01/12/2023 05:39:37 PM   Done
+01/13/2023 12:59:54 PM   Feature importance: [0.12212002 0.77739571 0.0355996  0.06488467]
+01/13/2023 12:59:54 PM   Plotting distribution on test dataset...
+01/13/2023 12:59:54 PM   Plotting ROC on test dataset...
+01/13/2023 12:59:55 PM   Plotting overtraining validation plot...
+01/13/2023 01:00:20 PM   Done

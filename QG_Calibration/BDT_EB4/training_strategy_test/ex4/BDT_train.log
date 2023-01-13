@@ -1,16 +1,17 @@
-01/12/2023 05:29:37 PM                 jet_pt  jet_nTracks  jet_trackWidth  jet_trackC1
+01/13/2023 12:48:00 PM                 jet_pt  jet_nTracks  jet_trackWidth  jet_trackC1
 990781   1748.287476         25.0        0.046164     0.207592
 2693713  1787.127441         39.0        0.049823     0.196920
 5326900  1675.209595         18.0        0.029929     0.156470
 1909126  1664.900024         50.0        0.109424     0.289479
 1672367  1814.723267         56.0        0.161891     0.328868
-01/12/2023 05:29:37 PM   990781     0.002316
+01/13/2023 12:48:00 PM   990781     0.002316
 2693713    0.000990
 5326900    0.009909
 1909126    0.000118
 1672367    0.001536
 Name: event_weight, dtype: float64
-01/12/2023 05:38:56 PM   Feature importance: [0.0085591  0.91860447 0.04454659 0.02828984]
-01/12/2023 05:38:56 PM   Plotting distribution on test dataset...
-01/12/2023 05:38:57 PM   Plotting ROC on test dataset...
-01/12/2023 05:38:57 PM   Done
+01/13/2023 12:57:50 PM   Feature importance: [0.0085591  0.91860447 0.04454659 0.02828984]
+01/13/2023 12:57:50 PM   Plotting distribution on test dataset...
+01/13/2023 12:57:51 PM   Plotting ROC on test dataset...
+01/13/2023 12:57:51 PM   Plotting overtraining validation plot...
+01/13/2023 12:57:56 PM   Done
