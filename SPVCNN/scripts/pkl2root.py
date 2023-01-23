@@ -11,12 +11,12 @@ import ROOT
 import uproot 
 import awkward as ak
 from pathlib import Path
-import os
+import os, sys
 from tqdm import tqdm
 from array import array 
 
 # %%
-sample_folder_path = Path("Preds/dzp_pu10/preds/tbeta=0.75_td=0.4_pkls/")
+sample_folder_path = Path(sys.argv[1])
 files = sorted(sample_folder_path.glob("*.pkl"))
 
 # %%
@@ -24,7 +24,7 @@ file = files[0]
 data = pd.read_pickle(file)
 
 # %%
-outputFile = ROOT.TFile("SPVCNN_outputs.root", "recreate")
+outputFile = ROOT.TFile(f"{sample_folder_path.as_posix()}/SPVCNN_outputs.root", "recreate")
 outputTree = ROOT.TTree("SPVCNN_Cluster", "SPVCNN_Cluster")
 
 m_eventID = array('i', [0])
@@ -80,6 +80,7 @@ outputTree.Branch("reco_SPVCNN_vtxID", truth_vtx_fitted_trk_SPVCNN_vtxID)
 for file in tqdm(files):
     data = pd.read_pickle(file)
     m_eventID[0] = int(file.stem[-5:])
+
     # make pred id consecutive 
     new_label = np.zeros_like(data['pred_instance_labels'])
     for i, old_id in enumerate(np.unique(data['pred_instance_labels'])):
@@ -98,12 +99,12 @@ for file in tqdm(files):
                 fitted_trk_list[j].push_back(data.iloc[trk_idx][fitted_trk_name_list[j]])
             fitted_trk_list[12].push_back(i)
 
-        outputTree.Fill()
+    outputTree.Fill()
 
-        for j, vtx_property in enumerate(reco_vtx_list):
-            vtx_property.clear()
-        for j, trk_property in enumerate(fitted_trk_list):
-            trk_property.clear()
+    for j, vtx_property in enumerate(reco_vtx_list):
+        vtx_property.clear()
+    for j, trk_property in enumerate(fitted_trk_list):
+        trk_property.clear()
 
 outputTree.Write()
 outputFile.Close()
