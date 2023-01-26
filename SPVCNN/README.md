@@ -1,6 +1,17 @@
 # Intro slide 
 [SPVCNN Workflow](https://docs.google.com/presentation/d/1qR9GRVWcSvsXeMRz6mmUiR5hK7s0aumYdTavAWu5EDw/edit#slide=id.p)
 
+# Samples 
+Currerntly samples with PU = 10, 20, 50, 100, 150, 200 are generated. Each contains 10k events. One can download [here](https://drive.google.com/drive/folders/1IPdWlb81w1xFrrob4omVi1EKHkl-BN1m?usp=sharing) through google drive.  
+
+Put one root file in one folder, for example, `<some-path>/PU10/vertexperformance_AMVF_pu10.root`.   Once a root file is downloaded, a flatten sample can be made by this script [generate_vertex.py](./scripts/generate_vertex.py)
+
+for example,  
+``` python
+generate_vertex.py <some-path>/PU10/ --output-path <some-path> 
+```
+
+
 # Code Commands 
 ## Training SPVCNN
 
@@ -40,7 +51,29 @@ python scripts/pkl2root.py tmp/preds/tbeta=0.75_td=0.4_pkls
 
 
 ## ACTS framework
+ACTS requires three libraries, `boost`, `eigen`, and `pythia8` to do vertexing with simulation. Docker or shifter is recommonded here, instead of manually compile.     
+
+### Using Docker 
+
+``` bash
+git clone https://github.com/hrzhao76/acts.git 
+cd acts 
+git checkout dev_stdalone_fitter
+
+docker pull ghcr.io/acts-project/ubuntu2004:v27 
+docker run --volume=<source>:/acts:ro --interactive --tty <image> /bin/bash
+
+# Then inside a docker container 
+cmake -B build -S <source> -DACTS_BUILD_EXAMPLES_PYTHIA8=ON
+make -j16 
+```
+
+see [Building Acts](https://acts.readthedocs.io/en/latest/getting_started.html#in-a-container) for more details.  
+
+### On Nersc 
 The easiest way to build acts on nersc may be using `shifter`. Open a new terminal, otherwise some environment variables are conflicted with cgpu. 
+
+Shifter is a software package that allows user-created images to run at NERSC. These images can be Docker images or other formats.    
 
 
 ``` bash
@@ -56,10 +89,11 @@ cmake ../  -DACTS_BUILD_EXAMPLES_PYTHIA8=ON
 ./bin/SPVCNN_AdaptiveMultiVertexFitter /global/cfs/projectdirs/atlas/hrzhao/spvnas-dev/tmp/preds/tbeta=0.75_td=0.4_pkls/SPVCNN_outputs.root 
 ```
 
+
 ## Evaluate Physics performance 
 
 One can use these two notebooks to compare SPVCNN and AMVF on HS vertex reconstruction efficiency and identification efficiency, and primary vertex classification.   
 [Compare_eff_sel.ipynb](https://github.com/hrzhao76/HEP_Repo/blob/master/SPVCNN/performance/Compare_eff_sel.ipynb)   
 
-[Compare_pv_classification.ipynb](https://github.com/hrzhao76/HEP_Repo/blob/master/SPVCNN/performance/Compare_pv_classification.ipynb)
+[Compare_pv_classification.ipynb](https://github.com/hrzhao76/HEP_Repo/blob/master/SPVCNN/performance/Compare_pv_classification.ipynb)    
 
