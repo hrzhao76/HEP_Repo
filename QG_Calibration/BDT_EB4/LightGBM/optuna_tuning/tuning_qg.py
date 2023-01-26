@@ -172,7 +172,7 @@ study.best_value
 # %%
 eval_result={}
 best_model = lgb.LGBMClassifier(**study.best_params)
-base_model.fit(X = X_train[training_vars], y = y_train, sample_weight=X_train[training_weight].to_numpy().flatten(),
+bast_model.fit(X = X_train[training_vars], y = y_train, sample_weight=X_train[training_weight].to_numpy().flatten(),
                eval_set = [(X_val[training_vars], y_val)], eval_sample_weight = [X_val["event_weight"].to_numpy().flatten()],
                eval_metric = ['binary_logloss', 'auc'], callbacks=[lgb.early_stopping(5), lgb.record_evaluation(eval_result)])
 
