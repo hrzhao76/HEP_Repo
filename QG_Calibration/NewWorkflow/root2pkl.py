@@ -4,15 +4,11 @@ import logging
 import joblib 
 import numpy as np
 import pandas as pd 
-import joblib
 import uproot 
 import awkward as ak
 from pathlib import Path
-
-
-from typing import Dict, List 
 import re
-import pickle
+from utils import check_inputpath, check_outputpath
 
 log_levels = {
     0: logging.CRITICAL,
@@ -86,18 +82,27 @@ def apply_cut(sample):
     return sample 
 
 def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = False):
-    root_file_path = Path(root_file_path)
-    if not root_file_path.exists():
-        logging.error(f"File {root_file_path} not found. ")
-        raise Exception(f"File {root_file_path} not found. ")
+    """Give me a root file, flatten it into pandas format.
 
+    Args:
+        root_file_path (str or Path): the file path to a root file.
+        output_path (str or Path, optional): the output path for a pkl file. Defaults to None.
+        verbosity (int, optional): log level. Defaults to 2.
+        write_log (bool, optional): if we write the log to a file. Defaults to False.
+
+    Raises:
+        Exception: root file not found. 
+        Exception: root file cannot open.
+
+    Returns:
+        DataFrame: pandas DataFrame with flatten events.
+    """
+    root_file_path = check_inputpath(root_file_path)
 
     if output_path is None:
         output_path = root_file_path.parent
     else:
-        output_path = Path(output_path)
-        if not output_path.exists():
-            output_path.mkdir(parents=True, exist_ok=True)
+        output_path = check_outputpath(output_path)
 
     if write_log:
         logging.basicConfig(filename=output_path / 'root2pkl.log', filemode='w', level=log_levels[verbosity], 
@@ -139,10 +144,10 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
 
     sample = apply_cut(sample)
 
-    if len(sample_ak) == 0:
+    if len(sample) == 0:
         logging.warning(f"{root_file_path} is empty after cut")
-        sys.exit(f"{root_file_path} is empty after cut")
-
+        return
+    
     sample_pd = ak.to_pandas(sample)
     sample_dijet_pd = sample_pd.loc[(slice(None), slice(0,1)), :]
     sample_dijet_pd = sample_dijet_pd.drop(['pu_weight', 'jet_fire'], axis = 1)
