@@ -1,9 +1,9 @@
 import argparse
 from pathlib import Path
-from pkl2predpkl import * 
+from core.pkl2predpkl import * 
 from concurrent.futures import ProcessPoolExecutor
 import functools 
-from utils import check_inputpath, check_outputpath
+from core.utils import check_inputpath, check_outputpath
 
 # default gbdt path 
 gbdt_path = '/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/BDT_EB4/LightGBM/optuna_tuning/small_dataset/lightgbm_gbdt.pkl'

@@ -1,9 +1,9 @@
 import argparse
 from pathlib import Path
-from root2pkl import *
+from core.root2pkl import *
 from concurrent.futures import ProcessPoolExecutor
 import functools 
-from utils import check_inputpath, check_outputpath
+from core.utils import check_inputpath, check_outputpath
 
 pythia_path = '/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/'
 data_path = '/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/'
