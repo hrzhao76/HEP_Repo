@@ -715,7 +715,8 @@ def Calculate_SF(input_mc_path, input_data_path, period, reweighting_factor, out
 
             WriteSFtoPickle(var = var,Hist_SFs = SFs, output_path=output_path, period=period, reweighting_var = reweighting_var,
                         reweighting_factor= reweighting_map[reweighting_factor])
-
+        if reweighting_factor == "none":
+            break 
 
 if __name__ == '__main__':
     """This script do the matrix method and calculate SFs and save them to pickle files. 
