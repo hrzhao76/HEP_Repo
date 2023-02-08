@@ -8,15 +8,7 @@ import uproot
 import awkward as ak
 from pathlib import Path
 import re
-from utils import check_inputpath, check_outputpath
-
-log_levels = {
-    0: logging.CRITICAL,
-    1: logging.ERROR,
-    2: logging.WARN,
-    3: logging.INFO,
-    4: logging.DEBUG,
-}
+from .utils import check_inputpath, check_outputpath, logging_setup
 
 luminosity_periods = {
     "A" : 36000,
@@ -47,9 +39,9 @@ def read_SumofWeights_Period(sample_folder_path, period):
         raise Exception(f"No hist files found in {sample_folder_path}. ")
 
     period_JZ_sum = np.zeros(len(period_JZslice), dtype= float)
-    logging.info("read_SumofWeights_Period: Start reading sum of weights")
+    logging.debug("read_SumofWeights_Period: Start reading sum of weights")
     for i, dir in enumerate(period_JZslice):
-        logging.info(f"\t {dir} \n")
+        logging.debug(f"\t {dir} \n")
         sum_JZ_slice = 0 
         for file in sorted(dir.glob("*.hist-output.root")):
             sum_JZ_slice += uproot.open(file)['histoEventCount'].values()[0]
@@ -81,7 +73,7 @@ def apply_cut(sample):
 
     return sample 
 
-def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = False):
+def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = False, if_save = False):
     """Give me a root file, flatten it into pandas format.
 
     Args:
@@ -103,27 +95,31 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
         output_path = root_file_path.parent
     else:
         output_path = check_outputpath(output_path)
-
-    if write_log:
-        logging.basicConfig(filename=output_path / 'root2pkl.log', filemode='w', level=log_levels[verbosity], 
-                            format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-    else:
-        logging.basicConfig(level=log_levels[verbosity], 
-                            format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    logging_setup(verbosity, write_log, output_path)
+    # if write_log:
+    #     logging.basicConfig(filename=output_path / 'root2pkl.log', filemode='w', level=log_levels[verbosity], 
+    #                         format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    # else:
+    #     logging.basicConfig(level=log_levels[verbosity], 
+    #                         format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
     try:
-        logging.info(f"Opening file {root_file_path}")
+        logging.info(f"Processing file: {root_file_path.stem}")
         sample = uproot.open(root_file_path)
     except Exception as Argument:
         raise Exception(f"Open root file failed! {root_file_path}")
     
     ttree_name = 'nominal'
     branch_names = ["run", "event", "pu_weight", "jet_fire", "jet_pt", "jet_eta", "jet_nTracks", "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
-    
-    sample_ak = sample[ttree_name].arrays(branch_names, library='ak')
+    try:
+        sample_ak = sample[ttree_name].arrays(branch_names, library='ak')
+    except uproot.exceptions.KeyInFileError:
+        logging.warning(f"{root_file_path} no TTree {ttree_name}!")
+        return 
+
     if len(sample_ak) == 0:
         logging.warning(f"{root_file_path} is empty")
-        return 
+        return  # Notice this will put a none as return 
 
     is_Data = np.all(sample_ak['jet_PartonTruthLabelID']==-9999)
 
@@ -185,8 +181,8 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
         sample_pd_label.iloc[gluon_idx, target_idx] = 1
         sample_pd_label.iloc[quark_idx, target_idx] = 0
 
-
-    joblib.dump(sample_pd_label, output_path / (root_file_path.stem + ".pkl"))
+    if if_save:
+        joblib.dump(sample_pd_label, output_path / (root_file_path.stem + ".pkl"))
     return sample_pd_label
 
 
