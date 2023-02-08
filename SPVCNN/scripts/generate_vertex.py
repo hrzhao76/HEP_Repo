@@ -63,6 +63,11 @@ def root_to_pickle(root_data_path, raw_data_dir):
             truth_flat_event['x0'] = truth_flat_event['d0'] * np.cos(truth_flat_event['phi'] )
             truth_flat_event['y0'] = truth_flat_event['d0'] * np.sin(truth_flat_event['phi'] )
 
+            # Add truth vtx weights 
+            truth_vtx_sumpt2 = np.bincount(truth_flat_event['truth_vtxID'], weights=((1.0/truth_flat_event['qp'])**2))
+            truth_vtx_sumpt2 = truth_vtx_sumpt2 / truth_vtx_sumpt2.sum() # normalization 
+            truth_flat_event['truth_vtx_weight'] = truth_vtx_sumpt2[truth_flat_event['truth_vtxID']] # attach to the DataFrame
+
             match_idx = get_match_idx(truth_flat_event, reco_flat_event)
             truth_flat_event['reco_AMVF_vtxID'] = match_idx
             truth_flat_event['reco_semantic_label'] = [0] * len(truth_flat_event)
