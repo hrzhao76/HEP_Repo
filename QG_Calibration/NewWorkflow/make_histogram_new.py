@@ -37,7 +37,7 @@ def root2hist(input_path, output_path = None, is_MC = True, verbosity = 2, write
 
     return_dicts = {}
     for minitrees_period in minitrees_periods:
-
+        logging.info(f"Processing {minitrees_period} minitrees...")
         minitreess = input_path / minitrees_period 
         root_files = sorted(minitreess.rglob(glob_pattern))
 
@@ -64,6 +64,7 @@ def root2hist(input_path, output_path = None, is_MC = True, verbosity = 2, write
     return return_dicts
 
 def final_reweighting(pkl:Path, reweight_factor, output_path = None):
+    logging.info(f"Doing final reweighting on {pkl.stem}...")
     sample_pd = joblib.load(pkl)
     sample_pd = attach_reweight_factor(sample_pd, reweight_factor)
     if output_path is None:
@@ -72,12 +73,13 @@ def final_reweighting(pkl:Path, reweight_factor, output_path = None):
     joblib.dump(sample_pd, pkl) # overwrite the original file 
 
     reweighted_hists_dict = {}
-    is_MC = True if pkl.stem.__contains__('data') else "MC"
+    is_MC = False if pkl.stem.startswith('data') else True
+
     for weight in all_weight_options:
-        reweighted_hists_dict[weight] = digitize_pd(sample_pd, weight, is_MC=is_MC)
+        reweighted_hists_dict[weight] = predpkl2hist(sample_pd, weight, is_MC=is_MC)
 
     joblib.dump(reweighted_hists_dict, output_path / f"{pkl.stem}_hists.pkl" )
-
+    logging.debug(f"is_MC? {is_MC}, {pkl.stem}")
     if is_MC:
         return_key = 'MC'
     else:
@@ -88,8 +90,10 @@ def final_reweighting(pkl:Path, reweight_factor, output_path = None):
 def _merge_period(hist_list):
     merged_hist = hist_list[0]
     for to_be_merged_hist in hist_list[1:]:
-        for k, v in to_be_merged_hist:
-            merged_hist[k] += v
+        for key_reweight, value_reweight in merged_hist.items():
+            for key_hist, value_hist in to_be_merged_hist[key_reweight].items():
+                merged_hist[key_reweight][key_hist] += value_hist
+
     return merged_hist
 
 def merge_period(reweighted_hists_dicts:list):
@@ -99,18 +103,18 @@ def merge_period(reweighted_hists_dicts:list):
     Data_hist_list = []
     for reweighted_hists_dict in reweighted_hists_dicts:
         if [*reweighted_hists_dict][0] == 'MC':
-            MC_hist_list.append(reweighted_hists_dict)
+            MC_hist_list.append(reweighted_hists_dict['MC'])
         elif [*reweighted_hists_dict][0] == 'Data':
-            Data_hist_list.append(reweighted_hists_dict)
-    
+            Data_hist_list.append(reweighted_hists_dict['Data'])
+
     return _merge_period(MC_hist_list), _merge_period(Data_hist_list)
 
 def make_histogram_parallel(input_mc_path, input_data_path, output_path):
     logging_setup(verbosity=3, if_write_log=False, output_path=output_path)
     logging.info("Doing root2hist for MC...")
     MC_hists = root2hist(input_path=input_mc_path, output_path=output_path, is_MC=True)
-    # breakpoint()
-    # joblib.dump(MC_hists, output_path / 'MC_hists.pkl')
+
+    joblib.dump(MC_hists, output_path / 'MC_hists.pkl')
     # MC_hists = joblib.load(output_path / 'MC_hists.pkl')
     logging.info("Calculate reweighting factor from MC...")
     reweight_factor = get_reweight_factor_hist(MC_hists, if_need_merge=True)
@@ -124,13 +128,17 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path):
     logging.info("Attach new weighting to pd.DataFrame and reweighting...")
     final_reweighting_mod = functools.partial(final_reweighting, reweight_factor = reweight_factor, output_path=output_path)
     with ProcessPoolExecutor(max_workers=6) as executor:
-        reweighted_hists_dicts = list(executor.map(final_reweighting_mod, predpkl_files))
+        reweighted_hists_dicts = list(executor.map(final_reweighting_mod, predpkl_files)) # a list of 6 dicts
     
-    breakpoint()
+
+    joblib.dump(reweighted_hists_dicts, output_path / 'reweighted_hists_dicts.pkl')
+    # reweighted_hists_dicts = joblib.load(output_path / 'reweighted_hists_dicts.pkl')
     logging.info("Merging the histograms for MC and Data...")
     MC_merged_hist, Data_merged_hist = merge_period(reweighted_hists_dicts)
     joblib.dump(MC_merged_hist, output_path / 'MC_merged_hist.pkl')
     joblib.dump(Data_merged_hist, output_path / 'Data_merged_hist.pkl')
+
+    # TODO plotting codes here. 
 
 
 if __name__ == "__main__":

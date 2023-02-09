@@ -104,7 +104,7 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
     #                         format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
     try:
-        logging.info(f"Processing file: {root_file_path.stem}")
+        logging.debug(f"Processing file: {root_file_path.stem}")
         sample = uproot.open(root_file_path)
     except Exception as Argument:
         raise Exception(f"Open root file failed! {root_file_path}")

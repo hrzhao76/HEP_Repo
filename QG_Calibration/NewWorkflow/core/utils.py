@@ -76,10 +76,10 @@ def logging_setup(verbosity, if_write_log, output_path):
     }
     if if_write_log:
         logging.basicConfig(filename=output_path / 'root2pkl.log', filemode='w', level=log_levels[verbosity], 
-                            format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+                            format='%(asctime)s  %(levelname)s  %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
     else:
         logging.basicConfig(level=log_levels[verbosity], 
-                            format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+                            format='%(asctime)s  %(levelname)s  %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 ###########################################################
