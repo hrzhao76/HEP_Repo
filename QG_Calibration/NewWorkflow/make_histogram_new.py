@@ -18,12 +18,12 @@ gbdt_path = Path(gbdt_path)
 n_workers = 8 
 
 
-def root2hist(input_path, output_path = None, is_MC = True, verbosity = 2, write_log = False):
+def root2hist(input_path, output_path = None, is_MC = True, MC_identifier = 'pythia', verbosity = 2, write_log = False):
     input_path = check_inputpath(input_path)
 
     if is_MC:
         period_list = ["A", "D", "E"]
-        minitrees_periods = [f"pythia{period}" for period in period_list]
+        minitrees_periods = [f"{MC_identifier}{period}" for period in period_list]
         glob_pattern = "*JZ?WithSW_minitrees.root/*.root"
     else:
         period_list = ["1516", "17", "18"]
@@ -36,7 +36,7 @@ def root2hist(input_path, output_path = None, is_MC = True, verbosity = 2, write
         output_path = check_outputpath(output_path)
 
     return_dicts = {}
-    for minitrees_period in minitrees_periods:
+    for minitrees_period in minitrees_periods[2:3]:
         logging.info(f"Processing {minitrees_period} minitrees...")
         minitreess = input_path / minitrees_period 
         root_files = sorted(minitreess.rglob(glob_pattern))
@@ -50,33 +50,69 @@ def root2hist(input_path, output_path = None, is_MC = True, verbosity = 2, write
         pkl2predpkl_mod = functools.partial(pkl2predpkl, output_path = None, gbdt_path=gbdt_path, if_save=False)
         with ProcessPoolExecutor(max_workers=n_workers) as executor:
             predpkls = list(executor.map(pkl2predpkl_mod, pkls))  
-
+        del pkls # release some memory 
+         
         predpkl2hist_mod = functools.partial(predpkl2hist, reweight='event_weight',is_MC = is_MC, output_path = None, if_save = False)
         with ProcessPoolExecutor(max_workers=n_workers) as executor:
             hists = list(executor.map(predpkl2hist_mod, predpkls)) 
+        
+        if minitrees_period == f'{MC_identifier}E': # periodE is too big, thus divided by 2 to fit into a Cori Haswell Node. 
+            merged_pkls_period = pd.concat(predpkls[:len(predpkls)//2])
+            merged_pkls_period_path = output_path / (f"{minitrees_period}_part1_pred.pkl")
+            joblib.dump(merged_pkls_period, merged_pkls_period_path)
 
-        merged_pkls_period = pd.concat(predpkls)
-        merged_pkls_period_path = output_path / (f"{minitrees_period}_pred.pkl") # forexample, pythiaA_pred.pkl
-        joblib.dump(merged_pkls_period, merged_pkls_period_path)
+            del merged_pkls_period, merged_pkls_period_path
+            merged_pkls_period = pd.concat(predpkls[len(predpkls)//2:])
+            merged_pkls_period_path = output_path / (f"{minitrees_period}_part2_pred.pkl")
+            joblib.dump(merged_pkls_period, merged_pkls_period_path)
+
+        else:
+            merged_pkls_period = pd.concat(predpkls)
+            merged_pkls_period_path = output_path / (f"{minitrees_period}_pred.pkl") # forexample, pythiaA_pred.pkl
+            joblib.dump(merged_pkls_period, merged_pkls_period_path)
+        del predpkls # release some memory 
 
         return_dicts[minitrees_period]=hists
 
     return return_dicts
 
+def merge_hists(hists_list:list):
+    merged_hists = hists_list[0]
+    for hist_to_be_merged in hists_list[1:]:
+        for k, v in merged_hists.items():
+            v += hist_to_be_merged[k]
+    return merged_hists
+
+
 def final_reweighting(pkl:Path, reweight_factor, output_path = None):
     logging.info(f"Doing final reweighting on {pkl.stem}...")
     sample_pd = joblib.load(pkl)
-    sample_pd = attach_reweight_factor(sample_pd, reweight_factor)
+    is_MC = False if pkl.stem.startswith('data') else True
+
     if output_path is None:
         output_path = pkl.parent
 
-    joblib.dump(sample_pd, pkl) # overwrite the original file 
+    sub_samples_pd = np.array_split(sample_pd, n_workers) # split the sample to subsamples for multi-processing 
+    del sample_pd
+
+    attach_reweight_factor_mod = functools.partial(attach_reweight_factor, reweight_factor = reweight_factor)
+    logging.debug(f"Doing attach_reweight_factor multiprocessing... {pkl.stem}")
+
+    with ProcessPoolExecutor(max_workers=n_workers) as executor:
+        sub_samples_pd = list(executor.map(attach_reweight_factor_mod, sub_samples_pd)) # len: n_workers 
+
+    joblib.dump(pd.concat(sub_samples_pd), pkl) # overwrite the original file 
 
     reweighted_hists_dict = {}
-    is_MC = False if pkl.stem.startswith('data') else True
-
+    logging.debug(f"Doing predpkl2hist multiprocessing... {pkl.stem}")
     for weight in all_weight_options:
-        reweighted_hists_dict[weight] = predpkl2hist(sample_pd, weight, is_MC=is_MC)
+        logging.debug(f"\tDoing {weight}... {pkl.stem}")
+        predpkl2hist_mod = functools.partial(predpkl2hist, reweight = weight, is_MC = is_MC)
+        with ProcessPoolExecutor(max_workers=n_workers) as executor:
+            hists_list = list(executor.map(predpkl2hist_mod, sub_samples_pd))
+
+        reweighted_hists_dict[weight] = merge_hists(hists_list)
+    logging.debug(f"Done final_reweighting for {pkl.stem}")
 
     joblib.dump(reweighted_hists_dict, output_path / f"{pkl.stem}_hists.pkl" )
     logging.debug(f"is_MC? {is_MC}, {pkl.stem}")
@@ -84,10 +120,13 @@ def final_reweighting(pkl:Path, reweight_factor, output_path = None):
         return_key = 'MC'
     else:
         return_key = 'Data'
-
+    assert not (reweighted_hists_dict is None)
     return {return_key: reweighted_hists_dict}
 
 def _merge_period(hist_list):
+    if len(hist_list) == 0:
+        logging.error(f"Null hist_list")
+        raise Exception(f"Null hist_list passed")
     merged_hist = hist_list[0]
     for to_be_merged_hist in hist_list[1:]:
         for key_reweight, value_reweight in merged_hist.items():
@@ -109,30 +148,35 @@ def merge_period(reweighted_hists_dicts:list):
 
     return _merge_period(MC_hist_list), _merge_period(Data_hist_list)
 
-def make_histogram_parallel(input_mc_path, input_data_path, output_path):
-    logging_setup(verbosity=3, if_write_log=False, output_path=output_path)
+def make_histogram_parallel(input_mc_path, input_data_path, output_path, if_write_log):
+    logging_setup(verbosity=3, if_write_log=if_write_log, output_path=output_path)
     logging.info("Doing root2hist for MC...")
     MC_hists = root2hist(input_path=input_mc_path, output_path=output_path, is_MC=True)
 
     joblib.dump(MC_hists, output_path / 'MC_hists.pkl')
-    # MC_hists = joblib.load(output_path / 'MC_hists.pkl')
+    ## MC_hists = joblib.load(output_path / 'MC_hists.pkl')
     logging.info("Calculate reweighting factor from MC...")
     reweight_factor = get_reweight_factor_hist(MC_hists, if_need_merge=True)
     joblib.dump(reweight_factor, output_path / 'reweight_factor.pkl')
     # reweight_factor = joblib.load(output_path / 'reweight_factor.pkl')
 
-    Data_hists =  root2hist(input_path=input_data_path, output_path=output_path, is_MC=False)
+    logging.info("Doing root2hist for Data...")
+    _ =  root2hist(input_path=input_data_path, output_path=output_path, is_MC=False)
     predpkl_pattern = "*_pred.pkl"
     predpkl_files = sorted(output_path.rglob(predpkl_pattern))
 
     logging.info("Attach new weighting to pd.DataFrame and reweighting...")
-    final_reweighting_mod = functools.partial(final_reweighting, reweight_factor = reweight_factor, output_path=output_path)
-    with ProcessPoolExecutor(max_workers=6) as executor:
-        reweighted_hists_dicts = list(executor.map(final_reweighting_mod, predpkl_files)) # a list of 6 dicts
-    
+    # The following three blocks failed with 50GB memory, we can do sequencially here but within final reweighting multiprocessing 
+    # final_reweighting_mod = functools.partial(final_reweighting, reweight_factor = reweight_factor, output_path=output_path)
+    # with ProcessPoolExecutor(max_workers=6) as executor:
+    #     reweighted_hists_dicts = list(executor.map(final_reweighting_mod, predpkl_files)) # a list of 6 dicts
+    reweighted_hists_dicts = []
+    for predpkl_file in predpkl_files:
+        reweighted_hists_dicts.append(final_reweighting(predpkl_file, reweight_factor))
 
     joblib.dump(reweighted_hists_dicts, output_path / 'reweighted_hists_dicts.pkl')
     # reweighted_hists_dicts = joblib.load(output_path / 'reweighted_hists_dicts.pkl')
+
     logging.info("Merging the histograms for MC and Data...")
     MC_merged_hist, Data_merged_hist = merge_period(reweighted_hists_dicts)
     joblib.dump(MC_merged_hist, output_path / 'MC_merged_hist.pkl')
@@ -147,6 +191,7 @@ if __name__ == "__main__":
     parser.add_argument('--input-data-path', help='the output folder path', type=str, default=data_path)
     parser.add_argument('--output-path', help='the output folder path', type=str)
     parser.add_argument('--gbdt-path', help='the lightGBM model path', type=str, default=gbdt_path)
+    parser.add_argument('--write-log', help='whether to write the log to output path', action="store_true")
 
     args = parser.parse_args()
 
@@ -155,8 +200,4 @@ if __name__ == "__main__":
     input_data_path = Path(args.input_data_path)
 
     make_histogram_parallel(input_mc_path=input_mc_path, input_data_path=input_data_path,
-                            output_path=output_path)
-    # all_in_one()
-    # make_histogram_parallel(input_path = input_mc_path, output_path = output_path, is_MC = True)
-    # make_histogram_parallel(input_path = input_data_path, output_path = output_path, is_MC = False)
-    # split_Data(output_path, is_MC = False)
+                            output_path=output_path, if_write_log = args.write_log)

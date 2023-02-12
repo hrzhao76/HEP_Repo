@@ -65,7 +65,7 @@ HistBins = {
 }
 
 
-def logging_setup(verbosity, if_write_log, output_path):
+def logging_setup(verbosity, if_write_log, output_path, filename="make_histogram"):
     import logging
     log_levels = {
         0: logging.CRITICAL,
@@ -75,7 +75,7 @@ def logging_setup(verbosity, if_write_log, output_path):
         4: logging.DEBUG,
     }
     if if_write_log:
-        logging.basicConfig(filename=output_path / 'root2pkl.log', filemode='w', level=log_levels[verbosity], 
+        logging.basicConfig(filename=output_path / f'log.{filename}.txt', filemode='w', level=log_levels[verbosity], 
                             format='%(asctime)s  %(levelname)s  %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
     else:
         logging.basicConfig(level=log_levels[verbosity], 
@@ -168,31 +168,42 @@ def attach_reweight_factor(pd_input, reweight_factor):
         pd_input[f'{reweighting_var}_quark_reweighting_weights'] = pd_input['event_weight'].copy()
         pd_input[f'{reweighting_var}_gluon_reweighting_weights'] = pd_input['event_weight'].copy()
 
-    reweighted_sample = []
+
     #### reweight_factor[pt][var]['quark_factor']
     for pt_idx, pt in enumerate(label_pt_bin[:-1]):
-        pd_input_at_pt = pd_input[pd_input['pt_idx'] == pt_idx]
-        pd_input_at_pt_forward = pd_input_at_pt[pd_input_at_pt['is_forward']==1]
-        pd_input_at_pt_central = pd_input_at_pt[pd_input_at_pt['is_forward']==0]
+        # forward_idx = (pd_input['pt_idx'] == pt_idx) & (pd_input['is_forward'] == 1) # No need to change forward 
+        central_mask = (pd_input['pt_idx'] == pt_idx) & (pd_input['is_forward'] == 0)
+        # pd_input_at_pt_forward = pd_input.loc[(pd_input['pt_idx'] == pt_idx) & (pd_input['is_forward'] == 1)]
+        # pd_input_at_pt_central = pd_input.loc[(pd_input['pt_idx'] == pt_idx) & (pd_input['is_forward'] == 0)]
+        if central_mask.sum() == 0: ## This is crutial doing subset. mod = [] and then df.iloc will run into error 
+            # by central_mask, its type is True/False Series 
+            continue
 
         for reweighting_var in reweighting_vars:
             bin_var = HistBins[reweighting_var]
-            quark_factor_idx = pd_input_at_pt.columns.get_loc(f'{reweighting_var}_quark_reweighting_weights')
-            gluon_factor_idx = pd_input_at_pt.columns.get_loc(f'{reweighting_var}_gluon_reweighting_weights')
+
+            quark_factor_col = f'{reweighting_var}_quark_reweighting_weights'
+            gluon_factor_col = f'{reweighting_var}_gluon_reweighting_weights'
 
             quark_factor = reweight_factor[pt][reweighting_var]['quark_factor']
             gluon_factor = reweight_factor[pt][reweighting_var]['gluon_factor']
-
-            var_idx = np.digitize(x=pd_input_at_pt_central[reweighting_var] , bins=bin_var) - 1  # Binned feature distribution 
-            for i, score in enumerate(bin_var[:-1]): # Loop over the bins 
-                mod_idx = np.where(var_idx == i)[0]
-                pd_input_at_pt_central.iloc[mod_idx, quark_factor_idx] *= quark_factor[i]
-                pd_input_at_pt_central.iloc[mod_idx, gluon_factor_idx] *= gluon_factor[i]
             
-        reweighted_sample.append(pd_input_at_pt_forward)
-        reweighted_sample.append(pd_input_at_pt_central)                
+            var_idx = np.digitize(x=pd_input.loc[central_mask, reweighting_var], bins=bin_var) - 1  # Binned feature distribution 
+            if np.max(var_idx) == bin_var[-1]: # out of boundary, e.g. ntrk = 70  
+                quark_factor = np.append(quark_factor, 1)
+                gluon_factor = np.append(gluon_factor, 1)
+
+            pd_input.loc[central_mask, quark_factor_col] *= quark_factor[var_idx]
+            pd_input.loc[central_mask, gluon_factor_col] *= gluon_factor[var_idx]
+            # for i, score in enumerate(bin_var[:-1]): # Loop over the bins 
+            #     mod_idx = np.where(var_idx == i)[0]
+            #     pd_input_at_pt_central.iloc[mod_idx, quark_factor_idx] *= quark_factor[i]
+            #     pd_input_at_pt_central.iloc[mod_idx, gluon_factor_idx] *= gluon_factor[i]
+            
+        # reweighted_sample.append(pd_input_at_pt_forward)
+        # reweighted_sample.append(pd_input_at_pt_central)                
     
-    return pd.concat(reweighted_sample)
+    return pd_input
 
 def safe_array_divide(numerator, denominator):
     with np.errstate(divide='ignore', invalid='ignore'):

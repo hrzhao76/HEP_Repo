@@ -1,0 +1,98 @@
+02/08/2023 04:14:47 PM   Doing root2hist for MC...
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000001.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000003.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000002.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000004.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000006.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000005.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000007.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564718._000008.minitrees
+02/08/2023 04:14:49 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000001.minitrees.root is empty
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564712._000001.minitrees
+02/08/2023 04:14:49 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000001.minitrees.root is empty
+02/08/2023 04:14:49 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000004.minitrees.root is empty
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564712._000003.minitrees
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564712._000002.minitrees
+02/08/2023 04:14:49 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000003.minitrees.root is empty
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564712._000004.minitrees
+02/08/2023 04:14:49 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000002.minitrees.root is empty
+02/08/2023 04:14:49 PM   Processing file: user.wasu.31564712._000005.minitrees
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000008.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000007.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000006.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000005.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000004.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000005.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000002.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364701.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ1WithSW_minitrees.root/user.wasu.31564718._000003.minitrees.root is empty after cut
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564710._000004.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564710._000002.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564712._000007.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564712._000006.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564710._000003.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564710._000001.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564712._000008.minitrees
+02/08/2023 04:14:55 PM   Processing file: user.wasu.31564719._000001.minitrees
+02/08/2023 04:14:56 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_minitrees.root/user.wasu.31564710._000001.minitrees.root is empty
+02/08/2023 04:14:56 PM   Processing file: user.wasu.31564719._000002.minitrees
+02/08/2023 04:14:56 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000008.minitrees.root is empty
+02/08/2023 04:14:56 PM   Processing file: user.wasu.31564719._000003.minitrees
+02/08/2023 04:15:00 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000006.minitrees.root is empty after cut
+02/08/2023 04:15:00 PM   Processing file: user.wasu.31564719._000004.minitrees
+02/08/2023 04:15:00 PM   Processing file: user.wasu.31564719._000005.minitrees
+02/08/2023 04:15:00 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_minitrees.root/user.wasu.31564710._000004.minitrees.root is empty after cut
+02/08/2023 04:15:00 PM   Processing file: user.wasu.31564719._000006.minitrees
+02/08/2023 04:15:00 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364703.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ3WithSW_minitrees.root/user.wasu.31564710._000002.minitrees.root is empty after cut
+02/08/2023 04:15:00 PM   Processing file: user.wasu.31564719._000007.minitrees
+02/08/2023 04:15:00 PM   /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/pythia/pythiaA/user.wasu.Dec11a.mc16_13TeV.364702.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ2WithSW_minitrees.root/user.wasu.31564712._000007.minitrees.root is empty after cut
+02/08/2023 04:15:00 PM   Processing file: user.wasu.31564719._000008.minitrees
+02/08/2023 04:15:01 PM   Processing file: user.wasu.31564719._000009.minitrees
+02/08/2023 04:15:05 PM   Processing file: user.wasu.31564719._000010.minitrees
+02/08/2023 04:15:06 PM   Processing file: user.wasu.31564719._000011.minitrees
+02/08/2023 04:15:06 PM   Processing file: user.wasu.31564719._000012.minitrees
+02/08/2023 04:15:06 PM   Processing file: user.wasu.31564719._000013.minitrees
+02/08/2023 04:15:06 PM   Processing file: user.wasu.31564719._000014.minitrees
+02/08/2023 04:15:06 PM   Processing file: user.wasu.31564719._000015.minitrees
+02/08/2023 04:15:07 PM   Processing file: user.wasu.31564719._000016.minitrees
+02/08/2023 04:15:09 PM   Processing file: user.wasu.31564719._000017.minitrees
+02/08/2023 04:15:10 PM   Processing file: user.wasu.31564719._000018.minitrees
+02/08/2023 04:15:10 PM   Processing file: user.wasu.31564719._000019.minitrees
+02/08/2023 04:15:10 PM   Processing file: user.wasu.31564719._000020.minitrees
+02/08/2023 04:15:16 PM   Processing file: user.wasu.31564719._000021.minitrees
+02/08/2023 04:15:22 PM   Processing file: user.wasu.31564719._000022.minitrees
+02/08/2023 04:15:23 PM   Processing file: user.wasu.31564719._000023.minitrees
+02/08/2023 04:15:24 PM   Processing file: user.wasu.31564719._000024.minitrees
+02/08/2023 04:15:25 PM   Processing file: user.wasu.31564719._000025.minitrees
+02/08/2023 04:15:27 PM   Processing file: user.wasu.31564719._000026.minitrees
+02/08/2023 04:15:27 PM   Processing file: user.wasu.31564719._000027.minitrees
+02/08/2023 04:15:28 PM   Processing file: user.wasu.31564719._000028.minitrees
+02/08/2023 04:15:32 PM   Processing file: user.wasu.31564719._000029.minitrees
+02/08/2023 04:15:36 PM   Processing file: user.wasu.31564719._000030.minitrees
+02/08/2023 04:15:40 PM   Processing file: user.wasu.31564719._000031.minitrees
+02/08/2023 04:15:41 PM   Processing file: user.wasu.31564719._000032.minitrees
+02/08/2023 04:15:42 PM   Processing file: user.wasu.31564719._000033.minitrees
+02/08/2023 04:15:42 PM   Processing file: user.wasu.31564719._000034.minitrees
+02/08/2023 04:15:43 PM   Processing file: user.wasu.31564719._000035.minitrees
+02/08/2023 04:15:44 PM   Processing file: user.wasu.31564719._000036.minitrees
+02/08/2023 04:15:46 PM   Processing file: user.wasu.31564719._000037.minitrees
+02/08/2023 04:15:49 PM   Processing file: user.wasu.31564719._000038.minitrees
+02/08/2023 04:15:51 PM   Processing file: user.wasu.31564719._000039.minitrees
+02/08/2023 04:15:51 PM   Processing file: user.wasu.31564719._000040.minitrees
+02/08/2023 04:15:59 PM   Processing file: user.wasu.31564719._000041.minitrees
+02/08/2023 04:16:00 PM   Processing file: user.wasu.31564719._000042.minitrees
+02/08/2023 04:16:02 PM   Processing file: user.wasu.31564719._000043.minitrees
+02/08/2023 04:16:06 PM   Processing file: user.wasu.31564719._000044.minitrees
+02/08/2023 04:16:06 PM   Processing file: user.wasu.31564719._000045.minitrees
+02/08/2023 04:16:09 PM   Processing file: user.wasu.31564719._000046.minitrees
+02/08/2023 04:16:11 PM   Processing file: user.wasu.31564719._000047.minitrees
+02/08/2023 04:16:11 PM   Processing file: user.wasu.31564719._000048.minitrees
+02/08/2023 04:16:13 PM   Processing file: user.wasu.31564719._000049.minitrees
+02/08/2023 04:16:17 PM   Processing file: user.wasu.31564719._000050.minitrees
+02/08/2023 04:16:17 PM   Processing file: user.wasu.31564719._000051.minitrees
+02/08/2023 04:16:24 PM   Processing file: user.wasu.31564719._000052.minitrees
+02/08/2023 04:16:30 PM   Processing file: user.wasu.31564719._000053.minitrees
+02/08/2023 04:16:31 PM   Processing file: user.wasu.31564719._000054.minitrees
+slurmstepd: error: Detected 4 oom-kill event(s) in StepId=66698971.0. Some of your processes may have been killed by the cgroup out-of-memory handler.
+srun: error: nid00556: task 0: Out Of Memory
+srun: launch/slurm: _step_signal: Terminating StepId=66698971.0
+slurmstepd: error: Detected 4 oom-kill event(s) in StepId=66698971.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.
