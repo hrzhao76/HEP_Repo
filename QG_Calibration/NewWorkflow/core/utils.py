@@ -21,9 +21,6 @@ label_jettype = ["Gluon", "Quark", "B_Quark", "C_Quark"]
 label_jettype_data = ["Data"]
 
 reweighting_vars = ['jet_nTracks', 'jet_trackBDT', 'GBDT_newScore'] 
-all_weight_options = ['event_weight'] + \
-                     [f'{reweight_var}_{parton}_reweighting_weights' 
-                     for reweight_var in reweighting_vars for parton in ['quark', 'gluon']]
 
 
 label_var_map = {
@@ -316,3 +313,120 @@ def get_reweight_factor_pd(reweighting_input):
 ######################Analysis steps#######################
 ###########################################################
 
+
+
+###########################################################
+######################Uncertainties########################
+###########################################################
+
+trk_eff_uncertainties = ['jet_nTracks_sys_eff', 'jet_nTracks_sys_fake']
+
+JER_uncertainties = [ 
+ 'syst_JET_BJES_Response__1up;1',
+ 'syst_JET_BJES_Response__1down;1',
+ 'syst_JET_EffectiveNP_Detector1__1up;1',
+ 'syst_JET_EffectiveNP_Detector1__1down;1',
+ 'syst_JET_EffectiveNP_Detector2__1up;1',
+ 'syst_JET_EffectiveNP_Detector2__1down;1',
+ 'syst_JET_EffectiveNP_Mixed1__1up;1',
+ 'syst_JET_EffectiveNP_Mixed1__1down;1',
+ 'syst_JET_EffectiveNP_Mixed2__1up;1',
+ 'syst_JET_EffectiveNP_Mixed2__1down;1',
+ 'syst_JET_EffectiveNP_Mixed3__1up;1',
+ 'syst_JET_EffectiveNP_Mixed3__1down;1',
+ 'syst_JET_EffectiveNP_Modelling1__1up;1',
+ 'syst_JET_EffectiveNP_Modelling1__1down;1',
+ 'syst_JET_EffectiveNP_Modelling2__1up;1',
+ 'syst_JET_EffectiveNP_Modelling2__1down;1',
+ 'syst_JET_EffectiveNP_Modelling3__1up;1',
+ 'syst_JET_EffectiveNP_Modelling3__1down;1',
+ 'syst_JET_EffectiveNP_Modelling4__1up;1',
+ 'syst_JET_EffectiveNP_Modelling4__1down;1',
+ 'syst_JET_EffectiveNP_R10_1__1up;1',
+ 'syst_JET_EffectiveNP_R10_1__1down;1',
+ 'syst_JET_EffectiveNP_R10_2__1up;1',
+ 'syst_JET_EffectiveNP_R10_2__1down;1',
+ 'syst_JET_EffectiveNP_R10_3__1up;1',
+ 'syst_JET_EffectiveNP_R10_3__1down;1',
+ 'syst_JET_EffectiveNP_R10_4__1up;1',
+ 'syst_JET_EffectiveNP_R10_4__1down;1',
+ 'syst_JET_EffectiveNP_R10_5__1up;1',
+ 'syst_JET_EffectiveNP_R10_5__1down;1',
+ 'syst_JET_EffectiveNP_R10_6restTerm__1up;1',
+ 'syst_JET_EffectiveNP_R10_6restTerm__1down;1',
+ 'syst_JET_EffectiveNP_Statistical1__1up;1',
+ 'syst_JET_EffectiveNP_Statistical1__1down;1',
+ 'syst_JET_EffectiveNP_Statistical2__1up;1',
+ 'syst_JET_EffectiveNP_Statistical2__1down;1',
+ 'syst_JET_EffectiveNP_Statistical3__1up;1',
+ 'syst_JET_EffectiveNP_Statistical3__1down;1',
+ 'syst_JET_EffectiveNP_Statistical4__1up;1',
+ 'syst_JET_EffectiveNP_Statistical4__1down;1',
+ 'syst_JET_EffectiveNP_Statistical5__1up;1',
+ 'syst_JET_EffectiveNP_Statistical5__1down;1',
+ 'syst_JET_EffectiveNP_Statistical6__1up;1',
+ 'syst_JET_EffectiveNP_Statistical6__1down;1',
+ 'syst_JET_EtaIntercalibration_Modelling__1up;1',
+ 'syst_JET_EtaIntercalibration_Modelling__1down;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_2018data__1up;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_2018data__1down;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_highE__1up;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_highE__1down;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_negEta__1up;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_negEta__1down;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_posEta__1up;1',
+ 'syst_JET_EtaIntercalibration_NonClosure_posEta__1down;1',
+ 'syst_JET_EtaIntercalibration_R10_TotalStat__1up;1',
+ 'syst_JET_EtaIntercalibration_R10_TotalStat__1down;1',
+ 'syst_JET_EtaIntercalibration_TotalStat__1up;1',
+ 'syst_JET_EtaIntercalibration_TotalStat__1down;1',
+ 'syst_JET_Flavor_Composition__1up;1',
+ 'syst_JET_Flavor_Composition__1down;1',
+ 'syst_JET_Flavor_Response__1up;1',
+ 'syst_JET_Flavor_Response__1down;1',
+ 'syst_JET_JER_DataVsMC_MC16__1up;1',
+ 'syst_JET_JER_DataVsMC_MC16__1down;1',
+ 'syst_JET_JER_EffectiveNP_1__1up;1',
+ 'syst_JET_JER_EffectiveNP_1__1down;1',
+ 'syst_JET_JER_EffectiveNP_10__1up;1',
+ 'syst_JET_JER_EffectiveNP_10__1down;1',
+ 'syst_JET_JER_EffectiveNP_11__1up;1',
+ 'syst_JET_JER_EffectiveNP_11__1down;1',
+ 'syst_JET_JER_EffectiveNP_12restTerm__1up;1',
+ 'syst_JET_JER_EffectiveNP_12restTerm__1down;1',
+ 'syst_JET_JER_EffectiveNP_2__1up;1',
+ 'syst_JET_JER_EffectiveNP_2__1down;1',
+ 'syst_JET_JER_EffectiveNP_3__1up;1',
+ 'syst_JET_JER_EffectiveNP_3__1down;1',
+ 'syst_JET_JER_EffectiveNP_4__1up;1',
+ 'syst_JET_JER_EffectiveNP_4__1down;1',
+ 'syst_JET_JER_EffectiveNP_5__1up;1',
+ 'syst_JET_JER_EffectiveNP_5__1down;1',
+ 'syst_JET_JER_EffectiveNP_6__1up;1',
+ 'syst_JET_JER_EffectiveNP_6__1down;1',
+ 'syst_JET_JER_EffectiveNP_7__1up;1',
+ 'syst_JET_JER_EffectiveNP_7__1down;1',
+ 'syst_JET_JER_EffectiveNP_8__1up;1',
+ 'syst_JET_JER_EffectiveNP_8__1down;1',
+ 'syst_JET_JER_EffectiveNP_9__1up;1',
+ 'syst_JET_JER_EffectiveNP_9__1down;1',
+ 'syst_JET_JvtEfficiency__1down;1',
+ 'syst_JET_JvtEfficiency__1up;1',
+ 'syst_JET_LargeR_TopologyUncertainty_V__1up;1',
+ 'syst_JET_LargeR_TopologyUncertainty_V__1down;1',
+ 'syst_JET_LargeR_TopologyUncertainty_top__1up;1',
+ 'syst_JET_LargeR_TopologyUncertainty_top__1down;1',
+ 'syst_JET_Pileup_OffsetMu__1up;1',
+ 'syst_JET_Pileup_OffsetMu__1down;1',
+ 'syst_JET_Pileup_OffsetNPV__1up;1',
+ 'syst_JET_Pileup_OffsetNPV__1down;1',
+ 'syst_JET_Pileup_PtTerm__1up;1',
+ 'syst_JET_Pileup_PtTerm__1down;1',
+ 'syst_JET_Pileup_RhoTopology__1up;1',
+ 'syst_JET_Pileup_RhoTopology__1down;1',
+ 'syst_JET_PunchThrough_MC16__1up;1',
+ 'syst_JET_PunchThrough_MC16__1down;1',
+ 'syst_JET_SingleParticle_HighPt__1up;1',
+ 'syst_JET_SingleParticle_HighPt__1down;1']
+
+all_systs_subtypes = trk_eff_uncertainties + JER_uncertainties

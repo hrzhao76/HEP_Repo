@@ -12,13 +12,15 @@ pythia_path = Path(pythia_path)
 data_path = Path(data_path)
 
 # default gbdt path 
-gbdt_path = '/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/BDT_EB4/LightGBM/optuna_tuning/small_dataset/lightgbm_gbdt.pkl'
+# gbdt_path = '/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/BDT_EB4/LightGBM/optuna_tuning/small_dataset/lightgbm_gbdt.pkl'
+gbdt_path = '/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/LightGBM/4vars/full_dataset/lightgbm_gbdt.pkl'
 gbdt_path = Path(gbdt_path)
 
 n_workers = 8 
 
 
-def root2hist(input_path, output_path = None, is_MC = True, MC_identifier = 'pythia', verbosity = 2, write_log = False):
+def root2hist(input_path, output_path = None, is_MC = True, MC_identifier = 'pythia', 
+              do_systs=False, systs_type=None, systs_subtype=None, verbosity = 2, write_log = False):
     input_path = check_inputpath(input_path)
 
     if is_MC:
@@ -36,12 +38,14 @@ def root2hist(input_path, output_path = None, is_MC = True, MC_identifier = 'pyt
         output_path = check_outputpath(output_path)
 
     return_dicts = {}
-    for minitrees_period in minitrees_periods[2:3]:
+    for minitrees_period in minitrees_periods:
         logging.info(f"Processing {minitrees_period} minitrees...")
         minitreess = input_path / minitrees_period 
         root_files = sorted(minitreess.rglob(glob_pattern))
 
-        root2pkl_mod = functools.partial(root2pkl, output_path= None, verbosity=verbosity, write_log=write_log, if_save=False)
+        root2pkl_mod = functools.partial(root2pkl, is_MC=is_MC,output_path=output_path, do_systs=do_systs, 
+                                         systs_type=systs_type, systs_subtype=systs_subtype,
+                                         if_save=False)
         with ProcessPoolExecutor(max_workers=n_workers) as executor:
             pkls = list(executor.map(root2pkl_mod, root_files))
         
@@ -84,7 +88,7 @@ def merge_hists(hists_list:list):
     return merged_hists
 
 
-def final_reweighting(pkl:Path, reweight_factor, output_path = None):
+def final_reweighting(pkl:Path, reweight_factor, do_systs=False, output_path = None):
     logging.info(f"Doing final reweighting on {pkl.stem}...")
     sample_pd = joblib.load(pkl)
     is_MC = False if pkl.stem.startswith('data') else True
@@ -104,6 +108,14 @@ def final_reweighting(pkl:Path, reweight_factor, output_path = None):
     joblib.dump(pd.concat(sub_samples_pd), pkl) # overwrite the original file 
 
     reweighted_hists_dict = {}
+    if not do_systs: # Note: This includes MC-Non closure and Gluon reweighting uncertainties 
+        all_weight_options = ['event_weight'] + \
+                     [f'{reweight_var}_{parton}_reweighting_weights' 
+                     for reweight_var in reweighting_vars for parton in ['quark', 'gluon']]
+    else: ## only do the quark reweighting 
+        all_weight_options = ['event_weight']+ [f'{reweight_var}_{parton}_reweighting_weights' 
+                             for reweight_var in reweighting_vars for parton in ['quark']]
+                             
     logging.debug(f"Doing predpkl2hist multiprocessing... {pkl.stem}")
     for weight in all_weight_options:
         logging.debug(f"\tDoing {weight}... {pkl.stem}")
@@ -148,10 +160,19 @@ def merge_period(reweighted_hists_dicts:list):
 
     return _merge_period(MC_hist_list), _merge_period(Data_hist_list)
 
-def make_histogram_parallel(input_mc_path, input_data_path, output_path, if_write_log):
+def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_systs=False, systs_type=None, systs_subtype=None,
+                            if_write_log=False):
     logging_setup(verbosity=3, if_write_log=if_write_log, output_path=output_path)
+
+    if do_systs and systs_type is None:
+        raise Exception(f"You ask to do systematics but its type is not given! systs_type={systs_type}")
+    elif (not (systs_type is None)) and systs_subtype is None:
+        raise Exception(f"You ask to do systematics {systs_type} but its subtype is not given! systs_subtype={systs_subtype}")
+
+    logging.info(f"do_systs = {do_systs}, systs_type = {systs_type}, systs_subtype = {systs_subtype}")
     logging.info("Doing root2hist for MC...")
-    MC_hists = root2hist(input_path=input_mc_path, output_path=output_path, is_MC=True)
+    MC_hists = root2hist(input_path=input_mc_path, output_path=output_path, is_MC=True, 
+                         do_systs=do_systs, systs_type=systs_type, systs_subtype=systs_subtype)
 
     joblib.dump(MC_hists, output_path / 'MC_hists.pkl')
     ## MC_hists = joblib.load(output_path / 'MC_hists.pkl')
@@ -172,7 +193,7 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, if_writ
     #     reweighted_hists_dicts = list(executor.map(final_reweighting_mod, predpkl_files)) # a list of 6 dicts
     reweighted_hists_dicts = []
     for predpkl_file in predpkl_files:
-        reweighted_hists_dicts.append(final_reweighting(predpkl_file, reweight_factor))
+        reweighted_hists_dicts.append(final_reweighting(predpkl_file, reweight_factor, do_systs=do_systs))
 
     joblib.dump(reweighted_hists_dicts, output_path / 'reweighted_hists_dicts.pkl')
     # reweighted_hists_dicts = joblib.load(output_path / 'reweighted_hists_dicts.pkl')
@@ -192,6 +213,10 @@ if __name__ == "__main__":
     parser.add_argument('--output-path', help='the output folder path', type=str)
     parser.add_argument('--gbdt-path', help='the lightGBM model path', type=str, default=gbdt_path)
     parser.add_argument('--write-log', help='whether to write the log to output path', action="store_true")
+    parser.add_argument('--do-systs', help='whether do nominal study or systematics', action="store_true")
+    parser.add_argument('--systs-type', help='choose the systematic uncertainty type', default=None, choices=['trk_eff'])
+    parser.add_argument('--systs-subtype', help='choose the systematic uncertainty subtype', default=None, choices=all_systs_subtypes)
+
 
     args = parser.parse_args()
 
@@ -199,5 +224,11 @@ if __name__ == "__main__":
     input_mc_path = Path(args.input_mc_path)
     input_data_path = Path(args.input_data_path)
 
+    do_systs = args.do_systs
+    systs_type = args.systs_type
+    systs_subtype = args.systs_subtype
+    if_write_log = args.write_log
+
     make_histogram_parallel(input_mc_path=input_mc_path, input_data_path=input_data_path,
-                            output_path=output_path, if_write_log = args.write_log)
+                            output_path=output_path, do_systs=do_systs, systs_type=systs_type, 
+                            systs_subtype=systs_subtype, if_write_log=if_write_log)

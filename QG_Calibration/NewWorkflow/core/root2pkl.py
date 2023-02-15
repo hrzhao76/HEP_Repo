@@ -9,6 +9,7 @@ import awkward as ak
 from pathlib import Path
 import re
 from .utils import check_inputpath, check_outputpath, logging_setup
+from .utils import trk_eff_uncertainties, JER_uncertainties
 
 luminosity_periods = {
     "A" : 36000,
@@ -73,7 +74,9 @@ def apply_cut(sample):
 
     return sample 
 
-def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = False, if_save = False):
+def root2pkl(root_file_path, is_MC=True, output_path=None, 
+             do_systs=False, systs_type=None, systs_subtype=None,
+             if_save = False):
     """Give me a root file, flatten it into pandas format.
 
     Args:
@@ -95,13 +98,7 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
         output_path = root_file_path.parent
     else:
         output_path = check_outputpath(output_path)
-    logging_setup(verbosity, write_log, output_path)
-    # if write_log:
-    #     logging.basicConfig(filename=output_path / 'root2pkl.log', filemode='w', level=log_levels[verbosity], 
-    #                         format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
-    # else:
-    #     logging.basicConfig(level=log_levels[verbosity], 
-    #                         format='%(asctime)s   %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    # logging_setup(verbosity, write_log, output_path) # This is done in make_histogram_new.py 
 
     try:
         logging.debug(f"Processing file: {root_file_path.stem}")
@@ -111,6 +108,12 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
     
     ttree_name = 'nominal'
     branch_names = ["run", "event", "pu_weight", "jet_fire", "jet_pt", "jet_eta", "jet_nTracks", "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
+    if is_MC: # Only do the systematics for MC
+        if do_systs and systs_type == 'trk_eff':
+            if not systs_subtype in trk_eff_uncertainties:
+                raise Exception(f"{systs_subtype} is not avaiale in possible track efficiency types.")
+            branch_names = ["run", "event", "pu_weight", "jet_fire", "jet_pt", "jet_eta", systs_subtype, "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
+
     try:
         sample_ak = sample[ttree_name].arrays(branch_names, library='ak')
     except uproot.exceptions.KeyInFileError:
@@ -122,8 +125,8 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
         return  # Notice this will put a none as return 
 
     is_Data = np.all(sample_ak['jet_PartonTruthLabelID']==-9999)
-
-    if not is_Data:
+    assert is_MC == (not is_Data)
+    if is_MC:
         period_search_pattern = "pythia[A,D,E]"
         period_folder = root_file_path.parent.parent
         period = re.search(period_search_pattern, period_folder.stem).group()[-1]
@@ -151,6 +154,10 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
     pt_idx = sample_dijet_pd.columns.get_loc('jet_pt')
     eta_idx = sample_dijet_pd.columns.get_loc('jet_eta')
 
+    # Rename the read systs_subtype to jet_nTracks for following manipulation 
+    if do_systs and systs_type == 'trk_eff':
+        sample_dijet_pd.rename(columns={systs_subtype:'jet_nTracks'}, inplace=True)
+        
     # sample_dijet_pd.iloc[:, pt_idx] = sample_dijet_pd.iloc[:, pt_idx] / 1000
     sample_dijet_pd['jet_pt'] = sample_dijet_pd['jet_pt'].div(1000)
     sample_dijet_np = sample_dijet_pd.to_numpy().reshape((len(sample_dijet_pd)//2, 2, len(sample_dijet_pd.columns)))
@@ -164,7 +171,7 @@ def root2pkl(root_file_path, output_path = None, verbosity = 2, write_log = Fals
     is_leading[:, 0] = 1
     sample_dijet_np_label = np.concatenate((sample_dijet_np, np.broadcast_to(is_forward[:,:,None], (sample_dijet_np.shape[:2] + (1,)))), axis = 2)
     sample_dijet_np_label = np.concatenate((sample_dijet_np_label, np.broadcast_to(is_leading[:,:,None], (sample_dijet_np_label.shape[:2] + (1,)))), axis = 2)
-
+    
     sample_pd_label = pd.DataFrame(sample_dijet_np_label.reshape(-1, sample_dijet_np_label.shape[-1]), columns = sample_dijet_pd.columns.to_list() + ["is_forward", "is_leading"], dtype=np.float64)
 
     #### Add pt label, pt_idx
