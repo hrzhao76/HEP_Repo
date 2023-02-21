@@ -5,3 +5,6 @@
 samples
 __pycache__
 *.pyc
+
+!MC_merged_hist.pkl
+!Data_merged_hist.pkl
