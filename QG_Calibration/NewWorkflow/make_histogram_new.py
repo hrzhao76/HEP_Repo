@@ -2,6 +2,7 @@ from core.utils import *
 from core.root2pkl import * 
 from core.pkl2predpkl import *
 from core.predpkl2hist import * 
+from core.calculate_sf_parallel import * 
 
 from concurrent.futures import ProcessPoolExecutor
 import functools 
@@ -90,6 +91,7 @@ def merge_hists(hists_list:list):
 
 def final_reweighting(pkl:Path, reweight_factor, do_systs=False, output_path = None):
     logging.info(f"Doing final reweighting on {pkl.stem}...")
+    logging.info(f"Doing systematics? {do_systs}")
     sample_pd = joblib.load(pkl)
     is_MC = False if pkl.stem.startswith('data') else True
 
@@ -112,6 +114,7 @@ def final_reweighting(pkl:Path, reweight_factor, do_systs=False, output_path = N
         all_weight_options = ['event_weight'] + \
                      [f'{reweight_var}_{parton}_reweighting_weights' 
                      for reweight_var in reweighting_vars for parton in ['quark', 'gluon']]
+        logging.info(f"All the weighting options are: {all_weight_options}")
     else: ## only do the quark reweighting 
         all_weight_options = ['event_weight']+ [f'{reweight_var}_{parton}_reweighting_weights' 
                              for reweight_var in reweighting_vars for parton in ['quark']]
@@ -204,6 +207,18 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_syst
     joblib.dump(Data_merged_hist, output_path / 'Data_merged_hist.pkl')
 
     # TODO plotting codes here. 
+    plot_dict = {}
+    for key in [*MC_merged_hist.keys()]:
+        plot_dict[key]={
+            "MC":MC_merged_hist[key],
+            "Data":Data_merged_hist[key],
+        }
+    plot_tuple_list = [*plot_dict.items()]
+    n_worker_plots = len(plot_tuple_list)
+    calculate_sf_parallel_mod = functools.partial(calculate_sf_parallel, output_path=output_path / 'plots')
+    with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
+        executor.map(calculate_sf_parallel_mod, plot_tuple_list)
+
 
 
 if __name__ == "__main__":
