@@ -1,8 +1,8 @@
 # This script is used in the end of make_histogram.py for plotting with multicores. 
-from Calculate_SF import  * 
+from .Calculate_SF import  * 
+from .utils import check_outputpath
 from concurrent.futures import ProcessPoolExecutor
 import functools 
-from utils import check_outputpath
 
 def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
     hists_MC = plot_tuple[1]['MC']

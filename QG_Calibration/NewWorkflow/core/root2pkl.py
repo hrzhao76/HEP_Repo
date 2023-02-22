@@ -9,7 +9,7 @@ import awkward as ak
 from pathlib import Path
 import re
 from .utils import check_inputpath, check_outputpath, logging_setup
-from .utils import trk_eff_uncertainties, JER_uncertainties
+from .utils import trk_eff_uncertainties, JESJER_uncertainties
 
 luminosity_periods = {
     "A" : 36000,
@@ -105,8 +105,15 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
         sample = uproot.open(root_file_path)
     except Exception as Argument:
         raise Exception(f"Open root file failed! {root_file_path}")
-    
-    ttree_name = 'nominal'
+
+    if not do_systs:
+        ttree_name = 'nominal'
+    else:
+        if is_MC and systs_type == 'JESJER':
+            if not systs_subtype in JESJER_uncertainties:
+                raise Exception(f"{systs_subtype} is not avaiale in possible track efficiency types.")
+            ttree_name = systs_subtype
+
     branch_names = ["run", "event", "pu_weight", "jet_fire", "jet_pt", "jet_eta", "jet_nTracks", "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
     if is_MC: # Only do the systematics for MC
         if do_systs and systs_type == 'trk_eff':
@@ -122,7 +129,7 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
 
     if len(sample_ak) == 0:
         logging.warning(f"{root_file_path} is empty")
-        return  # Notice this will put a none as return 
+        return  # Notice this will put a None as return 
 
     is_Data = np.all(sample_ak['jet_PartonTruthLabelID']==-9999)
     assert is_MC == (not is_Data)

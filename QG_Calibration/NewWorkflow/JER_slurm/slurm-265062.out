@@ -1,0 +1,4 @@
+srun: Job step's --cpus-per-task value exceeds that of job (64 > 10). Job step may never run.
+Running: 
+slurmstepd: error: *** STEP 265062.0 ON nid00805 CANCELLED AT 2023-02-21T20:13:30 ***
+slurmstepd: error: *** JOB 265062 ON nid00805 CANCELLED AT 2023-02-21T20:13:30 ***

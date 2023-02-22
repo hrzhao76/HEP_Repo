@@ -8,8 +8,7 @@ import awkward as ak
 from pathlib import Path
 import pickle
 import joblib
-from utils import * 
-
+from .utils import HistBins
 from uncertainties import ufloat, unumpy
 import hist 
 from hist import Hist

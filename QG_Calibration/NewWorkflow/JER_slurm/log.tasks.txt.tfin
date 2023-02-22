@@ -1,0 +1,6 @@
+INFO: Sent: 0 hostid:cori-805-1 length:3
+INFO: Recv: 0 input:                        0 hostid:cori-805-1  time:0   s lines: 0      proc: 0
+INFO: Sent: 1 hostid:cori-805-1 length:124
+ERROR: Missing files (3 vs 2) for 1
+ERROR: Job step 1
+INFO: Sent: 2 hostid:cori-805-1 length:124

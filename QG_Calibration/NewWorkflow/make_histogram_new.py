@@ -39,7 +39,7 @@ def root2hist(input_path, output_path = None, is_MC = True, MC_identifier = 'pyt
         output_path = check_outputpath(output_path)
 
     return_dicts = {}
-    for minitrees_period in minitrees_periods:
+    for minitrees_period in minitrees_periods[:1]:
         logging.info(f"Processing {minitrees_period} minitrees...")
         minitreess = input_path / minitrees_period 
         root_files = sorted(minitreess.rglob(glob_pattern))
@@ -160,7 +160,7 @@ def merge_period(reweighted_hists_dicts:list):
             MC_hist_list.append(reweighted_hists_dict['MC'])
         elif [*reweighted_hists_dict][0] == 'Data':
             Data_hist_list.append(reweighted_hists_dict['Data'])
-
+    
     return _merge_period(MC_hist_list), _merge_period(Data_hist_list)
 
 def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_systs=False, systs_type=None, systs_subtype=None,
@@ -206,7 +206,7 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_syst
     joblib.dump(MC_merged_hist, output_path / 'MC_merged_hist.pkl')
     joblib.dump(Data_merged_hist, output_path / 'Data_merged_hist.pkl')
 
-    # TODO plotting codes here. 
+    logging.info("Plotting...")
     plot_dict = {}
     for key in [*MC_merged_hist.keys()]:
         plot_dict[key]={
@@ -223,13 +223,13 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_syst
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input-mc-path', help='the output folder path', type=str, default=pythia_path)
-    parser.add_argument('--input-data-path', help='the output folder path', type=str, default=data_path)
+    parser.add_argument('--input-mc-path', help='the input folder path for MC', type=str, default=pythia_path)
+    parser.add_argument('--input-data-path', help='the input folder path Data', type=str, default=data_path)
     parser.add_argument('--output-path', help='the output folder path', type=str)
     parser.add_argument('--gbdt-path', help='the lightGBM model path', type=str, default=gbdt_path)
     parser.add_argument('--write-log', help='whether to write the log to output path', action="store_true")
     parser.add_argument('--do-systs', help='whether do nominal study or systematics', action="store_true")
-    parser.add_argument('--systs-type', help='choose the systematic uncertainty type', default=None, choices=['trk_eff'])
+    parser.add_argument('--systs-type', help='choose the systematic uncertainty type', default=None, choices=['trk_eff', 'JESJER'])
     parser.add_argument('--systs-subtype', help='choose the systematic uncertainty subtype', default=None, choices=all_systs_subtypes)
 
 
