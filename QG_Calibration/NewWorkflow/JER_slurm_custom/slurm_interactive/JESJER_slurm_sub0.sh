@@ -1,0 +1,9 @@
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_BJES_Response__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_BJES_Response__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Detector1__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Detector1__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Detector2__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Detector2__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Mixed1__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Mixed1__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EffectiveNP_Mixed2__1up

@@ -1,0 +1,9 @@
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EtaIntercalibration_R10_TotalStat__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EtaIntercalibration_R10_TotalStat__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EtaIntercalibration_TotalStat__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_EtaIntercalibration_TotalStat__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Flavor_Composition__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Flavor_Composition__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Flavor_Response__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Flavor_Response__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_JER_DataVsMC_MC16__1up

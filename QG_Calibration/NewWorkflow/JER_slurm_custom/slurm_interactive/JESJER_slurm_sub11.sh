@@ -1,0 +1,9 @@
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Pileup_PtTerm__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Pileup_RhoTopology__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_Pileup_RhoTopology__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_PunchThrough_MC16__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_PunchThrough_MC16__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_SingleParticle_HighPt__1up
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_JET_SingleParticle_HighPt__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_PRW_DATASF__1down
+/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/JER_slurm_custom/make_histogram.sh syst_PRW_DATASF__1up
