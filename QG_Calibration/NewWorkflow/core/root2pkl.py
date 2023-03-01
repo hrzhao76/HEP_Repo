@@ -9,7 +9,7 @@ import awkward as ak
 from pathlib import Path
 import re
 from .utils import check_inputpath, check_outputpath, logging_setup
-from .utils import trk_eff_uncertainties, JESJER_uncertainties
+from .utils import trk_eff_uncertainties, JESJER_uncertainties, pdf_weight_uncertainties
 
 luminosity_periods = {
     "A" : 36000,
@@ -106,20 +106,24 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
     except Exception as Argument:
         raise Exception(f"Open root file failed! {root_file_path}")
 
-    if not do_systs:
-        ttree_name = 'nominal'
-    else:
-        if is_MC and systs_type == 'JESJER':
-            if not systs_subtype in JESJER_uncertainties:
-                raise Exception(f"{systs_subtype} is not avaiale in possible track efficiency types.")
-            ttree_name = systs_subtype
+    ttree_name = 'nominal'
+    ## if doing JESJER, overwrite tree name 
+    if is_MC and systs_type == 'JESJER':
+        if not systs_subtype in JESJER_uncertainties:
+            raise Exception(f"{systs_subtype} is not avaiale in valid JESJER types.")
+        ttree_name = systs_subtype
 
     branch_names = ["run", "event", "pu_weight", "jet_fire", "jet_pt", "jet_eta", "jet_nTracks", "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
     if is_MC: # Only do the systematics for MC
         if do_systs and systs_type == 'trk_eff':
             if not systs_subtype in trk_eff_uncertainties:
-                raise Exception(f"{systs_subtype} is not avaiale in possible track efficiency types.")
+                raise Exception(f"{systs_subtype} is not avaiale in valid track efficiency types.")
             branch_names = ["run", "event", "pu_weight", "jet_fire", "jet_pt", "jet_eta", systs_subtype, "jet_trackWidth", "jet_trackC1", "jet_trackBDT", "jet_PartonTruthLabelID"]
+
+        if do_systs and systs_type == 'pdf_weight':
+            if not systs_subtype in pdf_weight_uncertainties:
+                raise Exception(f"{systs_subtype} is not avaiale in valid pdf weight types.")
+            branch_names.append('pdf_weight')
 
     try:
         sample_ak = sample[ttree_name].arrays(branch_names, library='ak')
@@ -131,7 +135,7 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
         logging.warning(f"{root_file_path} is empty")
         return  # Notice this will put a None as return 
 
-    is_Data = np.all(sample_ak['jet_PartonTruthLabelID']==-9999)
+    is_Data = np.all(sample_ak['jet_PartonTruthLabelID'][0]==-9999) # Check the first event in sample and assert if it's data
     assert is_MC == (not is_Data)
     if is_MC:
         period_search_pattern = "pythia[A,D,E]"
@@ -141,10 +145,12 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
         sum_of_weights = read_SumofWeights_Period((period_folder.parent/ f'pythia{period}_hist'), period)
 
         JZ_slice_number = sample_ak.run%100 # JZ slice for each event
-        event_weight = luminosity_periods['A'] * sample_ak["pu_weight"] * xsec[JZ_slice_number] * eff[JZ_slice_number] / sum_of_weights[JZ_slice_number - 1] # JZ_slice - 1 because of 1...9 -> 0...8
+        event_weight = luminosity_periods[period] * sample_ak["pu_weight"] * xsec[JZ_slice_number] * eff[JZ_slice_number] / sum_of_weights[JZ_slice_number - 1] # JZ_slice - 1 because of 1...9 -> 0...8
         # pu_weight is already multiplied by mcEventWeight in MonoJetx.cxx 
+        if do_systs and systs_type == 'pdf_weight':
+            event_weight = event_weight * sample_ak["pdf_weight"][:, int(systs_subtype)]
     else:
-        event_weight = ak.ones_like(sample_ak['event'])
+        event_weight = ak.ones_like(sample_ak['event']) # For data, event weight is always 1 
 
     sample = ak.with_field(base = sample_ak, what = event_weight, where = "event_weight")
 
@@ -184,7 +190,7 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
     #### Add pt label, pt_idx
     sample_pd_label['pt_idx'] = pd.cut(x=sample_pd_label['jet_pt'], bins=label_pt_bin, right=False, labels=False)
 
-    if not is_Data:
+    if is_MC:
         #### Add parton truth label, for ML training purpose 
         #### Do this only for MC 
         sample_pd_label['target'] = '-'
