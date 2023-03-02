@@ -39,7 +39,7 @@ def root2hist(input_path, output_path = None, is_MC = True, MC_identifier = 'pyt
         output_path = check_outputpath(output_path)
 
     return_dicts = {}
-    for minitrees_period in minitrees_periods[:1]:
+    for minitrees_period in minitrees_periods:
         logging.info(f"Processing {minitrees_period} minitrees...")
         minitreess = input_path / minitrees_period 
         root_files = sorted(minitreess.rglob(glob_pattern))
@@ -164,7 +164,7 @@ def merge_period(reweighted_hists_dicts:list):
     return _merge_period(MC_hist_list), _merge_period(Data_hist_list)
 
 def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_systs=False, systs_type=None, systs_subtype=None,
-                            if_write_log=False):
+                            if_write_log=False, if_do_plotting=False):
     logging_setup(verbosity=3, if_write_log=if_write_log, output_path=output_path)
 
     if do_systs and systs_type is None:
@@ -182,13 +182,13 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_syst
     logging.info("Calculate reweighting factor from MC...")
     reweight_factor = get_reweight_factor_hist(MC_hists, if_need_merge=True)
     joblib.dump(reweight_factor, output_path / 'reweight_factor.pkl')
-    # reweight_factor = joblib.load(output_path / 'reweight_factor.pkl')
 
     logging.info("Doing root2hist for Data...")
     _ =  root2hist(input_path=input_data_path, output_path=output_path, is_MC=False)
     predpkl_pattern = "*_pred.pkl"
     predpkl_files = sorted(output_path.rglob(predpkl_pattern))
 
+    reweight_factor = joblib.load(output_path / 'reweight_factor.pkl')
     logging.info("Attach new weighting to pd.DataFrame and reweighting...")
     # The following three blocks failed with 50GB memory, we can do sequencially here but within final reweighting multiprocessing 
     # final_reweighting_mod = functools.partial(final_reweighting, reweight_factor = reweight_factor, output_path=output_path)
@@ -206,19 +206,21 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_syst
     joblib.dump(MC_merged_hist, output_path / 'MC_merged_hist.pkl')
     joblib.dump(Data_merged_hist, output_path / 'Data_merged_hist.pkl')
 
-    logging.info("Plotting...")
-    plot_dict = {}
-    for key in [*MC_merged_hist.keys()]:
-        plot_dict[key]={
-            "MC":MC_merged_hist[key],
-            "Data":Data_merged_hist[key],
-        }
-    plot_tuple_list = [*plot_dict.items()]
-    n_worker_plots = len(plot_tuple_list)
-    calculate_sf_parallel_mod = functools.partial(calculate_sf_parallel, output_path=output_path / 'plots')
-    with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
-        executor.map(calculate_sf_parallel_mod, plot_tuple_list)
+    if if_do_plotting:
+        logging.info("Plotting...")
+        plot_dict = {}
+        for key in [*MC_merged_hist.keys()]:
+            plot_dict[key]={
+                "MC":MC_merged_hist[key],
+                "Data":Data_merged_hist[key],
+            }
+        plot_tuple_list = [*plot_dict.items()]
+        n_worker_plots = len(plot_tuple_list)
+        calculate_sf_parallel_mod = functools.partial(calculate_sf_parallel, output_path=output_path / 'plots')
+        with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
+            executor.map(calculate_sf_parallel_mod, plot_tuple_list)
 
+    logging.info("Done.")
 
 
 if __name__ == "__main__":
@@ -231,6 +233,7 @@ if __name__ == "__main__":
     parser.add_argument('--do-systs', help='whether do nominal study or systematics', action="store_true")
     parser.add_argument('--systs-type', help='choose the systematic uncertainty type', default=None, choices=['trk_eff', 'JESJER'])
     parser.add_argument('--systs-subtype', help='choose the systematic uncertainty subtype', default=None, choices=all_systs_subtypes)
+    parser.add_argument('--do-plotting', help='whether to do plotting', action="store_true")
 
 
     args = parser.parse_args()
@@ -243,7 +246,9 @@ if __name__ == "__main__":
     systs_type = args.systs_type
     systs_subtype = args.systs_subtype
     if_write_log = args.write_log
+    if_do_plotting = args.do_plotting
 
     make_histogram_parallel(input_mc_path=input_mc_path, input_data_path=input_data_path,
                             output_path=output_path, do_systs=do_systs, systs_type=systs_type, 
-                            systs_subtype=systs_subtype, if_write_log=if_write_log)
+                            systs_subtype=systs_subtype, if_write_log=if_write_log,
+                            if_do_plotting=if_do_plotting)
