@@ -1,0 +1,247 @@
+[1]	valid_0's binary_logloss: 0.686014	valid_0's auc: 0.813035
+[2]	valid_0's binary_logloss: 0.656937	valid_0's auc: 0.816759
+[3]	valid_0's binary_logloss: 0.63325	valid_0's auc: 0.821654
+[4]	valid_0's binary_logloss: 0.61403	valid_0's auc: 0.82424
+[5]	valid_0's binary_logloss: 0.597848	valid_0's auc: 0.826042
+[6]	valid_0's binary_logloss: 0.584513	valid_0's auc: 0.827414
+[7]	valid_0's binary_logloss: 0.573313	valid_0's auc: 0.828574
+[8]	valid_0's binary_logloss: 0.563288	valid_0's auc: 0.830024
+[9]	valid_0's binary_logloss: 0.554387	valid_0's auc: 0.830702
+[10]	valid_0's binary_logloss: 0.547874	valid_0's auc: 0.831553
+[11]	valid_0's binary_logloss: 0.541864	valid_0's auc: 0.832237
+[12]	valid_0's binary_logloss: 0.536086	valid_0's auc: 0.832983
+[13]	valid_0's binary_logloss: 0.53097	valid_0's auc: 0.833609
+[14]	valid_0's binary_logloss: 0.526436	valid_0's auc: 0.834403
+[15]	valid_0's binary_logloss: 0.522673	valid_0's auc: 0.834862
+[16]	valid_0's binary_logloss: 0.519578	valid_0's auc: 0.835315
+[17]	valid_0's binary_logloss: 0.516397	valid_0's auc: 0.835751
+[18]	valid_0's binary_logloss: 0.513938	valid_0's auc: 0.836256
+[19]	valid_0's binary_logloss: 0.511336	valid_0's auc: 0.83674
+[20]	valid_0's binary_logloss: 0.509451	valid_0's auc: 0.83701
+[21]	valid_0's binary_logloss: 0.507615	valid_0's auc: 0.837371
+[22]	valid_0's binary_logloss: 0.50596	valid_0's auc: 0.837908
+[23]	valid_0's binary_logloss: 0.504454	valid_0's auc: 0.838397
+[24]	valid_0's binary_logloss: 0.503161	valid_0's auc: 0.838737
+[25]	valid_0's binary_logloss: 0.501961	valid_0's auc: 0.839101
+[26]	valid_0's binary_logloss: 0.501063	valid_0's auc: 0.83936
+[27]	valid_0's binary_logloss: 0.499888	valid_0's auc: 0.839794
+[28]	valid_0's binary_logloss: 0.498864	valid_0's auc: 0.840118
+[29]	valid_0's binary_logloss: 0.49781	valid_0's auc: 0.840493
+[30]	valid_0's binary_logloss: 0.497188	valid_0's auc: 0.840645
+[31]	valid_0's binary_logloss: 0.49651	valid_0's auc: 0.840933
+[32]	valid_0's binary_logloss: 0.495687	valid_0's auc: 0.841259
+[33]	valid_0's binary_logloss: 0.495194	valid_0's auc: 0.841398
+[34]	valid_0's binary_logloss: 0.494723	valid_0's auc: 0.841544
+[35]	valid_0's binary_logloss: 0.494171	valid_0's auc: 0.841756
+[36]	valid_0's binary_logloss: 0.49377	valid_0's auc: 0.841865
+[37]	valid_0's binary_logloss: 0.493277	valid_0's auc: 0.842013
+[38]	valid_0's binary_logloss: 0.4929	valid_0's auc: 0.842122
+[39]	valid_0's binary_logloss: 0.492672	valid_0's auc: 0.842191
+[40]	valid_0's binary_logloss: 0.492303	valid_0's auc: 0.842334
+[41]	valid_0's binary_logloss: 0.492057	valid_0's auc: 0.842431
+[42]	valid_0's binary_logloss: 0.491622	valid_0's auc: 0.84263
+[43]	valid_0's binary_logloss: 0.491221	valid_0's auc: 0.842815
+[44]	valid_0's binary_logloss: 0.490851	valid_0's auc: 0.843007
+[45]	valid_0's binary_logloss: 0.490675	valid_0's auc: 0.843058
+[46]	valid_0's binary_logloss: 0.490422	valid_0's auc: 0.843157
+[47]	valid_0's binary_logloss: 0.490137	valid_0's auc: 0.843286
+[48]	valid_0's binary_logloss: 0.489973	valid_0's auc: 0.843356
+[49]	valid_0's binary_logloss: 0.489749	valid_0's auc: 0.843434
+[50]	valid_0's binary_logloss: 0.489538	valid_0's auc: 0.843525
+[51]	valid_0's binary_logloss: 0.489426	valid_0's auc: 0.843555
+[52]	valid_0's binary_logloss: 0.489217	valid_0's auc: 0.84363
+[53]	valid_0's binary_logloss: 0.48894	valid_0's auc: 0.843778
+[54]	valid_0's binary_logloss: 0.488821	valid_0's auc: 0.843834
+[55]	valid_0's binary_logloss: 0.488692	valid_0's auc: 0.843885
+[56]	valid_0's binary_logloss: 0.488559	valid_0's auc: 0.843927
+[57]	valid_0's binary_logloss: 0.488381	valid_0's auc: 0.844015
+[58]	valid_0's binary_logloss: 0.488269	valid_0's auc: 0.84407
+[59]	valid_0's binary_logloss: 0.48807	valid_0's auc: 0.844179
+[60]	valid_0's binary_logloss: 0.487956	valid_0's auc: 0.844223
+[61]	valid_0's binary_logloss: 0.487779	valid_0's auc: 0.844309
+[62]	valid_0's binary_logloss: 0.487728	valid_0's auc: 0.844335
+[63]	valid_0's binary_logloss: 0.48759	valid_0's auc: 0.844406
+[64]	valid_0's binary_logloss: 0.48744	valid_0's auc: 0.844483
+[65]	valid_0's binary_logloss: 0.487381	valid_0's auc: 0.844509
+[66]	valid_0's binary_logloss: 0.487283	valid_0's auc: 0.844555
+[67]	valid_0's binary_logloss: 0.487237	valid_0's auc: 0.844579
+[68]	valid_0's binary_logloss: 0.487144	valid_0's auc: 0.844615
+[69]	valid_0's binary_logloss: 0.48705	valid_0's auc: 0.844664
+[70]	valid_0's binary_logloss: 0.486999	valid_0's auc: 0.844694
+[71]	valid_0's binary_logloss: 0.486948	valid_0's auc: 0.84471
+[72]	valid_0's binary_logloss: 0.486825	valid_0's auc: 0.844781
+[73]	valid_0's binary_logloss: 0.486694	valid_0's auc: 0.84485
+[74]	valid_0's binary_logloss: 0.486623	valid_0's auc: 0.844889
+[75]	valid_0's binary_logloss: 0.486562	valid_0's auc: 0.844909
+[76]	valid_0's binary_logloss: 0.486485	valid_0's auc: 0.844942
+[77]	valid_0's binary_logloss: 0.486469	valid_0's auc: 0.844949
+[78]	valid_0's binary_logloss: 0.486407	valid_0's auc: 0.844978
+[79]	valid_0's binary_logloss: 0.486378	valid_0's auc: 0.844995
+[80]	valid_0's binary_logloss: 0.48635	valid_0's auc: 0.845008
+[81]	valid_0's binary_logloss: 0.486257	valid_0's auc: 0.845063
+[82]	valid_0's binary_logloss: 0.486193	valid_0's auc: 0.845093
+[83]	valid_0's binary_logloss: 0.486139	valid_0's auc: 0.845122
+[84]	valid_0's binary_logloss: 0.486108	valid_0's auc: 0.845135
+[85]	valid_0's binary_logloss: 0.486053	valid_0's auc: 0.845162
+[86]	valid_0's binary_logloss: 0.486033	valid_0's auc: 0.845172
+[87]	valid_0's binary_logloss: 0.485963	valid_0's auc: 0.845211
+[88]	valid_0's binary_logloss: 0.485897	valid_0's auc: 0.845247
+[89]	valid_0's binary_logloss: 0.48587	valid_0's auc: 0.845257
+[90]	valid_0's binary_logloss: 0.485853	valid_0's auc: 0.845264
+[91]	valid_0's binary_logloss: 0.485799	valid_0's auc: 0.845296
+[92]	valid_0's binary_logloss: 0.485763	valid_0's auc: 0.845315
+[93]	valid_0's binary_logloss: 0.485723	valid_0's auc: 0.845336
+[94]	valid_0's binary_logloss: 0.485665	valid_0's auc: 0.845366
+[95]	valid_0's binary_logloss: 0.485658	valid_0's auc: 0.84537
+[96]	valid_0's binary_logloss: 0.48564	valid_0's auc: 0.845377
+[97]	valid_0's binary_logloss: 0.48559	valid_0's auc: 0.845407
+[98]	valid_0's binary_logloss: 0.485523	valid_0's auc: 0.845446
+[99]	valid_0's binary_logloss: 0.485502	valid_0's auc: 0.845453
+[100]	valid_0's binary_logloss: 0.485475	valid_0's auc: 0.845469
+              precision    recall  f1-score   support
+
+         0.0       0.80      0.81      0.80   3586692
+         1.0       0.73      0.71      0.72   2587368
+
+    accuracy                           0.77   6174060
+   macro avg       0.76      0.76      0.76   6174060
+weighted avg       0.77      0.77      0.77   6174060
+
+[LightGBM] [Warning] bagging_fraction is set=0.48805353449026784, subsample=1.0 will be ignored. Current value: bagging_fraction=0.48805353449026784
+[LightGBM] [Warning] lambda_l1 is set=5.6649755830282306e-05, reg_alpha=0.0 will be ignored. Current value: lambda_l1=5.6649755830282306e-05
+[LightGBM] [Warning] feature_fraction is set=0.5813995435791038, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.5813995435791038
+[LightGBM] [Warning] lambda_l2 is set=0.030403280126677572, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.030403280126677572
+[LightGBM] [Warning] bagging_freq is set=1, subsample_freq=0 will be ignored. Current value: bagging_freq=1
+[LightGBM] [Warning] bagging_fraction is set=0.8111317002380557, subsample=1.0 will be ignored. Current value: bagging_fraction=0.8111317002380557
+[LightGBM] [Warning] lambda_l1 is set=1.2883876209377052e-05, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.2883876209377052e-05
+[LightGBM] [Warning] feature_fraction is set=0.6515167086419769, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.6515167086419769
+[LightGBM] [Warning] lambda_l2 is set=3.72312200494449e-05, reg_lambda=0.0 will be ignored. Current value: lambda_l2=3.72312200494449e-05
+[LightGBM] [Warning] bagging_freq is set=2, subsample_freq=0 will be ignored. Current value: bagging_freq=2
+[LightGBM] [Warning] bagging_fraction is set=0.4842321631571403, subsample=1.0 will be ignored. Current value: bagging_fraction=0.4842321631571403
+[LightGBM] [Warning] lambda_l1 is set=1.763958399884789e-08, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.763958399884789e-08
+[LightGBM] [Warning] feature_fraction is set=0.735213897067451, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.735213897067451
+[LightGBM] [Warning] lambda_l2 is set=0.010819509974097813, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.010819509974097813
+[LightGBM] [Warning] bagging_freq is set=2, subsample_freq=0 will be ignored. Current value: bagging_freq=2
+[LightGBM] [Warning] bagging_fraction is set=0.9367639981023084, subsample=1.0 will be ignored. Current value: bagging_fraction=0.9367639981023084
+[LightGBM] [Warning] lambda_l1 is set=5.180291295699627, reg_alpha=0.0 will be ignored. Current value: lambda_l1=5.180291295699627
+[LightGBM] [Warning] feature_fraction is set=0.9258334913776229, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.9258334913776229
+[LightGBM] [Warning] lambda_l2 is set=6.6193844201488494e-06, reg_lambda=0.0 will be ignored. Current value: lambda_l2=6.6193844201488494e-06
+[LightGBM] [Warning] bagging_freq is set=1, subsample_freq=0 will be ignored. Current value: bagging_freq=1
+[LightGBM] [Warning] bagging_fraction is set=0.9747337180903012, subsample=1.0 will be ignored. Current value: bagging_fraction=0.9747337180903012
+[LightGBM] [Warning] lambda_l1 is set=3.376554594427989e-07, reg_alpha=0.0 will be ignored. Current value: lambda_l1=3.376554594427989e-07
+[LightGBM] [Warning] feature_fraction is set=0.6526645750030313, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.6526645750030313
+[LightGBM] [Warning] lambda_l2 is set=0.8003547575557912, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.8003547575557912
+[LightGBM] [Warning] bagging_freq is set=4, subsample_freq=0 will be ignored. Current value: bagging_freq=4
+[LightGBM] [Warning] bagging_fraction is set=0.8500865889669804, subsample=1.0 will be ignored. Current value: bagging_fraction=0.8500865889669804
+[LightGBM] [Warning] lambda_l1 is set=6.912588094940543e-06, reg_alpha=0.0 will be ignored. Current value: lambda_l1=6.912588094940543e-06
+[LightGBM] [Warning] feature_fraction is set=0.4109729664065151, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.4109729664065151
+[LightGBM] [Warning] lambda_l2 is set=0.015083716080906013, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.015083716080906013
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.9451573018558573, subsample=1.0 will be ignored. Current value: bagging_fraction=0.9451573018558573
+[LightGBM] [Warning] lambda_l1 is set=3.341919070318744e-06, reg_alpha=0.0 will be ignored. Current value: lambda_l1=3.341919070318744e-06
+[LightGBM] [Warning] feature_fraction is set=0.6687361157055431, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.6687361157055431
+[LightGBM] [Warning] lambda_l2 is set=0.12691529280491062, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.12691529280491062
+[LightGBM] [Warning] bagging_freq is set=3, subsample_freq=0 will be ignored. Current value: bagging_freq=3
+[LightGBM] [Warning] bagging_fraction is set=0.5593279956233357, subsample=1.0 will be ignored. Current value: bagging_fraction=0.5593279956233357
+[LightGBM] [Warning] lambda_l1 is set=1.4799844388224288e-07, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.4799844388224288e-07
+[LightGBM] [Warning] feature_fraction is set=0.5269768696000354, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.5269768696000354
+[LightGBM] [Warning] lambda_l2 is set=1.493834966470408e-08, reg_lambda=0.0 will be ignored. Current value: lambda_l2=1.493834966470408e-08
+[LightGBM] [Warning] bagging_freq is set=4, subsample_freq=0 will be ignored. Current value: bagging_freq=4
+[LightGBM] [Warning] bagging_fraction is set=0.46140065729669555, subsample=1.0 will be ignored. Current value: bagging_fraction=0.46140065729669555
+[LightGBM] [Warning] lambda_l1 is set=0.0014691239860705116, reg_alpha=0.0 will be ignored. Current value: lambda_l1=0.0014691239860705116
+[LightGBM] [Warning] feature_fraction is set=0.8198550160125587, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.8198550160125587
+[LightGBM] [Warning] lambda_l2 is set=2.091978294467618e-07, reg_lambda=0.0 will be ignored. Current value: lambda_l2=2.091978294467618e-07
+[LightGBM] [Warning] bagging_freq is set=3, subsample_freq=0 will be ignored. Current value: bagging_freq=3
+[LightGBM] [Warning] bagging_fraction is set=0.7089334672349852, subsample=1.0 will be ignored. Current value: bagging_fraction=0.7089334672349852
+[LightGBM] [Warning] lambda_l1 is set=5.340887446119036e-05, reg_alpha=0.0 will be ignored. Current value: lambda_l1=5.340887446119036e-05
+[LightGBM] [Warning] feature_fraction is set=0.7982767871318732, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.7982767871318732
+[LightGBM] [Warning] lambda_l2 is set=2.8156659603215856e-08, reg_lambda=0.0 will be ignored. Current value: lambda_l2=2.8156659603215856e-08
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.6386061021913202, subsample=1.0 will be ignored. Current value: bagging_fraction=0.6386061021913202
+[LightGBM] [Warning] lambda_l1 is set=1.3508814484493448, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.3508814484493448
+[LightGBM] [Warning] feature_fraction is set=0.8844347732257143, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.8844347732257143
+[LightGBM] [Warning] lambda_l2 is set=1.7269204695427844e-07, reg_lambda=0.0 will be ignored. Current value: lambda_l2=1.7269204695427844e-07
+[LightGBM] [Warning] bagging_freq is set=2, subsample_freq=0 will be ignored. Current value: bagging_freq=2
+[LightGBM] [Warning] bagging_fraction is set=0.7980648986910688, subsample=1.0 will be ignored. Current value: bagging_fraction=0.7980648986910688
+[LightGBM] [Warning] lambda_l1 is set=2.6875157982766948e-06, reg_alpha=0.0 will be ignored. Current value: lambda_l1=2.6875157982766948e-06
+[LightGBM] [Warning] feature_fraction is set=0.9789040282890313, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.9789040282890313
+[LightGBM] [Warning] lambda_l2 is set=1.1560482583788434, reg_lambda=0.0 will be ignored. Current value: lambda_l2=1.1560482583788434
+[LightGBM] [Warning] bagging_freq is set=5, subsample_freq=0 will be ignored. Current value: bagging_freq=5
+[LightGBM] [Warning] bagging_fraction is set=0.40976188344440717, subsample=1.0 will be ignored. Current value: bagging_fraction=0.40976188344440717
+[LightGBM] [Warning] lambda_l1 is set=0.0019052892743186384, reg_alpha=0.0 will be ignored. Current value: lambda_l1=0.0019052892743186384
+[LightGBM] [Warning] feature_fraction is set=0.7931587005223061, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.7931587005223061
+[LightGBM] [Warning] lambda_l2 is set=1.5103501220644436e-06, reg_lambda=0.0 will be ignored. Current value: lambda_l2=1.5103501220644436e-06
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.40451680206847723, subsample=1.0 will be ignored. Current value: bagging_fraction=0.40451680206847723
+[LightGBM] [Warning] lambda_l1 is set=0.0017854227679542768, reg_alpha=0.0 will be ignored. Current value: lambda_l1=0.0017854227679542768
+[LightGBM] [Warning] feature_fraction is set=0.7847129443917573, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.7847129443917573
+[LightGBM] [Warning] lambda_l2 is set=3.308256643859567e-07, reg_lambda=0.0 will be ignored. Current value: lambda_l2=3.308256643859567e-07
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.8523257130767479, subsample=1.0 will be ignored. Current value: bagging_fraction=0.8523257130767479
+[LightGBM] [Warning] lambda_l1 is set=2.4737691393844554, reg_alpha=0.0 will be ignored. Current value: lambda_l1=2.4737691393844554
+[LightGBM] [Warning] feature_fraction is set=0.8532778315614798, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.8532778315614798
+[LightGBM] [Warning] lambda_l2 is set=0.018679422849155414, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.018679422849155414
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.5079039149677538, subsample=1.0 will be ignored. Current value: bagging_fraction=0.5079039149677538
+[LightGBM] [Warning] lambda_l1 is set=1.9202747940285132e-08, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.9202747940285132e-08
+[LightGBM] [Warning] feature_fraction is set=0.7154918216068384, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.7154918216068384
+[LightGBM] [Warning] lambda_l2 is set=0.0008596449070294363, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.0008596449070294363
+[LightGBM] [Warning] bagging_freq is set=6, subsample_freq=0 will be ignored. Current value: bagging_freq=6
+[LightGBM] [Warning] bagging_fraction is set=0.4038032021872967, subsample=1.0 will be ignored. Current value: bagging_fraction=0.4038032021872967
+[LightGBM] [Warning] lambda_l1 is set=1.942457711136376e-08, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.942457711136376e-08
+[LightGBM] [Warning] feature_fraction is set=0.7426875717394628, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.7426875717394628
+[LightGBM] [Warning] lambda_l2 is set=4.5462303234024675e-07, reg_lambda=0.0 will be ignored. Current value: lambda_l2=4.5462303234024675e-07
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.632716386438503, subsample=1.0 will be ignored. Current value: bagging_fraction=0.632716386438503
+[LightGBM] [Warning] lambda_l1 is set=1.4717213981231934e-08, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.4717213981231934e-08
+[LightGBM] [Warning] feature_fraction is set=0.8842631173712675, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.8842631173712675
+[LightGBM] [Warning] lambda_l2 is set=0.16058096155247428, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.16058096155247428
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.49720172303630555, subsample=1.0 will be ignored. Current value: bagging_fraction=0.49720172303630555
+[LightGBM] [Warning] lambda_l1 is set=7.842027488107535e-08, reg_alpha=0.0 will be ignored. Current value: lambda_l1=7.842027488107535e-08
+[LightGBM] [Warning] feature_fraction is set=0.829456743975105, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.829456743975105
+[LightGBM] [Warning] lambda_l2 is set=1.4285281758888571e-05, reg_lambda=0.0 will be ignored. Current value: lambda_l2=1.4285281758888571e-05
+[LightGBM] [Warning] bagging_freq is set=6, subsample_freq=0 will be ignored. Current value: bagging_freq=6
+[LightGBM] [Warning] bagging_fraction is set=0.6220505187484637, subsample=1.0 will be ignored. Current value: bagging_fraction=0.6220505187484637
+[LightGBM] [Warning] lambda_l1 is set=0.051051661169711944, reg_alpha=0.0 will be ignored. Current value: lambda_l1=0.051051661169711944
+[LightGBM] [Warning] feature_fraction is set=0.43980090065706495, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.43980090065706495
+[LightGBM] [Warning] lambda_l2 is set=0.01054620092199292, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.01054620092199292
+[LightGBM] [Warning] bagging_freq is set=5, subsample_freq=0 will be ignored. Current value: bagging_freq=5
+[LightGBM] [Warning] bagging_fraction is set=0.49079718719260873, subsample=1.0 will be ignored. Current value: bagging_fraction=0.49079718719260873
+[LightGBM] [Warning] lambda_l1 is set=3.548582593443358e-08, reg_alpha=0.0 will be ignored. Current value: lambda_l1=3.548582593443358e-08
+[LightGBM] [Warning] feature_fraction is set=0.898365279854051, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.898365279854051
+[LightGBM] [Warning] lambda_l2 is set=2.5431497689575694e-06, reg_lambda=0.0 will be ignored. Current value: lambda_l2=2.5431497689575694e-06
+[LightGBM] [Warning] bagging_freq is set=6, subsample_freq=0 will be ignored. Current value: bagging_freq=6
+[LightGBM] [Warning] bagging_fraction is set=0.5530506607313407, subsample=1.0 will be ignored. Current value: bagging_fraction=0.5530506607313407
+[LightGBM] [Warning] lambda_l1 is set=1.7519875103651157e-07, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.7519875103651157e-07
+[LightGBM] [Warning] feature_fraction is set=0.8851959885250615, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.8851959885250615
+[LightGBM] [Warning] lambda_l2 is set=6.96205411227749e-06, reg_lambda=0.0 will be ignored. Current value: lambda_l2=6.96205411227749e-06
+[LightGBM] [Warning] bagging_freq is set=1, subsample_freq=0 will be ignored. Current value: bagging_freq=1
+[LightGBM] [Warning] bagging_fraction is set=0.5669274241219849, subsample=1.0 will be ignored. Current value: bagging_fraction=0.5669274241219849
+[LightGBM] [Warning] lambda_l1 is set=2.708027283807934e-07, reg_alpha=0.0 will be ignored. Current value: lambda_l1=2.708027283807934e-07
+[LightGBM] [Warning] feature_fraction is set=0.8647784211946914, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.8647784211946914
+[LightGBM] [Warning] lambda_l2 is set=6.3309043719365335e-06, reg_lambda=0.0 will be ignored. Current value: lambda_l2=6.3309043719365335e-06
+[LightGBM] [Warning] bagging_freq is set=2, subsample_freq=0 will be ignored. Current value: bagging_freq=2
+[LightGBM] [Warning] bagging_fraction is set=0.5650799789447094, subsample=1.0 will be ignored. Current value: bagging_fraction=0.5650799789447094
+[LightGBM] [Warning] lambda_l1 is set=8.491671754560604e-07, reg_alpha=0.0 will be ignored. Current value: lambda_l1=8.491671754560604e-07
+[LightGBM] [Warning] feature_fraction is set=0.9674658765664438, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.9674658765664438
+[LightGBM] [Warning] lambda_l2 is set=3.219786656534093e-05, reg_lambda=0.0 will be ignored. Current value: lambda_l2=3.219786656534093e-05
+[LightGBM] [Warning] bagging_freq is set=1, subsample_freq=0 will be ignored. Current value: bagging_freq=1
+[LightGBM] [Warning] bagging_fraction is set=0.9068406672353331, subsample=1.0 will be ignored. Current value: bagging_fraction=0.9068406672353331
+[LightGBM] [Warning] lambda_l1 is set=1.266571974521169e-05, reg_alpha=0.0 will be ignored. Current value: lambda_l1=1.266571974521169e-05
+[LightGBM] [Warning] feature_fraction is set=0.9272991906471064, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.9272991906471064
+[LightGBM] [Warning] lambda_l2 is set=2.8904625110478097, reg_lambda=0.0 will be ignored. Current value: lambda_l2=2.8904625110478097
+[LightGBM] [Warning] bagging_freq is set=7, subsample_freq=0 will be ignored. Current value: bagging_freq=7
+[LightGBM] [Warning] bagging_fraction is set=0.759466184587527, subsample=1.0 will be ignored. Current value: bagging_fraction=0.759466184587527
+[LightGBM] [Warning] lambda_l1 is set=0.0008262687812109629, reg_alpha=0.0 will be ignored. Current value: lambda_l1=0.0008262687812109629
+[LightGBM] [Warning] feature_fraction is set=0.6941521135719566, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.6941521135719566
+[LightGBM] [Warning] lambda_l2 is set=0.1539686565516689, reg_lambda=0.0 will be ignored. Current value: lambda_l2=0.1539686565516689
+[LightGBM] [Warning] bagging_freq is set=1, subsample_freq=0 will be ignored. Current value: bagging_freq=1
+[LightGBM] [Warning] bagging_fraction is set=0.6604363359494644, subsample=1.0 will be ignored. Current value: bagging_fraction=0.6604363359494644
+[LightGBM] [Warning] lambda_l1 is set=0.006188599212257637, reg_alpha=0.0 will be ignored. Current value: lambda_l1=0.006188599212257637
+[LightGBM] [Warning] feature_fraction is set=0.5838915862280307, colsample_bytree=1.0 will be ignored. Current value: feature_fraction=0.5838915862280307
+[LightGBM] [Warning] lambda_l2 is set=3.9914482665807344e-05, reg_lambda=0.0 will be ignored. Current value: lambda_l2=3.9914482665807344e-05
+[LightGBM] [Warning] bagging_freq is set=5, subsample_freq=0 will be ignored. Current value: bagging_freq=5
+Training until validation scores don't improve for 5 rounds
+Did not meet early stopping. Best iteration is:
+[100]	valid_0's binary_logloss: 0.484296	valid_0's auc: 0.846168
