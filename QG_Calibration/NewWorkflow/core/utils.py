@@ -430,4 +430,6 @@ JESJER_uncertainties = \
  'syst_JET_SingleParticle_HighPt__1up',
  'syst_JET_SingleParticle_HighPt__1down']
 
-all_systs_subtypes = trk_eff_uncertainties + JESJER_uncertainties
+pdf_weight_uncertainties = list(map(str, list(np.arange(1, 101, 1))))
+
+all_systs_subtypes = trk_eff_uncertainties + JESJER_uncertainties + pdf_weight_uncertainties

@@ -30,9 +30,11 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
 
     WPs = [0.5, 0.6, 0.7, 0.8]
     SFs = {}
+    WP_cut = {}
 
     for var in label_var:
         SFs[var] = {}
+        WP_cut[var] = {}
         for l_pt in label_ptrange[:-1]:
             Extraction_var_pt =  Extraction_Results[var][l_pt]
             #### Draw Forward vs Central plots 
@@ -83,6 +85,7 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
         #### Draw working points 
         for WP in WPs:
             SFs[var][WP] = {}
+            WP_cut[var][WP] = {}
             quark_effs_at_pt = []
             gluon_rejs_at_pt = []
             quark_effs_data_at_pt = []
@@ -96,11 +99,15 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
                 extract_p_Quark_cum_sum = np.cumsum(unumpy.nominal_values(extract_p_Quark_MC))
                 cut = np.where(extract_p_Quark_cum_sum >= WP)[0][0]+1
                 
-
+                
                 quark_effs_at_pt.append(np.sum(extract_p_Quark_MC[:cut])) 
                 gluon_rejs_at_pt.append(np.sum(extract_p_Gluon_MC[cut:]))
                 quark_effs_data_at_pt.append(np.sum(extract_p_Quark_Data[:cut]))
                 gluon_rejs_data_at_pt.append(np.sum(extract_p_Gluon_Data[cut:]))
+                WP_cut[var][WP][l_pt] = {
+                    'idx' : cut,
+                    'value' : HistBins[var][cut],
+                }
 
             SF_quark, SF_gluon = Plot_WP(WP = WP, var= var, output_path= output_path, 
                     period= period, reweighting_var = reweighting_var,
@@ -110,8 +117,10 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
             SFs[var][WP]["Quark"] = SF_quark
             SFs[var][WP]["Gluon"] = SF_gluon
 
-        WriteSFtoPickle(var = var,Hist_SFs = SFs, output_path=output_path, period=period, reweighting_var = reweighting_var,
-                    reweighting_factor= weight_option)
+        WriteSFtoPickle(var = var,Hist_SFs = SFs, output_path=output_path, period=period, 
+                        reweighting_var = reweighting_var, reweighting_factor= weight_option)
+        WriteWPcuttoPickle(var = var,WP_cuts= WP_cut, output_path=output_path, period=period, 
+                        reweighting_var = reweighting_var, reweighting_factor= weight_option)
 
 
 if __name__ == '__main__':

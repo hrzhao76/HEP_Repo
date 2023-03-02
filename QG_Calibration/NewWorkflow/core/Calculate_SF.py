@@ -12,6 +12,7 @@ from .utils import HistBins
 from uncertainties import ufloat, unumpy
 import hist 
 from hist import Hist
+import logging
 import atlas_mpl_style as ampl
 ampl.use_atlas_style(usetex=False)
 
@@ -646,17 +647,22 @@ def Plot_WP(WP, var, output_path, period, reweighting_var, reweighting_factor,
 
     return SF_quark, SF_gluon
 
-def WriteSFtoPickle(var, Hist_SFs, output_path, period, reweighting_var, reweighting_factor ):
-    output_path_new = output_path / period / "SFs_pkls" / f"{reweighting_var}_{reweighting_factor}" / var
+def WritePickle(var, obj, name, output_path, period, reweighting_var, reweighting_factor):
+    output_path_new = output_path / period / f"{name}_pkls" / f"{reweighting_var}_{reweighting_factor}" / var
 
     if not output_path_new.exists():
         output_path_new.mkdir(parents = True)
     
-    pkl_file_name = output_path_new / f"SFs.pkl"
-    print(f"Writing Scale Factors to the pickle file: {pkl_file_name}")
+    pkl_file_name = output_path_new / f"{name}.pkl"
+    logging.info(f"Writing {name} to the pickle file: {pkl_file_name}")
     with open(pkl_file_name, "wb") as out_pkl:
-        pickle.dump(Hist_SFs, out_pkl)
+        pickle.dump(obj, out_pkl)
 
+def WriteSFtoPickle(var, Hist_SFs, output_path, period, reweighting_var, reweighting_factor):
+    WritePickle(var, Hist_SFs, "SFs", output_path, period, reweighting_var, reweighting_factor)
+    
+def WriteWPcuttoPickle(var, WP_cuts, output_path, period, reweighting_var, reweighting_factor):
+    WritePickle(var, WP_cuts, "WP_cuts", output_path, period, reweighting_var, reweighting_factor)
 
 
 def Calculate_SF(input_mc_path, input_data_path, period, reweighting_factor, output_path):
