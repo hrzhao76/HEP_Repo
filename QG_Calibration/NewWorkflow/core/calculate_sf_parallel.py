@@ -4,7 +4,15 @@ from .utils import check_outputpath
 from concurrent.futures import ProcessPoolExecutor
 import functools 
 
-def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
+def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, WP_cut = None, 
+                          period='ADE'):
+    
+    if not is_nominal and WP_cut is None:
+        logging.error("No WP_cut_path is passed for systematics.")
+        raise Exception("No WP_cut_path is passed for systematics.")
+    if not is_nominal and not WP_cut is None:
+        logging.debug("Doing plotting for systematic, using WP_cut from nominal.")
+
     hists_MC = plot_tuple[1]['MC']
     hists_Data = plot_tuple[1]['Data']
     output_path = check_outputpath(output_path)
@@ -16,8 +24,8 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
         reweighting_var = '_'.join(str.split(plot_tuple[0], '_')[:2])
         weight_option = '_'.join(str.split(plot_tuple[0], '_')[2:])
     
-    HistMap_MC_unumpy = convert_histdict2unimpy(hists_MC)
-    HistMap_Data_unumpy = convert_histdict2unimpy(hists_Data)
+    HistMap_MC_unumpy = convert_histdict2unumpy(hists_MC)
+    HistMap_Data_unumpy = convert_histdict2unumpy(hists_Data)
 
     #### Draw pt spectrum
     Plot_Pt_Spectrum(HistMap_MC_unumpy, HistMap_Data_unumpy, output_path, reweighting_var, weight_option)
@@ -28,13 +36,8 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
     #### Draw ROC plot 
     Plot_ROC(Extraction_Results, output_path, period, reweighting_var, reweighting_option=weight_option)
 
-    WPs = [0.5, 0.6, 0.7, 0.8]
-    SFs = {}
-    WP_cut = {}
-
+    # Doing the extraction plots...
     for var in label_var:
-        SFs[var] = {}
-        WP_cut[var] = {}
         for l_pt in label_ptrange[:-1]:
             Extraction_var_pt =  Extraction_Results[var][l_pt]
             #### Draw Forward vs Central plots 
@@ -55,7 +58,7 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
                                 Forward_Data= Normalize_unumpy(Extraction_var_pt['Forward_Data']), 
                                 Central_Data= Normalize_unumpy(Extraction_var_pt['Central_Data']),
                                 if_norm=True, show_yields=False)
-
+            
             Plot_Parton_ForwardvsCentral(pt = l_pt, var = var, output_path = output_path,
                                 period = period, reweighting_var = reweighting_var,
                                 reweighting_option = weight_option, 
@@ -82,10 +85,19 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
                                     variances_Forward_Data=np.sum(unumpy.std_devs(Extraction_var_pt['Forward_Data'])**2),
                                     variances_Central_Data=np.sum(unumpy.std_devs(Extraction_var_pt['Central_Data'])**2)
                                     )
+    WPs = [0.5, 0.6, 0.7, 0.8]
+    SF_label_vars = ['jet_nTracks', 'jet_trackBDT', 'GBDT_newScore']
+
+    SFs = {}
+    if is_nominal:
+        WP_cut = dict.fromkeys(SF_label_vars)
+        for var in SF_label_vars:
+            WP_cut[var] = dict.fromkeys(WPs)
+    for var in SF_label_vars:
+        SFs[var] = {}
         #### Draw working points 
         for WP in WPs:
             SFs[var][WP] = {}
-            WP_cut[var][WP] = {}
             quark_effs_at_pt = []
             gluon_rejs_at_pt = []
             quark_effs_data_at_pt = []
@@ -96,18 +108,22 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
                 extract_p_Quark_Data =  Extraction_Results[var][l_pt]['extract_p_Quark_Data']
                 extract_p_Gluon_Data =  Extraction_Results[var][l_pt]['extract_p_Gluon_Data']
 
-                extract_p_Quark_cum_sum = np.cumsum(unumpy.nominal_values(extract_p_Quark_MC))
-                cut = np.where(extract_p_Quark_cum_sum >= WP)[0][0]+1
-                
+                if is_nominal:
+                    extract_p_Quark_cum_sum = np.cumsum(unumpy.nominal_values(extract_p_Quark_MC))
+                    cut = np.where(extract_p_Quark_cum_sum >= WP)[0][0]+1
+                else:
+                    cut = WP_cut[var][WP][l_pt]['idx']
                 
                 quark_effs_at_pt.append(np.sum(extract_p_Quark_MC[:cut])) 
                 gluon_rejs_at_pt.append(np.sum(extract_p_Gluon_MC[cut:]))
                 quark_effs_data_at_pt.append(np.sum(extract_p_Quark_Data[:cut]))
                 gluon_rejs_data_at_pt.append(np.sum(extract_p_Gluon_Data[cut:]))
-                WP_cut[var][WP][l_pt] = {
-                    'idx' : cut,
-                    'value' : HistBins[var][cut],
-                }
+
+                if is_nominal:
+                    WP_cut[var][WP][l_pt] = {
+                        'idx' : cut,
+                        'value' : HistBins[var][cut],
+                    }
 
             SF_quark, SF_gluon = Plot_WP(WP = WP, var= var, output_path= output_path, 
                     period= period, reweighting_var = reweighting_var,
@@ -117,11 +133,13 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, period='ADE'):
             SFs[var][WP]["Quark"] = SF_quark
             SFs[var][WP]["Gluon"] = SF_gluon
 
-        WriteSFtoPickle(var = var,Hist_SFs = SFs, output_path=output_path, period=period, 
-                        reweighting_var = reweighting_var, reweighting_factor= weight_option)
-        WriteWPcuttoPickle(var = var,WP_cuts= WP_cut, output_path=output_path, period=period, 
-                        reweighting_var = reweighting_var, reweighting_factor= weight_option)
+    WriteSFtoPickle(Hist_SFs = SFs, output_path=output_path, period=period, 
+                    reweighting_var = reweighting_var, reweighting_factor= weight_option)
 
+    if is_nominal:
+        WriteWPcuttoPickle(WP_cuts= WP_cut, output_path=output_path, period=period, 
+                            reweighting_var = reweighting_var, reweighting_factor= weight_option)
+        return WP_cut
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = 'This python script does the MC Closure test. ')

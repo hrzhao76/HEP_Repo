@@ -187,7 +187,7 @@ def convert_hist2unumpy(_hist):
     else:
         raise Exception(f"check the input type {type(_hist)}")
 
-def convert_histdict2unimpy(_hist_dict):
+def convert_histdict2unumpy(_hist_dict):
     new_dict = {}
     for k, v in _hist_dict.items():
         new_dict[k] = convert_hist2unumpy(v)
@@ -208,9 +208,9 @@ def Read_Histogram_pkl(file, reweighting_var, reweighting_factor):
 
     hists = joblib.load(file)
     if reweighting_factor == 'none':
-        return_hist = convert_histdict2unimpy(hists[f"{weight_option_map[reweighting_factor]}"])
+        return_hist = convert_histdict2unumpy(hists[f"{weight_option_map[reweighting_factor]}"])
     else:
-        return_hist = convert_histdict2unimpy(hists[f"{var_map[reweighting_var]}_{weight_option_map[reweighting_factor]}"])
+        return_hist = convert_histdict2unumpy(hists[f"{var_map[reweighting_var]}_{weight_option_map[reweighting_factor]}"])
     return return_hist
 
 def Extract(HistMap_MC_unumpy, HistMap_Data_unumpy):
@@ -647,22 +647,21 @@ def Plot_WP(WP, var, output_path, period, reweighting_var, reweighting_factor,
 
     return SF_quark, SF_gluon
 
-def WritePickle(var, obj, name, output_path, period, reweighting_var, reweighting_factor):
-    output_path_new = output_path / period / f"{name}_pkls" / f"{reweighting_var}_{reweighting_factor}" / var
+def WritePickle(obj, name, output_path, period, reweighting_var, reweighting_factor):
+    output_path_new = output_path / period / f"{name}_pkls" / f"{reweighting_var}_{reweighting_factor}"
 
     if not output_path_new.exists():
         output_path_new.mkdir(parents = True)
     
     pkl_file_name = output_path_new / f"{name}.pkl"
     logging.info(f"Writing {name} to the pickle file: {pkl_file_name}")
-    with open(pkl_file_name, "wb") as out_pkl:
-        pickle.dump(obj, out_pkl)
+    joblib.dump(obj, pkl_file_name)
 
-def WriteSFtoPickle(var, Hist_SFs, output_path, period, reweighting_var, reweighting_factor):
-    WritePickle(var, Hist_SFs, "SFs", output_path, period, reweighting_var, reweighting_factor)
+def WriteSFtoPickle(Hist_SFs, output_path, period, reweighting_var, reweighting_factor):
+    WritePickle(Hist_SFs, "SFs", output_path, period, reweighting_var, reweighting_factor)
     
-def WriteWPcuttoPickle(var, WP_cuts, output_path, period, reweighting_var, reweighting_factor):
-    WritePickle(var, WP_cuts, "WP_cuts", output_path, period, reweighting_var, reweighting_factor)
+def WriteWPcuttoPickle(WP_cuts, output_path, period, reweighting_var, reweighting_factor):
+    WritePickle(WP_cuts, "WP_cuts", output_path, period, reweighting_var, reweighting_factor)
 
 
 def Calculate_SF(input_mc_path, input_data_path, period, reweighting_factor, output_path):

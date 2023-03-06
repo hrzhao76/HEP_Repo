@@ -9,7 +9,7 @@ import awkward as ak
 from pathlib import Path
 import re
 from .utils import check_inputpath, check_outputpath, logging_setup
-from .utils import trk_eff_uncertainties, JESJER_uncertainties, pdf_weight_uncertainties
+from .utils import trk_eff_uncertainties, JESJER_uncertainties, pdf_weight_uncertainties, scale_variation_uncertainties
 
 luminosity_periods = {
     "A" : 36000,
@@ -21,7 +21,7 @@ xsec = np.array([7.8050E+07, 7.8050E+07, 2.4330E+06, 2.6450E+04, 2.5461E+02, 4.5
 eff = np.array([9.753257E-01, 2.442497E-02, 9.863129E-03, 1.165838E-02, 1.336560E-02, 1.452648E-02, 9.471878E-03, 1.1097E-02, 1.015436E-02, 1.2056E-02])
 label_pt_bin = np.array([500, 600, 800, 1000, 1200, 1500, 2000])
 
-def read_SumofWeights_Period(sample_folder_path, period):
+def read_SumofWeights_Period(sample_folder_path:Path, period:str):
     """Sum of the first value of unmerged hist.root files and return a numpy array. The length depends on the JZ slices. 
 
     Args:
@@ -33,22 +33,28 @@ def read_SumofWeights_Period(sample_folder_path, period):
     """
     if not period in ["A", "D", "E"]:
         raise Exception(f'Period {period} not in supported periods. Currently supported: ["A", "D", "E"]')
-    period_JZslice = sorted(sample_folder_path.rglob(f"user.*pythia{period}*mc16_13TeV.36470*.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ*WithSW_hist"))
-    if len(period_JZslice) == 0:
-        period_JZslice = sorted(sample_folder_path.rglob(f"user.*{str.lower(period)}.mc16_13TeV.36470?.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ?WithSW_hist"))
-    if len(period_JZslice) == 0:
-        raise Exception(f"No hist files found in {sample_folder_path}. ")
+    
+    file_path = sample_folder_path / f'SumofWeights_{period}.pkl'
+    if not file_path.exists():
+        period_JZslice = sorted(sample_folder_path.rglob(f"user.*pythia{period}*mc16_13TeV.36470*.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ?WithSW_hist"))
+        if len(period_JZslice) == 0:
+            period_JZslice = sorted(sample_folder_path.rglob(f"user.*{str.lower(period)}.mc16_13TeV.36470?.Pythia8EvtGen_A14NNPDF23LO_jetjet_JZ?WithSW_hist"))
+        if len(period_JZslice) == 0:
+            raise Exception(f"No hist files found in {sample_folder_path}. ")
 
-    period_JZ_sum = np.zeros(len(period_JZslice), dtype= float)
-    logging.debug("read_SumofWeights_Period: Start reading sum of weights")
-    for i, dir in enumerate(period_JZslice):
-        logging.debug(f"\t {dir} \n")
-        sum_JZ_slice = 0 
-        for file in sorted(dir.glob("*.hist-output.root")):
-            sum_JZ_slice += uproot.open(file)['histoEventCount'].values()[0]
-        
-        period_JZ_sum[i] = sum_JZ_slice
-
+        period_JZ_sum = np.zeros(len(period_JZslice), dtype= float)
+        logging.debug("read_SumofWeights_Period: Start reading sum of weights")
+        for i, dir in enumerate(period_JZslice):
+            logging.debug(f"\t {dir} \n")
+            sum_JZ_slice = 0 
+            for file in sorted(dir.glob("*.hist-output.root")):
+                sum_JZ_slice += uproot.open(file)['histoEventCount'].values()[0]
+            
+            period_JZ_sum[i] = sum_JZ_slice
+        joblib.dump(period_JZ_sum, file_path)
+    else:
+        period_JZ_sum = joblib.load(file_path)
+    
     return period_JZ_sum
 
 def apply_cut(sample):
@@ -125,6 +131,11 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
                 raise Exception(f"{systs_subtype} is not avaiale in valid pdf weight types.")
             branch_names.append('pdf_weight')
 
+        if do_systs and systs_type == 'scale_variation':
+            if not systs_subtype in scale_variation_uncertainties:
+                raise Exception(f"{systs_subtype} is not avaiale in valid pdf weight types.")
+            branch_names.append('mcEventWeightsVector')
+            branch_names.append('mconly_weight')
     try:
         sample_ak = sample[ttree_name].arrays(branch_names, library='ak')
     except uproot.exceptions.KeyInFileError:
@@ -137,9 +148,9 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
 
     is_Data = np.all(sample_ak['jet_PartonTruthLabelID'][0]==-9999) # Check the first event in sample and assert if it's data
     assert is_MC == (not is_Data)
+    period_folder = root_file_path.parent.parent
     if is_MC:
         period_search_pattern = "pythia[A,D,E]"
-        period_folder = root_file_path.parent.parent
         period = re.search(period_search_pattern, period_folder.stem).group()[-1]
         assert period in ["A", "D", "E"]
         sum_of_weights = read_SumofWeights_Period((period_folder.parent/ f'pythia{period}_hist'), period)
@@ -149,8 +160,18 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
         # pu_weight is already multiplied by mcEventWeight in MonoJetx.cxx 
         if do_systs and systs_type == 'pdf_weight':
             event_weight = event_weight * sample_ak["pdf_weight"][:, int(systs_subtype)]
+        
+        if do_systs and systs_type == 'scale_variation':
+            event_weight = event_weight * sample_ak["mcEventWeightsVector"][:, int(systs_subtype)] / sample_ak['mconly_weight'][:]
+
     else:
-        event_weight = ak.ones_like(sample_ak['event']) # For data, event weight is always 1 
+        period_search_pattern = r'data(.+)$'
+        period = re.search(period_search_pattern, period_folder.stem).group((1))
+        assert period in ["1516", "17", "18"]
+        event_weight = ak.ones_like(sample_ak['event'], dtype=np.float32) # For data, event weight is always 1 
+
+        if period == "18":
+           event_weight = event_weight * 58.45/39.91
 
     sample = ak.with_field(base = sample_ak, what = event_weight, where = "event_weight")
 
@@ -208,4 +229,7 @@ def root2pkl(root_file_path, is_MC=True, output_path=None,
 
 
 if __name__ == '__main__':
+    # For test case.
+    test_file_path = '/global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data18/user.wasu.Oct18.data18_13TeV.periodB.physics_Main_minitrees.root/user.wasu.30894553._000005.minitrees.root'
+    root2pkl(test_file_path, is_MC=False)
     pass

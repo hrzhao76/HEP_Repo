@@ -5,7 +5,15 @@
 samples
 __pycache__
 *.pyc
+plots
+slurm_logs
+slurm_subs
+dev
+dev*
+
 
 !MC_merged_hist.pkl
 !Data_merged_hist.pkl
 !SFs_pkls
+!lightgbm_gbdt.pkl
+

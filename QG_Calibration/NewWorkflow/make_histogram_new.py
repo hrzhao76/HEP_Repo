@@ -163,16 +163,19 @@ def merge_period(reweighted_hists_dicts:list):
     
     return _merge_period(MC_hist_list), _merge_period(Data_hist_list)
 
-def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_systs=False, systs_type=None, systs_subtype=None,
+def make_histogram_parallel(input_mc_path, input_data_path, output_path:Path, 
+                            do_systs=False, systs_type=None, systs_subtype=None,
                             if_write_log=False, if_do_plotting=False):
-    logging_setup(verbosity=3, if_write_log=if_write_log, output_path=output_path)
-
     if do_systs and systs_type is None:
         raise Exception(f"You ask to do systematics but its type is not given! systs_type={systs_type}")
     elif (not (systs_type is None)) and systs_subtype is None:
         raise Exception(f"You ask to do systematics {systs_type} but its subtype is not given! systs_subtype={systs_subtype}")
+    
+    output_path = output_path / systs_type / systs_subtype
+    logging_setup(verbosity=3, if_write_log=if_write_log, output_path=output_path)
 
     logging.info(f"do_systs = {do_systs}, systs_type = {systs_type}, systs_subtype = {systs_subtype}")
+
     logging.info("Doing root2hist for MC...")
     MC_hists = root2hist(input_path=input_mc_path, output_path=output_path, is_MC=True, 
                          do_systs=do_systs, systs_type=systs_type, systs_subtype=systs_subtype)
@@ -205,21 +208,55 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path, do_syst
     MC_merged_hist, Data_merged_hist = merge_period(reweighted_hists_dicts)
     joblib.dump(MC_merged_hist, output_path / 'MC_merged_hist.pkl')
     joblib.dump(Data_merged_hist, output_path / 'Data_merged_hist.pkl')
-
+    # MC_merged_hist = joblib.load(output_path / 'MC_merged_hist.pkl')
+    # Data_merged_hist = joblib.load(output_path / 'Data_merged_hist.pkl')
+    # Do final plotting here with multi-processing. 
     if if_do_plotting:
         logging.info("Plotting...")
+
+        # first for the no systematics case, actually it includes no reweighting and gluon 
+        # We'll use the same cut
         plot_dict = {}
-        for key in [*MC_merged_hist.keys()]:
+        keys = [*MC_merged_hist.keys()]
+        for key in keys:
             plot_dict[key]={
                 "MC":MC_merged_hist[key],
                 "Data":Data_merged_hist[key],
             }
         plot_tuple_list = [*plot_dict.items()]
-        n_worker_plots = len(plot_tuple_list)
-        calculate_sf_parallel_mod = functools.partial(calculate_sf_parallel, output_path=output_path / 'plots')
-        with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
-            executor.map(calculate_sf_parallel_mod, plot_tuple_list)
+        nominal_key ='jet_nTracks_quark_reweighting_weights'
 
+        if not do_systs:        
+            nominal_key_idx = keys.index(nominal_key)
+            # For the nominal, do it first 
+            nominal_key_hist = plot_tuple_list.pop(nominal_key_idx)
+            WP_cut = calculate_sf_parallel(nominal_key_hist,
+                                           is_nominal = True, 
+                                           output_path=output_path / 'plots')
+
+            
+            n_worker_plots = len(plot_tuple_list)
+            calculate_sf_parallel_mod = functools.partial(calculate_sf_parallel, 
+                                                        is_nominal = False,
+                                                        WP_cut = WP_cut, 
+                                                        output_path=output_path / 'plots')
+            with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
+                executor.map(calculate_sf_parallel_mod, plot_tuple_list)
+        else:
+            # This is for other systmatics uncertainties  
+            nominal_path = output_path.parent.parent / "nominal"
+            WP_cut_path = nominal_path / "plots" / "ADE" / "WP_cuts_pkls" / nominal_key / "WP_cuts.pkl"
+            WP_cut = joblib.load(WP_cut_path)
+
+            n_worker_plots = len(plot_tuple_list)            
+            logging.info(f"Using the WP_cut from the file {WP_cut_path}, \nplotting in parallel with {n_worker_plots} cores... ")
+            calculate_sf_parallel_mod = functools.partial(calculate_sf_parallel, 
+                                                        is_nominal = False,
+                                                        WP_cut = WP_cut, 
+                                                        output_path = output_path / 'plots')
+            with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
+                executor.map(calculate_sf_parallel_mod, plot_tuple_list)
+            
     logging.info("Done.")
 
 
@@ -231,7 +268,7 @@ if __name__ == "__main__":
     parser.add_argument('--gbdt-path', help='the lightGBM model path', type=str, default=gbdt_path)
     parser.add_argument('--write-log', help='whether to write the log to output path', action="store_true")
     parser.add_argument('--do-systs', help='whether do nominal study or systematics', action="store_true")
-    parser.add_argument('--systs-type', help='choose the systematic uncertainty type', default=None, choices=['trk_eff', 'JESJER'])
+    parser.add_argument('--systs-type', help='choose the systematic uncertainty type', default=None, choices=['trk_eff', 'JESJER', 'pdf_weight', 'scale_variation'])
     parser.add_argument('--systs-subtype', help='choose the systematic uncertainty subtype', default=None, choices=all_systs_subtypes)
     parser.add_argument('--do-plotting', help='whether to do plotting', action="store_true")
 
