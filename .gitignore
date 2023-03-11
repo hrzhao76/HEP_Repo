@@ -1,6 +1,9 @@
 *.root
 *.pkl
 *.npy
+*.pdf
+*.prof
+*.lprof
 
 samples
 __pycache__
