@@ -4,14 +4,19 @@ from .utils import check_outputpath
 from concurrent.futures import ProcessPoolExecutor
 import functools 
 
-def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, WP_cut = None, 
+def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nominal_path=None, 
                           period='ADE'):
     
-    if not is_nominal and WP_cut is None:
+    if not is_nominal and nominal_path is None:
         logging.error("No WP_cut_path is passed for systematics.")
         raise Exception("No WP_cut_path is passed for systematics.")
-    if not is_nominal and not WP_cut is None:
-        logging.debug("Doing plotting for systematic, using WP_cut from nominal.")
+
+    if (not is_nominal) and not (nominal_path is None):
+        nominal_key = plot_tuple[0]
+        
+        WP_cut_path = nominal_path / "plots" / "ADE" / "WP_cuts_pkls" / nominal_key / "WP_cuts.pkl"
+        logging.info(f"Doing plotting for systematic, using WP_cut from nominal.\n Path is {WP_cut_path}")
+        WP_cut = joblib.load(WP_cut_path)
 
     hists_MC = plot_tuple[1]['MC']
     hists_Data = plot_tuple[1]['Data']
@@ -93,6 +98,9 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, WP_cut
         WP_cut = dict.fromkeys(SF_label_vars)
         for var in SF_label_vars:
             WP_cut[var] = dict.fromkeys(WPs)
+            for WP in WPs:
+                WP_cut[var][WP] = dict.fromkeys(label_ptrange[:-1])
+
     for var in SF_label_vars:
         SFs[var] = {}
         #### Draw working points 

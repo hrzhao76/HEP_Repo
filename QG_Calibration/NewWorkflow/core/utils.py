@@ -21,7 +21,7 @@ label_jettype = ["Gluon", "Quark", "B_Quark", "C_Quark"]
 label_jettype_data = ["Data"]
 
 reweighting_vars = ['jet_nTracks', 'jet_trackBDT', 'GBDT_newScore'] 
-
+nominal_keys = [reweighting_var + '_quark_reweighting_weights' for reweighting_var in reweighting_vars]
 
 label_var_map = {
     'pt':'jet_pt',
@@ -432,5 +432,10 @@ JESJER_uncertainties = \
 
 pdf_weight_uncertainties = list(map(str, list(np.arange(1, 101, 1))))
 scale_variation_uncertainties = list(map(str, list(np.arange(1, 27, 1))))
+parton_shower_uncertainties = ["herwigangle", "herwigdipole"]
+hadronization_uncertainties = ["sherpa", "sherpalund"]
+matrix_element_uncertainties = ["powhegpythia"]
 
-all_systs_subtypes = trk_eff_uncertainties + JESJER_uncertainties + pdf_weight_uncertainties + scale_variation_uncertainties
+all_systs_subtypes = trk_eff_uncertainties + JESJER_uncertainties + pdf_weight_uncertainties + \
+                     scale_variation_uncertainties + parton_shower_uncertainties + hadronization_uncertainties +\
+                     matrix_element_uncertainties 

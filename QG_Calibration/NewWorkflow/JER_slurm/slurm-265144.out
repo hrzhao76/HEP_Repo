@@ -1,2 +1,0 @@
-srun: Job step's --cpus-per-task value exceeds that of job (64 > 8). Job step may never run.
-Running: 
