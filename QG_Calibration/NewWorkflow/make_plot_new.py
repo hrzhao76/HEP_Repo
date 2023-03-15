@@ -17,18 +17,15 @@ def make_plots(MC_merged_hist, Data_merged_hist, output_path, nominal_path=None,
     logging_setup(verbosity=3, if_write_log=if_write_log, output_path=output_path, filename="plotting")
 
     logging.info("Plotting...")
-
+    global nominal_keys
     if do_systs:
         logging.info(f"Doing plotting for syst={systs_type}, systs_subtype={systs_subtype}")
         if nominal_path is None:
             raise Exception("You are doing systematics but the nominal path is not given! ")
         
-        if systs_type=="MC_nonclosure":
-            pass
-        elif systs_type=="gluon_reweight":
-            pass
-        else:
+        if (systs_type != "MC_nonclosure") and (systs_type != "gluon_reweight"): 
             plot_dict = {}
+            nominal_keys = nominal_keys + ["event_weight"] # Here the event is used as tests. 
             for key in nominal_keys:
                 plot_dict[key]={
                     "MC":MC_merged_hist[key],
@@ -44,12 +41,52 @@ def make_plots(MC_merged_hist, Data_merged_hist, output_path, nominal_path=None,
             n_worker_plots = len(nominal_keys)
             with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
                 executor.map(calculate_sf_parallel_syst, plot_tuple_list)
+
+        # make a list of plot_tuples, and pass it to calculate_sf_parallel
+        else:
+            plot_dict = {}
+            if systs_type=="MC_nonclosure":
+                # need to use the cut from nominal keys to define, so three versions needed 
+                for key in nominal_keys:
+                    plot_dict[key]={
+                        "MC":MC_merged_hist["event_weight"],
+                        "Data":Data_merged_hist["event_weight"],
+                    }
+                    calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
+                                            is_nominal = False, 
+                                            nominal_path = nominal_path,
+                                            output_path = output_path / 'plots',
+                                            do_systs = True, systs_type = 'MC_nonclosure')
+
+            elif systs_type=="gluon_reweight":
+                for key in nominal_keys:
+                    gluon_weigt_key = key.replace("quark", "gluon")
+                    plot_dict[key] = {
+                        "MC":MC_merged_hist[gluon_weigt_key],
+                        "Data":Data_merged_hist[gluon_weigt_key],
+                    }
+                    calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
+                                            is_nominal = False, 
+                                            nominal_path = nominal_path,
+                                            output_path=output_path / 'plots')
+
+            plot_tuple_list = [*plot_dict.items()]
+
+            calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
+                                            is_nominal = False, 
+                                            nominal_path = nominal_path,
+                                            output_path=output_path / 'plots')
+            n_worker_plots = len(nominal_keys)
+            with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
+                executor.map(calculate_sf_parallel_syst, plot_tuple_list)
+            
                 
     else: # For the nominal keys, just 3 vars and quark reweighting   
         logging.info(f"Doing plotting for nominal!")
         
         # only restricted to the nominal keys 
         plot_dict = {}
+        nominal_keys = nominal_keys + ["event_weight"]
         for key in nominal_keys:
             plot_dict[key]={
                 "MC":MC_merged_hist[key],
@@ -82,10 +119,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    if args.output_path is None:
-        output_path = Path(args.input_path)
-    else:
-        output_path = Path(args.output_path)
 
     input_path = Path(args.input_path) # MC and Data merged hists should be in the same path 
     nominal_path = Path(args.nominal_path)
@@ -94,6 +127,21 @@ if __name__ == "__main__":
     systs_type = args.systs_type
     systs_subtype = args.systs_subtype
     if_write_log = args.write_log
+
+    if args.output_path is None:
+        output_path = Path(args.input_path)
+    else:
+        output_path = Path(args.output_path)
+
+    if not do_systs: 
+        output_path = output_path / "nominal"
+        
+    else:
+        if args.systs_subtype is None:
+            output_path = output_path / systs_type 
+        else:
+            output_path = output_path / systs_type / systs_subtype
+
 
     MC_merged_hist = joblib.load(input_path / "MC_merged_hist.pkl")
     Data_merged_hist = joblib.load(input_path / "Data_merged_hist.pkl")

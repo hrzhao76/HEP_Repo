@@ -8,7 +8,7 @@ import awkward as ak
 from pathlib import Path
 import pickle
 import joblib
-from .utils import HistBins
+from .utils import HistBins, label_pt_bin
 from uncertainties import ufloat, unumpy
 import hist 
 from hist import Hist
@@ -463,7 +463,40 @@ def Plot_ROC(Extraction_Results, output_path, period, reweighting_var, reweighti
             fig_name = output_path_new / f"ROC_{l_ptrange}_{k}_{reweighting_option}.jpg"
             fig.savefig(fig_name)
             plt.close()
-    
+
+def Plot_Fraction(Extraction_Results, output_path, period, reweighting_var, reweighting_option):
+    fraction_pt_slices = []
+    for pt in label_pt_bin[:-1]:
+        fraction_pt_slices.append(Extraction_Results['jet_pt'][pt]['f'])
+
+    fraction_pt_slices = np.array(fraction_pt_slices)
+    fractions = fraction_pt_slices.reshape((6, 4)).swapaxes(0,1)
+    frac_Forward_Quark = fractions[0, :]
+    frac_Forward_Gluon = fractions[1, :]
+    frac_Central_Quark = fractions[2, :]
+    frac_Central_Gluon = fractions[3, :]
+
+    output_path_new = output_path / period / "Fractions" / f"{reweighting_var}_{reweighting_option}" 
+    if not output_path_new.exists():
+        output_path_new.mkdir(parents = True, exist_ok =True)
+
+    fig, ax = plt.subplots()
+    bin_edges = label_pt_bin
+    ax.stairs(frac_Forward_Quark, bin_edges, label=r"$f_{Forward, Quark}$", color="purple", baseline=None, linewidth = 2)
+    ax.stairs(frac_Forward_Gluon, bin_edges, label=r"$f_{Forward, Gluon}$", color="red", baseline=None, linewidth = 2)
+    ax.stairs(frac_Central_Quark, bin_edges, label=r"$f_{Central, Quark}$", color="blue", baseline=None, linewidth = 2)
+    ax.stairs(frac_Central_Gluon, bin_edges, label=r"$f_{Central, Gluon}$", color="green", baseline=None, linewidth = 2)
+    ax.legend()
+
+    ax.hlines(y=0.5, xmin=bin_edges[0], xmax=bin_edges[-1], linestyles='dashed', color="black")
+    ax.set_xlim(bin_edges[0], bin_edges[-1])
+    ax.set_xlabel('Jet $p_{\mathrm{T}}$ [GeV]')
+    ax.set_ylabel('Fraction') 
+    ampl.draw_atlas_label(0.1, 0.9, ax=ax, energy="13 TeV", simulation=True)
+
+    fig_name = output_path_new / f"Fraction.jpg"
+    fig.savefig(fig_name)
+
 
 
 def Plot_ForwardCentral_MCvsData(pt, var, output_path, period, reweighting_var, reweighting_option, 
@@ -598,6 +631,7 @@ def Plot_Extracted_unumpy(pt, var, output_path, period, reweighting_var, reweigh
         ax1.set_ylim(0.7,1.3)
         ax1.set_ylabel("Ratio")
         ax1.set_xlim(bin_edges[0], bin_edges[-1])
+        ax1.set_xlabel(f"{Map_var_title[var]}")
         ax1.hlines(y = 1, xmin = bin_edges[0], xmax = bin_edges[-1], color = 'black', linestyle = '--')
         output_path_new = output_path / period / "Extractions" /f"{reweighting_var}_{reweighting_factor}"  / var 
         if not output_path_new.exists():
@@ -635,6 +669,7 @@ def Plot_WP(WP, var, output_path, period, reweighting_var, reweighting_factor,
     ax1.legend(fontsize = 'x-small')
     ax1.set_ylim(0.7, 1.3)
     ax1.set_xlim(bin_edges[0], bin_edges[-1])
+    ax1.set_xlabel(f"{Map_var_title[var]}")
     ax1.set_xticks(bin_edges)
     ax1.hlines(y = 1, xmin = bin_edges[0], xmax = bin_edges[-1], color = 'gray', linestyle = '--')
     ax1.set_ylabel("SFs")
@@ -684,7 +719,7 @@ def Calculate_SF(input_mc_path, input_data_path, period, reweighting_factor, out
 
 
         Extraction_Results = Extract(HistMap_MC_unumpy, HistMap_Data_unumpy)
-        # joblib.dump(Extraction_Results, output_path / f"{reweighting_var}_Extraction_Results.pkl")
+        joblib.dump(Extraction_Results, output_path / f"{reweighting_var}_Extraction_Results.pkl")
         #### Draw ROC plot 
         Plot_ROC(Extraction_Results, output_path, period, reweighting_var, reweighting_option=reweighting_map[reweighting_factor])
 

@@ -178,6 +178,7 @@ def make_histogram_parallel(input_mc_path, input_data_path, output_path:Path,
         nominal_path = output_path / "nominal"
         output_path = output_path / systs_type / systs_subtype
     else:
+        # For nominal 
         output_path = output_path / "nominal"
         nominal_path = output_path
 

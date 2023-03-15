@@ -5,7 +5,7 @@ from concurrent.futures import ProcessPoolExecutor
 import functools 
 
 def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nominal_path=None, 
-                          period='ADE'):
+                          period='ADE', do_systs=False, systs_type=None):
     
     if not is_nominal and nominal_path is None:
         logging.error("No WP_cut_path is passed for systematics.")
@@ -37,7 +37,13 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nomina
 
 
     Extraction_Results = Extract(HistMap_MC_unumpy, HistMap_Data_unumpy)
-    # joblib.dump(Extraction_Results, output_path / f"{reweighting_var}_Extraction_Results.pkl")
+    extraction_output_path = check_outputpath(output_path / period / "Extraction_Results") 
+    joblib.dump(Extraction_Results, extraction_output_path /  f"{reweighting_var}_Extraction_Results.pkl")
+
+    #### Draw fraction
+    Plot_Fraction(Extraction_Results=Extraction_Results, output_path=output_path, period=period, 
+                  reweighting_var=reweighting_var, reweighting_option=weight_option)
+                  
     #### Draw ROC plot 
     Plot_ROC(Extraction_Results, output_path, period, reweighting_var, reweighting_option=weight_option)
 
@@ -122,8 +128,14 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nomina
                 else:
                     cut = WP_cut[var][WP][l_pt]['idx']
                 
-                quark_effs_at_pt.append(np.sum(extract_p_Quark_MC[:cut])) 
-                gluon_rejs_at_pt.append(np.sum(extract_p_Gluon_MC[cut:]))
+                if do_systs and systs_type == "MC_nonclosure":
+                    p_Quark = Extraction_Results[var][l_pt]['p_Quark']
+                    p_Gluon = Extraction_Results[var][l_pt]['p_Gluon']
+                    quark_effs_at_pt.append(np.sum(p_Quark[:cut])) 
+                    gluon_rejs_at_pt.append(np.sum(p_Gluon[cut:]))
+                else: 
+                    quark_effs_at_pt.append(np.sum(extract_p_Quark_MC[:cut])) 
+                    gluon_rejs_at_pt.append(np.sum(extract_p_Gluon_MC[cut:]))
                 quark_effs_data_at_pt.append(np.sum(extract_p_Quark_Data[:cut]))
                 gluon_rejs_data_at_pt.append(np.sum(extract_p_Gluon_Data[cut:]))
 
