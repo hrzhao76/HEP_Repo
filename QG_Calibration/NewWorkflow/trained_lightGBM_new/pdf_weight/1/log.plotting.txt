@@ -1,0 +1,12 @@
+03/12/2023 11:27:46 PM  INFO  Plotting...
+03/12/2023 11:27:46 PM  INFO  Doing plotting for syst=pdf_weight, systs_subtype=1
+03/12/2023 11:27:46 PM  INFO  Doing plotting for systematic, using WP_cut from nominal.
+ Path is /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal/plots/ADE/WP_cuts_pkls/jet_nTracks_quark_reweighting_weights/WP_cuts.pkl
+03/12/2023 11:27:46 PM  INFO  Doing plotting for systematic, using WP_cut from nominal.
+ Path is /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal/plots/ADE/WP_cuts_pkls/jet_trackBDT_quark_reweighting_weights/WP_cuts.pkl
+03/12/2023 11:27:46 PM  INFO  Doing plotting for systematic, using WP_cut from nominal.
+ Path is /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal/plots/ADE/WP_cuts_pkls/GBDT_newScore_quark_reweighting_weights/WP_cuts.pkl
+03/12/2023 11:29:40 PM  INFO  Writing SFs to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/pdf_weight/1/plots/ADE/SFs_pkls/jet_nTracks_quark_reweighting_weights/SFs.pkl
+03/12/2023 11:29:45 PM  INFO  Writing SFs to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/pdf_weight/1/plots/ADE/SFs_pkls/jet_trackBDT_quark_reweighting_weights/SFs.pkl
+03/12/2023 11:29:47 PM  INFO  Writing SFs to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/pdf_weight/1/plots/ADE/SFs_pkls/GBDT_newScore_quark_reweighting_weights/SFs.pkl
+03/12/2023 11:29:48 PM  INFO  Done Plotting.
