@@ -1,0 +1,116 @@
+03/13/2023 01:10:00 AM  INFO  do_systs = True, systs_type = matrix_element, systs_subtype = powhegpythia
+03/13/2023 01:10:00 AM  INFO  Doing root2hist for MC...
+03/13/2023 01:10:00 AM  INFO  Processing powhegpythiaA minitrees...
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000003.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118695._000002.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118695._000001.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118695._000003.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000006.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000001.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000002.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000004.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000007.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000008.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000009.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118710._000005.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118710._000006.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118702._000010.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118710._000002.minitrees.root is empty after cut
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118710._000007.minitrees.root is empty
+03/13/2023 01:10:00 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaA/user.wasu.JanP20A.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118710._000008.minitrees.root is empty
+03/13/2023 01:12:20 AM  INFO  Processing powhegpythiaD minitrees...
+03/13/2023 01:12:21 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118843._000001.minitrees.root is empty
+03/13/2023 01:12:21 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118857._000003.minitrees.root is empty
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118850._000003.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118850._000001.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118857._000001.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118850._000002.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118857._000002.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118843._000003.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118843._000002.minitrees.root is empty after cut
+03/13/2023 01:13:14 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaD/user.wasu.JanP20d.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118857._000008.minitrees.root is empty
+03/13/2023 01:24:06 AM  INFO  Processing powhegpythiaE minitrees...
+03/13/2023 01:24:07 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118953._000001.minitrees.root is empty
+03/13/2023 01:24:07 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000001.minitrees.root is empty
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000006.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000007.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000002.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000003.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118953._000002.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000004.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600624.PhPy8EG_jj_JZ1_minitrees.root/user.wasu.32118953._000003.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000005.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600625.PhPy8EG_jj_JZ2_minitrees.root/user.wasu.32118960._000008.minitrees.root is empty after cut
+03/13/2023 01:24:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_Dec11/powhegpythia/powhegpythiaE/user.wasu.JanP20e.mc16_13TeV.600626.PhPy8EG_jj_JZ3_minitrees.root/user.wasu.32118966._000005.minitrees.root is empty after cut
+03/13/2023 01:40:08 AM  INFO  Calculate reweighting factor from MC...
+03/13/2023 01:40:09 AM  INFO  Doing root2hist for Data...
+03/13/2023 01:40:09 AM  INFO  Processing data1516 minitrees...
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000007.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000006.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000004.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000005.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000008.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000003.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000002.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000001.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000011.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000010.minitrees.root is empty
+03/13/2023 01:40:09 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894293._000009.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodE.physics_Main_minitrees.root/user.wasu.30894307._000001.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodE.physics_Main_minitrees.root/user.wasu.30894307._000002.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodE.physics_Main_minitrees.root/user.wasu.30894307._000005.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodH.physics_Main_minitrees.root/user.wasu.30894359._000001.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodH.physics_Main_minitrees.root/user.wasu.30894359._000002.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodH.physics_Main_minitrees.root/user.wasu.30894359._000003.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data15_13TeV.periodJ.physics_Main_minitrees.root/user.wasu.30894346._000002.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data16_13TeV.periodA.physics_Main_minitrees.root/user.wasu.30894374._000002.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data16_13TeV.periodA.physics_Main_minitrees.root/user.wasu.30894374._000003.minitrees.root is empty
+03/13/2023 01:40:10 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data16_13TeV.periodA.physics_Main_minitrees.root/user.wasu.30894374._000004.minitrees.root is empty
+03/13/2023 01:40:11 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data16_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894448._000002.minitrees.root is empty
+03/13/2023 01:40:11 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data1516/user.wasu.Oct18.data16_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894448._000003.minitrees.root is empty
+03/13/2023 01:41:15 AM  INFO  Processing data17 minitrees...
+03/13/2023 01:41:15 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodB.physics_Main_minitrees.root/user.wasu.30894476._000004.minitrees.root is empty
+03/13/2023 01:41:15 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodB.physics_Main_minitrees.root/user.wasu.30894476._000002.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodC.physics_Main_minitrees.root/user.wasu.30894486._000001.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodC.physics_Main_minitrees.root/user.wasu.30894486._000002.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodC.physics_Main_minitrees.root/user.wasu.30894486._000004.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodC.physics_Main_minitrees.root/user.wasu.30894486._000005.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894495._000001.minitrees.root no TTree nominal!
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894495._000003.minitrees.root no TTree nominal!
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894495._000002.minitrees.root no TTree nominal!
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894495._000004.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894495._000005.minitrees.root is empty
+03/13/2023 01:41:16 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodD.physics_Main_minitrees.root/user.wasu.30894495._000007.minitrees.root is empty
+03/13/2023 01:41:17 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodE.physics_Main_minitrees.root/user.wasu.30894514._000005.minitrees.root is empty
+03/13/2023 01:41:18 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodH.physics_Main_minitrees.root/user.wasu.30894533._000001.minitrees.root is empty
+03/13/2023 01:41:18 AM  WARNING  /global/cfs/projectdirs/atlas/hrzhao/qgcal/Samples_New/data/data17/user.wasu.Oct18.data17_13TeV.periodH.physics_Main_minitrees.root/user.wasu.30894533._000002.minitrees.root is empty
+03/13/2023 01:42:15 AM  INFO  Processing data18 minitrees...
+03/13/2023 01:43:22 AM  INFO  Attach new weighting to pd.DataFrame and reweighting...
+03/13/2023 01:43:22 AM  INFO  Doing final reweighting on data1516_pred...
+03/13/2023 01:43:22 AM  INFO  Doing systematics? True
+03/13/2023 01:44:11 AM  INFO  Doing final reweighting on data17_pred...
+03/13/2023 01:44:11 AM  INFO  Doing systematics? True
+03/13/2023 01:45:08 AM  INFO  Doing final reweighting on data18_pred...
+03/13/2023 01:45:08 AM  INFO  Doing systematics? True
+03/13/2023 01:46:25 AM  INFO  Doing final reweighting on powhegpythiaA_pred...
+03/13/2023 01:46:25 AM  INFO  Doing systematics? True
+03/13/2023 01:51:41 AM  INFO  Doing final reweighting on powhegpythiaD_pred...
+03/13/2023 01:51:41 AM  INFO  Doing systematics? True
+03/13/2023 01:58:36 AM  INFO  Doing final reweighting on powhegpythiaE_part1_pred...
+03/13/2023 01:58:36 AM  INFO  Doing systematics? True
+03/13/2023 02:03:18 AM  INFO  Doing final reweighting on powhegpythiaE_part2_pred...
+03/13/2023 02:03:18 AM  INFO  Doing systematics? True
+03/13/2023 02:07:48 AM  INFO  Merging the histograms for MC and Data...
+03/13/2023 02:07:48 AM  INFO  Plotting...
+03/13/2023 02:07:48 AM  INFO  Doing plotting for syst=matrix_element, systs_subtype=powhegpythia
+03/13/2023 02:07:49 AM  INFO  Doing plotting for systematic, using WP_cut from nominal.
+ Path is /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal/plots/ADE/WP_cuts_pkls/jet_nTracks_quark_reweighting_weights/WP_cuts.pkl
+03/13/2023 02:07:49 AM  INFO  Doing plotting for systematic, using WP_cut from nominal.
+ Path is /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal/plots/ADE/WP_cuts_pkls/jet_trackBDT_quark_reweighting_weights/WP_cuts.pkl
+03/13/2023 02:07:49 AM  INFO  Doing plotting for systematic, using WP_cut from nominal.
+ Path is /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal/plots/ADE/WP_cuts_pkls/GBDT_newScore_quark_reweighting_weights/WP_cuts.pkl
+03/13/2023 02:09:24 AM  INFO  Writing SFs to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/matrix_element/powhegpythia/plots/ADE/SFs_pkls/GBDT_newScore_quark_reweighting_weights/SFs.pkl
+03/13/2023 02:09:25 AM  INFO  Writing SFs to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/matrix_element/powhegpythia/plots/ADE/SFs_pkls/jet_nTracks_quark_reweighting_weights/SFs.pkl
+03/13/2023 02:09:25 AM  INFO  Writing SFs to the pickle file: /global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/matrix_element/powhegpythia/plots/ADE/SFs_pkls/jet_trackBDT_quark_reweighting_weights/SFs.pkl
+03/13/2023 02:09:26 AM  INFO  Done Plotting.
+03/13/2023 02:09:26 AM  INFO  Done.
