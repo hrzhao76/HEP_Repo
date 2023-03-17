@@ -129,15 +129,20 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nomina
                     cut = WP_cut[var][WP][l_pt]['idx']
                 
                 if do_systs and systs_type == "MC_nonclosure":
+                    # for MC_nonclosure, compare MC truth vs MC extracted after reweighting
                     p_Quark = Extraction_Results[var][l_pt]['p_Quark']
                     p_Gluon = Extraction_Results[var][l_pt]['p_Gluon']
                     quark_effs_at_pt.append(np.sum(p_Quark[:cut])) 
                     gluon_rejs_at_pt.append(np.sum(p_Gluon[cut:]))
+                    quark_effs_data_at_pt.append(np.sum(extract_p_Quark_MC[:cut]))
+                    gluon_rejs_data_at_pt.append(np.sum(extract_p_Gluon_MC[cut:]))
+
                 else: 
+                    # for others, compare MC extracted vs Data extracted after reweighting 
                     quark_effs_at_pt.append(np.sum(extract_p_Quark_MC[:cut])) 
                     gluon_rejs_at_pt.append(np.sum(extract_p_Gluon_MC[cut:]))
-                quark_effs_data_at_pt.append(np.sum(extract_p_Quark_Data[:cut]))
-                gluon_rejs_data_at_pt.append(np.sum(extract_p_Gluon_Data[cut:]))
+                    quark_effs_data_at_pt.append(np.sum(extract_p_Quark_Data[:cut]))
+                    gluon_rejs_data_at_pt.append(np.sum(extract_p_Gluon_Data[cut:]))
 
                 if is_nominal:
                     WP_cut[var][WP][l_pt] = {

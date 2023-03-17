@@ -48,15 +48,20 @@ def make_plots(MC_merged_hist, Data_merged_hist, output_path, nominal_path=None,
             if systs_type=="MC_nonclosure":
                 # need to use the cut from nominal keys to define, so three versions needed 
                 for key in nominal_keys:
+                    # plot_dict[key]={
+                    #     "MC":MC_merged_hist["event_weight"],
+                    #     "Data":Data_merged_hist["event_weight"],
+                    # }
                     plot_dict[key]={
-                        "MC":MC_merged_hist["event_weight"],
-                        "Data":Data_merged_hist["event_weight"],
+                        "MC":MC_merged_hist[key],
+                        "Data":Data_merged_hist[key],
                     }
-                    calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
-                                            is_nominal = False, 
-                                            nominal_path = nominal_path,
-                                            output_path = output_path / 'plots',
-                                            do_systs = True, systs_type = 'MC_nonclosure')
+
+                calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
+                                        is_nominal = False, 
+                                        nominal_path = nominal_path,
+                                        output_path = output_path / 'plots',
+                                        do_systs = True, systs_type = 'MC_nonclosure')
 
             elif systs_type=="gluon_reweight":
                 for key in nominal_keys:
@@ -65,17 +70,14 @@ def make_plots(MC_merged_hist, Data_merged_hist, output_path, nominal_path=None,
                         "MC":MC_merged_hist[gluon_weigt_key],
                         "Data":Data_merged_hist[gluon_weigt_key],
                     }
-                    calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
-                                            is_nominal = False, 
-                                            nominal_path = nominal_path,
-                                            output_path=output_path / 'plots')
+                calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
+                                        is_nominal = False, 
+                                        nominal_path = nominal_path,
+                                        output_path=output_path / 'plots',
+                                        do_systs = True, systs_type = 'gluon_reweight')
 
             plot_tuple_list = [*plot_dict.items()]
 
-            calculate_sf_parallel_syst = functools.partial(calculate_sf_parallel,
-                                            is_nominal = False, 
-                                            nominal_path = nominal_path,
-                                            output_path=output_path / 'plots')
             n_worker_plots = len(nominal_keys)
             with ProcessPoolExecutor(max_workers=n_worker_plots) as executor:
                 executor.map(calculate_sf_parallel_syst, plot_tuple_list)
