@@ -669,7 +669,7 @@ def Plot_WP(WP, var, output_path, period, reweighting_var, reweighting_factor,
     ax1.legend(fontsize = 'x-small')
     ax1.set_ylim(0.7, 1.3)
     ax1.set_xlim(bin_edges[0], bin_edges[-1])
-    ax1.set_xlabel(f"{Map_var_title[var]}")
+    ax1.set_xlabel(f"{Map_var_title['jet_pt']}")
     ax1.set_xticks(bin_edges)
     ax1.hlines(y = 1, xmin = bin_edges[0], xmax = bin_edges[-1], color = 'gray', linestyle = '--')
     ax1.set_ylabel("SFs")
