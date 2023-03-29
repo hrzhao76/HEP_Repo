@@ -642,43 +642,48 @@ def Plot_Extracted_unumpy(pt, var, output_path, period, reweighting_var, reweigh
         plt.close()
 
 def Plot_WP(WP, var, output_path, period, reweighting_var, reweighting_factor,
-            quark_effs, gluon_rejs, quark_effs_data, gluon_rejs_data):
-    bin_edges = np.array([500, 600, 800, 1000, 1200, 1500, 2000])
-    bin_centers = 1/2 * (bin_edges[:-1] + bin_edges[1:])
-
-    fig, (ax0, ax1) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [4, 1], 'hspace': 0})
-    ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(quark_effs), yerr = unumpy.std_devs(quark_effs), label = "Quark Efficiency, Extracted MC", color = "blue",linestyle='none', marker='^')
-    ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(gluon_rejs), yerr = unumpy.std_devs(gluon_rejs), label = "Gluon Rejection, Extracted MC", color = "red",linestyle='none', marker='^')
-    ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(quark_effs_data), yerr = unumpy.std_devs(quark_effs_data), label = "Quark Efficiency, Extracted Data", color= "blue", linestyle='none', marker= "o")
-    ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(gluon_rejs_data), yerr = unumpy.std_devs(gluon_rejs_data), label = "Gluon Rejection, Extracted Data",color= "red", linestyle='none', marker= "o")
-    ax0.legend()
-    ax0.set_yticks(np.linspace(0, 1, 21))
-    ax0.set_xticks(bin_edges)
-    ax0.set_ylim(0.4, 1.2)
-    ax0.set_xlim(bin_edges[0], bin_edges[-1])
-    ax0.set_ylabel("Efficiency or Rejection")
-
-    ax0.grid()
-    ax0.set_title(f"{var} for extracted q/g at {WP} WP")
-    ampl.draw_atlas_label(0.1, 0.9, ax=ax0, energy="13 TeV")
-
+            quark_effs, gluon_rejs, quark_effs_data, gluon_rejs_data,
+            if_save=True):
+    
     SF_quark = safe_array_divide_unumpy(quark_effs_data, quark_effs)
     SF_gluon = safe_array_divide_unumpy(gluon_rejs_data, gluon_rejs)
-    ax1.errorbar(x = bin_centers, y = unumpy.nominal_values(SF_quark), yerr = unumpy.std_devs(SF_quark), linestyle='none', label = "quark SF", marker='.')
-    ax1.errorbar(x = bin_centers, y = unumpy.nominal_values(SF_gluon), yerr = unumpy.std_devs(SF_gluon), linestyle='none', label = "gluon SF", marker='.')
-    ax1.legend(fontsize = 'x-small')
-    ax1.set_ylim(0.7, 1.3)
-    ax1.set_xlim(bin_edges[0], bin_edges[-1])
-    ax1.set_xlabel(f"{Map_var_title[var]}")
-    ax1.set_xticks(bin_edges)
-    ax1.hlines(y = 1, xmin = bin_edges[0], xmax = bin_edges[-1], color = 'gray', linestyle = '--')
-    ax1.set_ylabel("SFs")
 
-    output_path_new = output_path / period / "WPs" / f"{reweighting_var}_{reweighting_factor}" / var
-    if not output_path_new.exists():
-        output_path_new.mkdir(parents = True)
-    fig.savefig( output_path_new/ f"{reweighting_var}_WP_{WP}.jpg")
-    plt.close()
+    if if_save:
+        bin_edges = np.array([500, 600, 800, 1000, 1200, 1500, 2000])
+        bin_centers = 1/2 * (bin_edges[:-1] + bin_edges[1:])
+
+        fig, (ax0, ax1) = plt.subplots(nrows=2, sharex=True, gridspec_kw={'height_ratios': [4, 1], 'hspace': 0})
+        ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(quark_effs), yerr = unumpy.std_devs(quark_effs), label = "Quark Efficiency, Extracted MC", color = "blue",linestyle='none', marker='^')
+        ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(gluon_rejs), yerr = unumpy.std_devs(gluon_rejs), label = "Gluon Rejection, Extracted MC", color = "red",linestyle='none', marker='^')
+        ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(quark_effs_data), yerr = unumpy.std_devs(quark_effs_data), label = "Quark Efficiency, Extracted Data", color= "blue", linestyle='none', marker= "o")
+        ax0.errorbar(x = bin_centers, y = unumpy.nominal_values(gluon_rejs_data), yerr = unumpy.std_devs(gluon_rejs_data), label = "Gluon Rejection, Extracted Data",color= "red", linestyle='none', marker= "o")
+        ax0.legend()
+        ax0.set_yticks(np.linspace(0, 1, 21))
+        ax0.set_xticks(bin_edges)
+        ax0.set_ylim(0.4, 1.2)
+        ax0.set_xlim(bin_edges[0], bin_edges[-1])
+        ax0.set_ylabel("Efficiency or Rejection")
+
+        ax0.grid()
+        ax0.set_title(f"{var} for extracted q/g at {WP} WP")
+        ampl.draw_atlas_label(0.1, 0.9, ax=ax0, energy="13 TeV")
+
+
+        ax1.errorbar(x = bin_centers, y = unumpy.nominal_values(SF_quark), yerr = unumpy.std_devs(SF_quark), linestyle='none', label = "quark SF", marker='.')
+        ax1.errorbar(x = bin_centers, y = unumpy.nominal_values(SF_gluon), yerr = unumpy.std_devs(SF_gluon), linestyle='none', label = "gluon SF", marker='.')
+        ax1.legend(fontsize = 'x-small')
+        ax1.set_ylim(0.7, 1.3)
+        ax1.set_xlim(bin_edges[0], bin_edges[-1])
+        ax1.set_xlabel(f"{Map_var_title[var]}")
+        ax1.set_xticks(bin_edges)
+        ax1.hlines(y = 1, xmin = bin_edges[0], xmax = bin_edges[-1], color = 'gray', linestyle = '--')
+        ax1.set_ylabel("SFs")
+
+        output_path_new = output_path / period / "WPs" / f"{reweighting_var}_{reweighting_factor}" / var
+        if not output_path_new.exists():
+            output_path_new.mkdir(parents = True)
+        fig.savefig( output_path_new/ f"{reweighting_var}_WP_{WP}.jpg")
+        plt.close()
 
     return SF_quark, SF_gluon
 

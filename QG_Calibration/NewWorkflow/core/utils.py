@@ -22,7 +22,7 @@ label_jettype_data = ["Data"]
 
 reweighting_vars = ['jet_nTracks', 'jet_trackBDT', 'GBDT_newScore'] 
 nominal_keys = [reweighting_var + '_quark_reweighting_weights' for reweighting_var in reweighting_vars]
-
+WPs = [0.5, 0.6, 0.7, 0.8]
 label_var_map = {
     'pt':'jet_pt',
     'eta':'jet_eta',
@@ -310,6 +310,24 @@ def get_reweight_factor_pd(reweighting_input):
 
     return reweight_factor
 
+def convert_unumpy2hist(unumpy_array, bins):
+    _hist = Hist(hist.axis.Regular(bins=len(bins)-1, start=bins[0], stop=bins[-1], 
+                                overflow=True, underflow=True), 
+                                storage=hist.storage.Weight())
+    # assert np.sum(unumpy.nominal_values(unumpy_array)) == np.sum(unumpy.std_devs(unumpy_array) **2 ) 
+    # print(np.sum(unumpy.std_devs(unumpy_array) **2 ) )
+    _hist[:] = np.hstack((unumpy.nominal_values(unumpy_array)[:,None], unumpy.std_devs(unumpy_array)[:,None]**2))
+
+    return _hist
+
+def convert_hist2unumpy(_hist):
+    if isinstance(_hist, hist.hist.Hist):
+        _unumpy = unumpy.uarray(_hist.values(),
+                                np.sqrt(_hist.variances()))
+        return _unumpy 
+    else:
+        raise Exception(f"check the input type {type(_hist)}")
+    
 ###########################################################
 ######################Analysis steps#######################
 ###########################################################

@@ -4,7 +4,7 @@ from .utils import check_outputpath
 from concurrent.futures import ProcessPoolExecutor
 import functools 
 
-def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nominal_path=None, 
+def calculate_sf_parallel(plot_tuple:tuple, output_path, is_nominal=False, nominal_path=None, 
                           period='ADE', do_systs=False, systs_type=None):
     
     if not is_nominal and nominal_path is None:
@@ -12,7 +12,11 @@ def calculate_sf_parallel(plot_tuple:dict, output_path, is_nominal=False, nomina
         raise Exception("No WP_cut_path is passed for systematics.")
 
     if (not is_nominal) and not (nominal_path is None):
-        nominal_key = plot_tuple[0]
+        if plot_tuple[0] == 'event_weight':
+            nominal_key='none'+'_'+'event_weight'
+        else:
+            nominal_key = plot_tuple[0]
+
         
         WP_cut_path = nominal_path / "plots" / "ADE" / "WP_cuts_pkls" / nominal_key / "WP_cuts.pkl"
         logging.info(f"Doing plotting for systematic, using WP_cut from nominal.\n Path is {WP_cut_path}")
