@@ -20,7 +20,7 @@ core_code_path = '/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/N
 sys.path.append(core_code_path)
 
 from core.Calculate_SF import convert_histdict2unumpy, Construct_unumpy, Normalize_unumpy, Plot_WP, WriteSFtoPickle
-from core.utils import HistBins, label_var, label_leadingtype, label_etaregion, label_pt_bin, label_jettype, label_jettype_data, WPs
+from core.utils import HistBins, label_var, label_leadingtype, label_etaregion, label_pt_bin, label_jettype, label_jettype_data, WPs,reweighting_vars
 from core.utils import logging_setup, make_empty_hist
 
 nominal_path = '/global/cfs/projectdirs/atlas/hrzhao/HEP_Repo/QG_Calibration/NewWorkflow/trained_lightGBM_new/nominal'
@@ -235,7 +235,7 @@ def convert_SFslist2SFspd(SFs_all_list:list):
     SFs_all_pd = \
     pd.DataFrame.from_records(
         [
-            (level1, level2, level3, level4, leaf_idx, leaf_pt)
+            (level1, level2, level3, level4, leaf_idx, unumpy.nominal_values(leaf_pt)) # The sizes of unumpy is huge, here just the nominal_values are stored. 
             for level1, level2_dict in enumerate(SFs_all_list)
             for level2, level3_dict in level2_dict.items()
             for level3, level4_dict in level3_dict.items()
@@ -257,9 +257,11 @@ def check_Forward_Central_exist(Sample_Forward_Central_periods_path:Path, nomina
     return sample_Forward_Central_periods 
 
 def convert_SFspd2SFshist(SFs_all_pd):
-    Merged_Hist = dict.fromkeys(label_var)
+    
+    Merged_Hist = dict.fromkeys(reweighting_vars)
+
     partons = ['Quark', 'Gluon']
-    for var in label_var:
+    for var in reweighting_vars:
         Merged_Hist[var] = dict.fromkeys(WPs)
         for WP in WPs:
             Merged_Hist[var][WP] = dict.fromkeys(partons)
@@ -335,14 +337,20 @@ def bootstrap_parallel(input_file:Path, output_path:Path, output_name="SFs_all.p
         SFs_all_list = list(executor.map(calculate_sf_mod, bootstrapped_samples))
     logging.info("Parallel done. Covert the list to pandas.")
     SFs_all_pd = convert_SFslist2SFspd(SFs_all_list)
+
     logging.info("pandas done. Covert the dataframe to hist.")
     SFs_all_hist = convert_SFspd2SFshist(SFs_all_pd)
 
     output_name = input_file.stem
-    output_file_path = output_path / f"SFs_hist_{output_name}"
-    
-    logging.info(f"Writing out the SFs Hist... \n{output_file_path}")
-    joblib.dump(SFs_all_hist, output_file_path)
+
+    output_file_path = output_path / f"SFs_pd_{output_name}"
+    logging.info(f"Writing out the SFs Dataframe... \n{output_file_path}")
+    joblib.dump(SFs_all_pd, output_file_path)
+
+    # output_file_path = output_path / f"SFs_hist_{output_name}"
+    # logging.info(f"Writing out the SFs Hist... \n{output_file_path}")
+    # joblib.dump(SFs_all_hist, output_file_path)
+
     logging.info(f"Done.")
 
 
