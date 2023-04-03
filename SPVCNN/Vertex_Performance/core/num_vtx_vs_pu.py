@@ -16,7 +16,8 @@ def performance_num_vtx_vs_pu(
         reco_tree_name='Reco_Vertex',
         reco_vtz_vz_name='reco_vtx_vz',
         truth_tree_name='Truth_Vertex_PV_Selected',
-        truth_vtx_vz_name='truth_vtx_vz'):
+        truth_vtx_vz_name='truth_vtx_vz'
+        ):
     
     output_path = output_path / "num_vtx_vs_pu"
     check_outputpath(output_path)
