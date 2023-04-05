@@ -3,8 +3,8 @@
 ``` bash
 cd <work_dir>
 git clone https://github.com/acts-project/acts.git
-git checkout releases # checkout a release version. v24 
 cd acts 
+git checkout releases # checkout a release version. v24
 ```
 
 ## Use Shifter container 
@@ -58,12 +58,12 @@ cmake -DACTS_BUILD_EXAMPLES_PYTHIA8=ON -DACTS_BUILD_PLUGIN_DD4HEP=ON -DACTS_BUIL
 # You can also check the cmake log here. 
 
 cd build
-make -20 
+make -j20 # Perlmutter is powerful 
 ```
 
 ``` bash
 source this_acts.sh
-source python
+source python/setup.sh
 export DD4hepINSTALL="/usr/local/"
 
 ```
@@ -76,7 +76,7 @@ mkdir run_examples
 python3 ../../Examples/Scripts/Python/full_chain_odd.py -h
 
 # Run with the default
-python3 ../../Examples/Scripts/Python/full_chain_odd.py -h
+python3 ../../Examples/Scripts/Python/full_chain_odd.py 
 ```
 
 The output folder is `odd_output` with the following structure.  
