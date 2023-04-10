@@ -1,19 +1,29 @@
 *.root
 *.pkl
 *.npy
+*.sl
 
 samples
 __pycache__
 *.pyc
-plots
+**/plots/ADE/Extractions/
+**/plots/ADE/FvsC/
+**/plots/ADE/Pt_spectrum/
+**/plots/ADE/ROCs/
+**/plots/ADE/WPs/
+
+
 slurm_logs
 slurm_subs
+**/slurm_subs_plot
 dev
 dev*
 
 
-!MC_merged_hist.pkl
-!Data_merged_hist.pkl
-!SFs_pkls
+!*/MC_merged_hist.pkl
+!*/Data_merged_hist.pkl
+!**/plots/ADE/SFs_pkls/
+!SFs.pkl
 !lightgbm_gbdt.pkl
+
 
